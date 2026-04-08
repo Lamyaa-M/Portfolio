@@ -5,208 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lamyaa MARZOUQ - Portfolio</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --panel: #111c38;
-      --text: #e8eefc;
-      --muted: #b8c3dd;
-      --accent: #7c3aed;
-      --accent-2: #06b6d4;
-      --line: rgba(255, 255, 255, 0.12);
-    }
-    body.light {
-      --bg: #f2f5ff;
-      --panel: #ffffff;
-      --text: #1a2340;
-      --muted: #546287;
-      --line: rgba(0, 0, 0, 0.1);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
-      overflow-x: hidden;
-    }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      background: color-mix(in srgb, var(--bg) 78%, transparent);
-    }
-    .topbar-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; }
-    .brand { font-weight: 700; letter-spacing: .3px; }
-
-    .controls { display: flex; gap: 10px; align-items: center; }
-
-    .chip {
-      border: 1px solid var(--line);
-      color: var(--text);
-      background: color-mix(in srgb, var(--panel) 82%, transparent);
-      border-radius: 999px;
-      padding: 7px 12px;
-      cursor: pointer;
-    }
-
-    .lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-    .lang-switch .chip { border: 0; border-radius: 0; min-width: 46px; }
-    .lang-switch .chip.active { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; }
-
-    #mobileMenu { display: none; border-top: 1px solid var(--line); padding: 10px 0 16px; }
-    #mobileMenu.show { display: block; }
-    #mobileMenu a { display: block; padding: 10px 0; text-decoration: none; color: var(--muted); }
-
-    .hero { min-height: 70vh; display: grid; align-content: center; gap: 14px; padding: 56px 0; }
-    .eyebrow { color: var(--accent); font-weight: 600; }
-    h1 { margin: 0; font-size: clamp(36px, 7vw, 72px); line-height: 1.05; }
-    h2 { font-size: clamp(28px, 5vw, 44px); margin: 0; }
-
-    .subtitle { font-size: clamp(18px, 3vw, 28px); color: var(--muted); }
-    .lead, .meta, .section-text { color: var(--muted); line-height: 1.75; text-align: left; }
-    .section-text { max-width: 840px; margin-top: 14px; }
-
-    .btns { display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn { border-radius: 999px; padding: 12px 18px; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
-    .btn-primary { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; }
-    .btn-secondary { border-color: var(--line); color: var(--text); background: transparent; }
-
-    section.block { padding: 56px 0; border-top: 1px solid var(--line); }
-
-    .grid { display: grid; gap: 16px; margin-top: 24px; }
-    .projects { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-    .cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 18px;
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-      text-align: left;
-    }
-    .card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); box-shadow: 0 16px 36px rgba(0,0,0,.3); }
-
-    .project-card { cursor: pointer; }
-    .mockup { width: 100%; height: 160px; border-radius: 12px; margin-bottom: 12px; object-fit: cover; border: 1px solid var(--line); }
-
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .tag { border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; font-size: 12px; color: var(--muted); }
-
-    .links { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
-    .links a { color: var(--accent); }
-
-    .contact-simple { text-align: center; padding: 28px; }
-    .contact-email { display: inline-block; margin-top: 8px; font-size: 1.1rem; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); }
-    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
-
-    .contact-icon-link {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      border: 1px solid var(--line); border-radius: 12px; padding: 12px;
-      text-decoration: none; color: var(--text);
-      background: color-mix(in srgb, var(--panel) 82%, transparent);
-    }
-    .contact-icon-link img { width: 20px; height: 20px; object-fit: contain; }
-
-    .edu-item { display: flex; align-items: flex-start; gap: 12px; }
-    .edu-logo { width: 48px; height: 48px; object-fit: contain; border-radius: 10px; border: 1px solid var(--line); background: #fff; flex-shrink: 0; }
-
-    .skill { margin-bottom: 12px; }
-    .skill-top { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
-    .bar { height: 9px; border-radius: 999px; background: rgba(255,255,255,.08); }
-    .fill { height: 100%; border-radius: 999px; background: var(--accent); width: 0; transition: width 1s ease; }
-
-    .project-detail { display: none; padding: 32px 0 56px; border-top: 1px solid var(--line); }
-    .project-detail.show { display: block; }
-    .detail-panel { border: 1px solid var(--line); border-radius: 18px; background: var(--panel); padding: 22px; }
-    .detail-header { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
-    .detail-header img { width: 84px; height: 84px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); }
-
-    /* DRAGON INTRO */
-    #dragonIntro {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 30% 20%, #1e293b, #020617 70%);
-      z-index: 9999;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-    }
-
-    #dragonIntro .dragon {
-      position: absolute;
-      width: 220px;
-      filter: drop-shadow(0 8px 22px rgba(0,0,0,.55));
-      animation: dragonFlyIntro 6s linear forwards, dragonFloat 1.6s ease-in-out infinite;
-    }
-
-    #dragonIntro .text {
-      color: #cbd5e1;
-      font-size: 1.05rem;
-      letter-spacing: .4px;
-      opacity: .85;
-    }
-
-    @keyframes dragonFlyIntro {
-      0%   { transform: translate(-260px, 55vh) scaleX(1); }
-      25%  { transform: translate(20vw, 40vh) scaleX(1); }
-      50%  { transform: translate(50vw, 52vh) scaleX(1); }
-      75%  { transform: translate(78vw, 36vh) scaleX(1); }
-      100% { transform: translate(calc(100vw + 260px), 48vh) scaleX(1); }
-    }
-
-    @keyframes dragonFloat {
-      0% { margin-top: 0; }
-      50% { margin-top: -10px; }
-      100% { margin-top: 0; }
-    }
-
-    /* DRAGON TRANSITION */
-    #dragonTransition {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9998;
-      display: none;
-      overflow: hidden;
-    }
-
-    #dragonTransition.show { display: block; }
-
-    #dragonTransition .dragon {
-      position: absolute;
-      width: 170px;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,.55));
-      animation: dragonFlyTransition 1.2s linear forwards;
-    }
-
-    @keyframes dragonFlyTransition {
-      0%   { transform: translate(-230px, 52vh) scaleX(1); opacity: .95; }
-      100% { transform: translate(calc(100vw + 230px), 42vh) scaleX(1); opacity: .95; }
-    }
-
-    #appWrapper.hidden {
-      visibility: hidden;
-    }
+    :root{--bg:#0f172a;--panel:#111c38;--text:#e8eefc;--muted:#b8c3dd;--accent:#7c3aed;--accent-2:#06b6d4;--line:rgba(255,255,255,.12)}
+    body.light{--bg:#f2f5ff;--panel:#fff;--text:#1a2340;--muted:#546287;--line:rgba(0,0,0,.1)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .topbar{position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 78%,transparent)}
+    .topbar-inner{min-height:68px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-weight:700;letter-spacing:.3px}
+    .controls{display:flex;gap:10px;align-items:center}
+    .chip{border:1px solid var(--line);color:var(--text);background:color-mix(in srgb,var(--panel) 82%,transparent);border-radius:999px;padding:7px 12px;cursor:pointer}
+    .lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+    .lang-switch .chip{border:0;border-radius:0;min-width:46px}
+    .lang-switch .chip.active{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#fff}
+    #mobileMenu{display:none;border-top:1px solid var(--line);padding:10px 0 16px}
+    #mobileMenu.show{display:block}
+    #mobileMenu a{display:block;padding:10px 0;text-decoration:none;color:var(--muted)}
+    .hero{min-height:70vh;display:grid;align-content:center;gap:14px;padding:56px 0}
+    .eyebrow{color:var(--accent);font-weight:600}
+    h1{margin:0;font-size:clamp(36px,7vw,72px);line-height:1.05}
+    h2{font-size:clamp(28px,5vw,44px);margin:0}
+    .subtitle{font-size:clamp(18px,3vw,28px);color:var(--muted)}
+    .lead,.meta,.section-text{color:var(--muted);line-height:1.75;text-align:left}
+    .section-text{max-width:840px;margin-top:14px}
+    .btns{display:flex;flex-wrap:wrap;gap:12px}
+    .btn{border-radius:999px;padding:12px 18px;text-decoration:none;border:1px solid transparent;cursor:pointer}
+    .btn-primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#fff}
+    .btn-secondary{border-color:var(--line);color:var(--text);background:transparent}
+    section.block{padding:56px 0;border-top:1px solid var(--line)}
+    .grid{display:grid;gap:16px;margin-top:24px}
+    .projects{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .cols-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;text-align:left}
+    .card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 60%,var(--line));box-shadow:0 16px 36px rgba(0,0,0,.3)}
+    .project-card{cursor:pointer}
+    .mockup{width:100%;height:160px;border-radius:12px;margin-bottom:12px;object-fit:cover;border:1px solid var(--line)}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .tag{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}
+    .links{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+    .links a{color:var(--accent)}
+    .contact-simple{text-align:center;padding:28px}
+    .contact-email{display:inline-block;margin-top:8px;font-size:1.1rem;color:var(--text);text-decoration:none;border-bottom:1px solid var(--line)}
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+    .contact-icon-link{display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px;text-decoration:none;color:var(--text);background:color-mix(in srgb,var(--panel) 82%,transparent)}
+    .contact-icon-link img{width:20px;height:20px;object-fit:contain}
+    .edu-item{display:flex;align-items:flex-start;gap:12px}
+    .edu-logo{width:48px;height:48px;object-fit:contain;border-radius:10px;border:1px solid var(--line);background:#fff;flex-shrink:0}
+    .skill{margin-bottom:12px}
+    .skill-top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
+    .bar{height:9px;border-radius:999px;background:rgba(255,255,255,.08)}
+    .fill{height:100%;border-radius:999px;background:var(--accent);width:0;transition:width 1s ease}
+    .project-detail{display:none;padding:32px 0 56px;border-top:1px solid var(--line)}
+    .project-detail.show{display:block}
+    .detail-panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:22px}
+    .detail-header{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+    .detail-header img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
+    #appWrapper.hidden{visibility:hidden}
+    #dragonIntro,#dragonTransition{position:fixed;inset:0;z-index:2000;background:#000;display:grid;place-items:center}
+    #dragonTransition{display:none;z-index:1800}
+    #dragonTransition.show{display:grid}
+    .dragon-video{width:min(92vw,900px);max-height:92vh;object-fit:contain}
+    #dragonIntro .text{position:absolute;bottom:32px;color:#e5e7eb;letter-spacing:.3px}
+    @media (max-width:900px){.brand{display:none}}
   </style>
 </head>
 <body>
-  <!-- Dragon intro before portfolio -->
   <div id="dragonIntro">
-    <img class="dragon" src="./images/Dragon.png" alt="Dragon" />
+    <video id="dragonIntroVideo" class="dragon-video" autoplay muted playsinline>
+      <source src="./images/dragons.mp4" type="video/mp4" />
+    </video>
     <div class="text">Chargement du portfolio...</div>
   </div>
 
-  <!-- Dragon transition on navigation -->
   <div id="dragonTransition">
-    <img class="dragon" src="./images/Dragon.png" alt="Dragon transition" />
+    <video id="dragonTransitionVideo" class="dragon-video" muted playsinline>
+      <source src="./images/dragons.mp4" type="video/mp4" />
+    </video>
   </div>
 
   <div id="appWrapper" class="hidden">
@@ -222,7 +96,6 @@
           <button class="chip" id="burgerBtn" type="button">Menu</button>
         </div>
       </div>
-
       <div class="container" id="mobileMenu">
         <a href="#contact" data-t="nav.contact">Contact</a>
         <a href="#about" data-t="nav.about">À propos</a>
@@ -240,15 +113,9 @@
             <p class="meta" data-t="contact.simpleLabel"></p>
             <a class="contact-email" href="mailto:lamyaaamarzouq2002@gmail.com">lamyaaamarzouq2002@gmail.com</a>
             <div class="contact-grid">
-              <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com">
-                <img src="./images/gmaillogo.png" alt="Gmail" /> Email
-              </a>
-              <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer">
-                <img src="./images/githublogo.png" alt="GitHub" /> GitHub
-              </a>
-              <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer">
-                <img src="./images/linkdeinlogo.png" alt="LinkedIn" /> LinkedIn
-              </a>
+              <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com"><img src="./images/gmaillogo.png" alt="Gmail" /> Email</a>
+              <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer"><img src="./images/githublogo.png" alt="GitHub" /> GitHub</a>
+              <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer"><img src="./images/linkdeinlogo.png" alt="LinkedIn" /> LinkedIn</a>
             </div>
           </div>
         </div>
@@ -266,343 +133,175 @@
         </div>
       </section>
 
-      <section id="about" class="block">
-        <h2 data-t="about.title"></h2>
-        <p class="section-text" data-t="about.text"></p>
-      </section>
-
-      <section id="projects" class="block">
-        <h2 data-t="projects.title"></h2>
-        <div class="grid projects" id="projectsGrid"></div>
-      </section>
-
-      <section id="education" class="block">
-        <h2 data-t="education.title"></h2>
-        <div class="grid cols-2" id="eduGrid"></div>
-      </section>
-
-      <section id="skills" class="block">
-        <h2 data-t="skills.title"></h2>
-        <div class="grid cols-2" id="skillsGrid"></div>
-      </section>
+      <section id="about" class="block"><h2 data-t="about.title"></h2><p class="section-text" data-t="about.text"></p></section>
+      <section id="projects" class="block"><h2 data-t="projects.title"></h2><div class="grid projects" id="projectsGrid"></div></section>
+      <section id="education" class="block"><h2 data-t="education.title"></h2><div class="grid cols-2" id="eduGrid"></div></section>
+      <section id="skills" class="block"><h2 data-t="skills.title"></h2><div class="grid cols-2" id="skillsGrid"></div></section>
     </main>
 
     <section class="container project-detail" id="projectDetail">
       <button class="btn btn-secondary" id="backProjectBtn" type="button">Retour</button>
-      <article class="detail-panel" style="margin-top: 14px">
-        <div class="detail-header">
-          <img id="detailImage" alt="Project" />
-          <div><h2 id="detailTitle"></h2></div>
-        </div>
+      <article class="detail-panel" style="margin-top:14px">
+        <div class="detail-header"><img id="detailImage" alt="Project" /><div><h2 id="detailTitle"></h2></div></div>
         <p class="meta" id="detailDescription"></p>
-        <p class="meta"><strong id="detailGoalLabel"></strong> <span id="detailGoal"></span></p>
-        <p class="meta"><strong id="detailFeaturesLabel"></strong> <span id="detailFeatures"></span></p>
-        <div class="tags" id="detailTags"></div>
-        <div class="links" id="detailLinks"></div>
+        <p class="meta"><strong><span id="detailGoalLabel"></span></strong> <span id="detailGoal"></span></p>
+        <p class="meta"><strong><span id="detailFeaturesLabel"></span></strong> <span id="detailFeatures"></span></p>
+        <div class="tags" id="detailTags"></div><div class="links" id="detailLinks"></div>
       </article>
     </section>
   </div>
 
   <script>
-    const content = {
-      fr: {
-        nav: { contact: "Contact", about: "À propos", projects: "Projets", education: "Diplômes", skills: "Compétences" },
-        hero: {
-          eyebrow: "Portfolio",
-          name: "Lamyaa MARZOUQ",
-          role: "Data et IA appliquée au business",
-          intro: "Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie, data et automatisation.",
-          currentRole: "Actuellement en alternance : Assistante Chef de Produit chez Electrolux Group.",
-          ctaProjects: "Voir mes projets",
-          ctaContact: "Me contacter"
-        },
-        about: {
-          title: "À propos",
-          text: "Je suis diplômée en Marketing & Développement Commercial, passionnée par la communication, l'innovation et l'analyse de données. À travers mes expériences en entreprise et mes projets, je développe des solutions concrètes pour connecter stratégie, outils digitaux et IA appliquée."
-        },
-        projects: {
-          title: "Projets",
-          goal: "Objectif",
-          features: "Fonctionnalités",
-          shortLabel: "Résumé",
-          viewDetails: "Voir le détail",
-          items: [
-            {
-              title: "SPA - Projet Animal Solidarity",
-              short: "Plateforme orientée adoption responsable avec analyse des causes d'abandon.",
-              description: "Ce projet analyse en profondeur les causes d’abandon des animaux de compagnie (temps, budget, contraintes du quotidien, comportement), puis transforme ces données en un parcours digital clair qui guide l’adoptant vers le profil d’animal le plus adapté. L’approche combine collecte de données, structuration des informations et restitution orientée décision pour favoriser une adoption durable et responsable.",
-              goal: "Réduire les adoptions inadaptées en proposant une mise en relation plus pertinente entre le mode de vie de l’adoptant et les besoins réels de l’animal.",
-              features: "Scraping et consolidation de données, catégorisation des causes d’abandon, questionnaire interactif, logique de recommandation personnalisée, restitution claire des résultats, orientation vers une adoption responsable.",
-              stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
-              github: "https://github.com/Lamyaa-M/Projet_SPA",
-              url: "https://joyful-companions.lovable.app/",
-              image: "./images/icone site.png"
-            },
-            {
-              title: "BreastWise",
-              short: "Application mobile d’accompagnement et de bien-être pour les utilisatrices.",
-              description: "BreastWise est une application mobile pensée pour accompagner les utilisatrices touchées par le cancer du sein à travers une expérience simple, rassurante et progressive. Le projet structure l’accueil, le suivi et l’accès à des contenus de bien-être afin de créer un cadre quotidien utile, humain et facile à utiliser.",
-              goal: "Améliorer l’accompagnement au quotidien avec une application mobile claire, personnalisée et centrée sur les besoins réels des utilisatrices.",
-              features: "Onboarding guidé et personnalisé, suivi des informations utiles, accès à des contenus bien-être, navigation mobile fluide, architecture orientée expérience utilisateur.",
-              stack: ["React Native", "Expo", "JavaScript", "Supabase"],
-              github: "https://github.com/Lamyaa-M/BreastWise",
-              image: "./images/LOGO.jpeg"
-            }
-          ]
-        },
-        education: {
-          title: "Diplômes & Certifications",
-          items: [
-            { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "7 janvier 2026", description: "Conception de flux analytiques, préparation de données et collaboration projet sur DSS.", logo: "./images/dataikulogo.png" },
-            { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
-            { name: "Programme Grande École", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Développement Commercial.", logo: "./images/yschoolslogo.png" }
-          ]
-        },
-        skills: {
-          title: "Compétences",
-          categories: [
-            { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
-            { name: "Automatisation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] }
-          ]
-        },
-        contact: { title: "Contact", simpleLabel: "Contactez-moi par email" }
+    const content={
+      fr:{
+        nav:{contact:"Contact",about:"À propos",projects:"Projets",education:"Diplômes",skills:"Compétences"},
+        hero:{eyebrow:"Portfolio",name:"Lamyaa MARZOUQ",role:"Data et IA appliquée au business",intro:"Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie, data et automatisation.",currentRole:"Actuellement en alternance : Assistante Cheffe de Produit chez Electrolux Group.",ctaProjects:"Voir mes projets",ctaContact:"Me contacter"},
+        about:{title:"À propos",text:"Je suis diplômée en Marketing & Développement Commercial, passionnée par la communication, l'innovation et l'analyse de données. À travers mes expériences en entreprise et mes projets, je développe des solutions concrètes pour connecter stratégie, outils digitaux et IA appliquée."},
+        projects:{title:"Projets",goal:"Objectif",features:"Fonctionnalités",shortLabel:"Résumé",viewDetails:"Voir le détail",items:[
+          {title:"SPA - Projet Animal Solidarity",short:"Plateforme orientée adoption responsable avec analyse des causes d'abandon.",description:"Ce projet analyse en profondeur les causes d’abandon des animaux de compagnie puis guide l’adoptant vers le profil d’animal le plus adapté.",goal:"Réduire les adoptions inadaptées grâce à une mise en relation plus pertinente.",features:"Scraping, consolidation de données, questionnaire interactif, recommandations personnalisées.",stack:["Python","Scraping","API","CSV","Data Analysis"],github:"https://github.com/Lamyaa-M/Projet_SPA",url:"https://joyful-companions.lovable.app/",image:"./images/icone site.png"},
+          {title:"BreastWise",short:"Application mobile d’accompagnement et de bien-être pour les utilisatrices.",description:"Application mobile conçue pour accompagner les utilisatrices touchées par le cancer du sein avec une expérience claire et rassurante.",goal:"Améliorer l’accompagnement quotidien avec une app personnalisée.",features:"Onboarding guidé, suivi utile, contenus bien-être, navigation fluide.",stack:["React Native","Expo","JavaScript","Supabase"],github:"https://github.com/Lamyaa-M/BreastWise",image:"./images/LOGO.jpeg"}
+        ]},
+        education:{title:"Diplômes & Certifications",items:[
+          {name:"Dataiku Core Designer Certificate",org:"Dataiku",date:"7 janvier 2026",description:"Conception de flux analytiques, préparation de données et collaboration projet sur DSS.",logo:"./images/dataikulogo.png"},
+          {name:"MSc AI Applied to Business",org:"Eugenia School Paris",date:"2025 - 2027",description:"Business analytics, data visualisation, CRM, no-code.",logo:"./images/eugenialogo.jpg"},
+          {name:"Programme Grande École",org:"Yschools, South Champagne Business School",date:"2024 - 2025",description:"Marketing & Développement Commercial.",logo:"./images/yschoolslogo.png"}
+        ]},
+        skills:{title:"Compétences",categories:[
+          {name:"Data",items:[["Python",86],["SQL",84],["Dataiku",80],["Tableau",79]]},
+          {name:"Automatisation",items:[["Make",82],["Google Sheets",88],["Dust",74],["Cursor",78]]},
+          {name:"Marketing",items:[["Gestion de projet",85],["Communication",90],["Content strategy",76],["Canva",92]]},
+          {name:"Outils",items:[["Notion",86],["Hubspot",78],["Pack Office",90],["Airtable",79]]}
+        ]},
+        contact:{title:"Contact",simpleLabel:"Contactez-moi par email"}
       },
-
-      en: {
-        nav: { contact: "Contact", about: "About", projects: "Projects", education: "Education", skills: "Skills" },
-        hero: {
-          eyebrow: "Portfolio",
-          name: "Lamyaa MARZOUQ",
-          role: "Data and AI for business",
-          intro: "I build high-impact digital experiences connecting strategy, data and automation.",
-          currentRole: "Current role: Product Assistant Apprentice at Electrolux Group.",
-          ctaProjects: "View projects",
-          ctaContact: "Contact me"
-        },
-        about: {
-          title: "About",
-          text: "I hold a degree in Marketing & Business Development and focus on AI applied to business. Through professional experiences and hands-on projects, I build practical solutions that connect strategy, data and digital tools."
-        },
-        projects: {
-          title: "Projects",
-          goal: "Goal",
-          features: "Features",
-          shortLabel: "Summary",
-          viewDetails: "View details",
-          items: [
-            {
-              title: "SPA - Animal Solidarity Project",
-              short: "Responsible adoption platform based on pet abandonment analysis.",
-              description: "This project deeply analyzes the main drivers of pet abandonment (time, budget, lifestyle constraints, behavior) and turns those insights into a clear digital journey that helps adopters find the most suitable pet profile. It combines data collection, information structuring and decision-oriented outputs to support responsible and sustainable adoption.",
-              goal: "Reduce unsuitable adoptions by improving the match between adopter lifestyle and real pet needs.",
-              features: "Data scraping and consolidation, abandonment-cause categorization, interactive questionnaire, personalized recommendation logic, clear result presentation, responsible adoption guidance.",
-              stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
-              github: "https://github.com/Lamyaa-M/Projet_SPA",
-              url: "https://joyful-companions.lovable.app/",
-              image: "./images/icone site.png"
-            },
-            {
-              title: "BreastWise",
-              short: "Mobile support app focused on wellbeing and guided onboarding.",
-              description: "BreastWise is a mobile app designed to support users affected by breast cancer through a simple, reassuring and progressive experience. The project structures onboarding, everyday follow-up and access to wellbeing content to provide practical support in daily life.",
-              goal: "Deliver a clear, personalized and human-centered mobile experience that improves everyday support.",
-              features: "Guided and personalized onboarding, useful follow-up information, wellbeing content access, smooth mobile navigation, user-centered app structure.",
-              stack: ["React Native", "Expo", "JavaScript", "Supabase"],
-              github: "https://github.com/Lamyaa-M/BreastWise",
-              image: "./images/LOGO.jpeg"
-            }
-          ]
-        },
-        education: {
-          title: "Degrees & Certifications",
-          items: [
-            { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "January 7, 2026", description: "Designing analytical workflows, data preparation and project collaboration on DSS.", logo: "./images/dataikulogo.png" },
-            { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualization, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
-            { name: "Grande Ecole Program", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Business Development.", logo: "./images/yschoolslogo.png" }
-          ]
-        },
-        skills: {
-          title: "Skills",
-          categories: [
-            { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
-            { name: "Automation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] }
-          ]
-        },
-        contact: { title: "Contact", simpleLabel: "Contact me by email" }
+      en:{
+        nav:{contact:"Contact",about:"About",projects:"Projects",education:"Education",skills:"Skills"},
+        hero:{eyebrow:"Portfolio",name:"Lamyaa MARZOUQ",role:"Data and AI for business",intro:"I build high-impact digital experiences connecting strategy, data and automation.",currentRole:"Current role: Product Assistant Apprentice at Electrolux Group.",ctaProjects:"View projects",ctaContact:"Contact me"},
+        about:{title:"About",text:"I hold a degree in Marketing & Business Development and focus on AI applied to business. Through professional experiences and hands-on projects, I build practical solutions that connect strategy, data and digital tools."},
+        projects:{title:"Projects",goal:"Goal",features:"Features",shortLabel:"Summary",viewDetails:"View details",items:[
+          {title:"SPA - Animal Solidarity Project",short:"Responsible adoption platform based on pet abandonment analysis.",description:"This project analyzes the main drivers of pet abandonment and guides adopters toward suitable pet profiles.",goal:"Reduce unsuitable adoptions through better matching.",features:"Data scraping, consolidation, interactive questionnaire, personalized recommendations.",stack:["Python","Scraping","API","CSV","Data Analysis"],github:"https://github.com/Lamyaa-M/Projet_SPA",url:"https://joyful-companions.lovable.app/",image:"./images/icone site.png"},
+          {title:"BreastWise",short:"Mobile support app focused on wellbeing and guided onboarding.",description:"Mobile app designed to support users affected by breast cancer through a clear and reassuring experience.",goal:"Deliver a clear and personalized daily support experience.",features:"Guided onboarding, useful follow-up, wellbeing content, smooth navigation.",stack:["React Native","Expo","JavaScript","Supabase"],github:"https://github.com/Lamyaa-M/BreastWise",image:"./images/LOGO.jpeg"}
+        ]},
+        education:{title:"Degrees & Certifications",items:[
+          {name:"Dataiku Core Designer Certificate",org:"Dataiku",date:"January 7, 2026",description:"Designing analytical workflows, data preparation and project collaboration on DSS.",logo:"./images/dataikulogo.png"},
+          {name:"MSc AI Applied to Business",org:"Eugenia School Paris",date:"2025 - 2027",description:"Business analytics, data visualization, CRM, no-code.",logo:"./images/eugenialogo.jpg"},
+          {name:"Grande Ecole Program",org:"Yschools, South Champagne Business School",date:"2024 - 2025",description:"Marketing & Business Development.",logo:"./images/yschoolslogo.png"}
+        ]},
+        skills:{title:"Skills",categories:[
+          {name:"Data",items:[["Python",86],["SQL",84],["Dataiku",80],["Tableau",79]]},
+          {name:"Automation",items:[["Make",82],["Google Sheets",88],["Dust",74],["Cursor",78]]},
+          {name:"Marketing",items:[["Project management",85],["Communication",90],["Content strategy",76],["Canva",92]]},
+          {name:"Tools",items:[["Notion",86],["Hubspot",78],["MS Office",90],["Airtable",79]]}
+        ]},
+        contact:{title:"Contact",simpleLabel:"Contact me by email"}
       }
     };
 
-    let lang = "fr";
-    let dark = true;
+    let lang="fr", dark=true;
+    const byPath=(obj,path)=>path.split(".").reduce((a,k)=>a&&a[k],obj);
 
-    const byPath = (obj, path) => path.split(".").reduce((acc, k) => acc && acc[k], obj);
-
-    function playDragonTransition(duration = 1200) {
-      return new Promise((resolve) => {
-        const tr = document.getElementById("dragonTransition");
-        tr.classList.add("show");
-        setTimeout(() => {
-          tr.classList.remove("show");
-          resolve();
-        }, duration);
+    function playDragonTransition(duration=1200){
+      return new Promise((resolve)=>{
+        const tr=document.getElementById("dragonTransition");
+        const vid=document.getElementById("dragonTransitionVideo");
+        tr.classList.add("show"); vid.currentTime=0; vid.play().catch(()=>{});
+        setTimeout(()=>{vid.pause();tr.classList.remove("show");resolve();},duration);
       });
     }
 
-    function renderText() {
-      const t = content[lang];
-      document.documentElement.lang = lang;
-      document.querySelectorAll("[data-t]").forEach((el) => {
-        const val = byPath(t, el.dataset.t);
-        if (typeof val === "string") el.textContent = val;
-      });
-
-      renderProjects(t);
-      renderEducation(t);
-      renderSkills(t);
-
-      document.getElementById("langFr").classList.toggle("active", lang === "fr");
-      document.getElementById("langEn").classList.toggle("active", lang === "en");
+    function renderText(){
+      const t=content[lang];
+      document.documentElement.lang=lang;
+      document.querySelectorAll("[data-t]").forEach(el=>{const v=byPath(t,el.dataset.t); if(typeof v==="string") el.textContent=v;});
+      renderProjects(t); renderEducation(t); renderSkills(t);
+      document.getElementById("langFr").classList.toggle("active",lang==="fr");
+      document.getElementById("langEn").classList.toggle("active",lang==="en");
     }
 
-    function renderProjects(t) {
-      const root = document.getElementById("projectsGrid");
-      root.innerHTML = t.projects.items.map((p, index) => `
-        <article class="card project-card" data-index="${index}">
-          <img class="mockup" src="${p.image || ""}" alt="${p.title}" />
+    function renderProjects(t){
+      const root=document.getElementById("projectsGrid");
+      root.innerHTML=t.projects.items.map((p,i)=>`
+        <article class="card project-card" data-index="${i}">
+          <img class="mockup" src="${p.image||""}" alt="${p.title}">
           <h3>${p.title}</h3>
-          <p class="meta"><strong>${t.projects.shortLabel}:</strong> ${p.short || p.description}</p>
-          <div class="tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
-          <div class="links">
-            <a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>
-            ${p.url ? `<a href="${p.url}" target="_blank" rel="noreferrer">Lien</a>` : ""}
-            <span class="meta">${t.projects.viewDetails}</span>
-          </div>
-        </article>
-      `).join("");
-
-      root.querySelectorAll(".project-card").forEach((card) => {
-        card.addEventListener("click", async (event) => {
-          if (event.target.tagName.toLowerCase() === "a") return;
-          const idx = Number(card.dataset.index);
-          await playDragonTransition(1200);
-          openProjectDetail(t.projects.items[idx], t);
+          <p class="meta"><strong>${t.projects.shortLabel}:</strong> ${p.short||p.description}</p>
+          <div class="tags">${p.stack.map(s=>`<span class="tag">${s}</span>`).join("")}</div>
+          <div class="links"><a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>${p.url?`<a href="${p.url}" target="_blank" rel="noreferrer">Lien</a>`:""}<span class="meta">${t.projects.viewDetails}</span></div>
+        </article>`).join("");
+      root.querySelectorAll(".project-card").forEach(card=>{
+        card.addEventListener("click",async(e)=>{
+          if(e.target.tagName.toLowerCase()==="a") return;
+          await playDragonTransition(1000);
+          openProjectDetail(t.projects.items[Number(card.dataset.index)],t);
         });
       });
     }
 
-    function openProjectDetail(project, t) {
-      document.querySelector("main.container").style.display = "none";
-      const section = document.getElementById("projectDetail");
+    function openProjectDetail(project,t){
+      document.querySelector("main.container").style.display="none";
+      const section=document.getElementById("projectDetail");
       section.classList.add("show");
-      document.getElementById("detailTitle").textContent = project.title;
-      document.getElementById("detailDescription").textContent = project.description;
-      document.getElementById("detailGoalLabel").textContent = `${t.projects.goal}:`;
-      document.getElementById("detailGoal").textContent = project.goal;
-      document.getElementById("detailFeaturesLabel").textContent = `${t.projects.features}:`;
-      document.getElementById("detailFeatures").textContent = project.features;
-      document.getElementById("detailImage").src = project.image || "";
-      document.getElementById("detailImage").alt = project.title;
-      document.getElementById("detailTags").innerHTML = project.stack.map((s) => `<span class="tag">${s}</span>`).join("");
-      document.getElementById("detailLinks").innerHTML = `
-        <a href="${project.github}" target="_blank" rel="noreferrer">GitHub</a>
-        ${project.url ? `<a href="${project.url}" target="_blank" rel="noreferrer">Lien</a>` : ""}
-      `;
+      document.getElementById("detailTitle").textContent=project.title;
+      document.getElementById("detailDescription").textContent=project.description;
+      document.getElementById("detailGoalLabel").textContent=`${t.projects.goal}:`;
+      document.getElementById("detailGoal").textContent=project.goal;
+      document.getElementById("detailFeaturesLabel").textContent=`${t.projects.features}:`;
+      document.getElementById("detailFeatures").textContent=project.features;
+      document.getElementById("detailImage").src=project.image||"";
+      document.getElementById("detailImage").alt=project.title;
+      document.getElementById("detailTags").innerHTML=project.stack.map(s=>`<span class="tag">${s}</span>`).join("");
+      document.getElementById("detailLinks").innerHTML=`<a href="${project.github}" target="_blank" rel="noreferrer">GitHub</a>${project.url?`<a href="${project.url}" target="_blank" rel="noreferrer">Lien</a>`:""}`;
     }
 
-    function closeProjectDetail() {
+    function closeProjectDetail(){
       document.getElementById("projectDetail").classList.remove("show");
-      document.querySelector("main.container").style.display = "block";
+      document.querySelector("main.container").style.display="block";
     }
 
-    function renderEducation(t) {
-      const root = document.getElementById("eduGrid");
-      root.innerHTML = t.education.items.map((i) => `
+    function renderEducation(t){
+      const root=document.getElementById("eduGrid");
+      root.innerHTML=t.education.items.map(i=>`
         <article class="card">
           <div class="edu-item">
-            ${i.logo ? `<img class="edu-logo" src="${i.logo}" alt="${i.org}" />` : ""}
-            <div>
-              <div class="meta">${i.date}</div>
-              <h3>${i.name}</h3>
-              <div class="meta">${i.org}</div>
-              <p class="meta">${i.description}</p>
-            </div>
+            ${i.logo?`<img class="edu-logo" src="${i.logo}" alt="${i.org}">`:""}
+            <div><div class="meta">${i.date}</div><h3>${i.name}</h3><div class="meta">${i.org}</div><p class="meta">${i.description}</p></div>
           </div>
-        </article>
-      `).join("");
+        </article>`).join("");
     }
 
-    function renderSkills(t) {
-      const root = document.getElementById("skillsGrid");
-      root.innerHTML = t.skills.categories.map((c) => `
-        <article class="card">
-          <h3>${c.name}</h3>
-          ${c.items.map(([name, level]) => `
-            <div class="skill">
-              <div class="skill-top"><span>${name}</span><span>${level}%</span></div>
-              <div class="bar"><div class="fill" data-level="${level}"></div></div>
-            </div>
-          `).join("")}
-        </article>
-      `).join("");
-
-      requestAnimationFrame(() => {
-        document.querySelectorAll(".fill").forEach((el) => {
-          el.style.width = el.dataset.level + "%";
-        });
-      });
+    function renderSkills(t){
+      const root=document.getElementById("skillsGrid");
+      root.innerHTML=t.skills.categories.map(c=>`
+        <article class="card"><h3>${c.name}</h3>
+        ${c.items.map(([name,level])=>`
+          <div class="skill"><div class="skill-top"><span>${name}</span><span>${level}%</span></div><div class="bar"><div class="fill" data-level="${level}"></div></div></div>`).join("")}
+        </article>`).join("");
+      requestAnimationFrame(()=>document.querySelectorAll(".fill").forEach(el=>el.style.width=el.dataset.level+"%"));
     }
 
-    document.getElementById("langFr").addEventListener("click", async () => {
-      await playDragonTransition(1000);
-      lang = "fr";
-      renderText();
-    });
+    document.getElementById("langFr").addEventListener("click",async()=>{await playDragonTransition();lang="fr";renderText();});
+    document.getElementById("langEn").addEventListener("click",async()=>{await playDragonTransition();lang="en";renderText();});
+    document.getElementById("themeBtn").addEventListener("click",async()=>{await playDragonTransition();dark=!dark;document.body.classList.toggle("light",!dark);document.getElementById("themeBtn").textContent=dark?"Light":"Dark";});
+    document.getElementById("burgerBtn").addEventListener("click",()=>document.getElementById("mobileMenu").classList.toggle("show"));
+    document.querySelectorAll("#mobileMenu a").forEach(a=>a.addEventListener("click",async(e)=>{e.preventDefault();await playDragonTransition();document.getElementById("mobileMenu").classList.remove("show");const el=document.querySelector(a.getAttribute("href"));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}));
+    document.getElementById("backProjectBtn").addEventListener("click",async()=>{await playDragonTransition();closeProjectDetail();});
 
-    document.getElementById("langEn").addEventListener("click", async () => {
-      await playDragonTransition(1000);
-      lang = "en";
-      renderText();
-    });
+    window.addEventListener("load",()=>{
+      const intro=document.getElementById("dragonIntro");
+      const introVideo=document.getElementById("dragonIntroVideo");
+      const wrapper=document.getElementById("appWrapper");
 
-    document.getElementById("themeBtn").addEventListener("click", async () => {
-      await playDragonTransition(1000);
-      dark = !dark;
-      document.body.classList.toggle("light", !dark);
-      document.getElementById("themeBtn").textContent = dark ? "Light" : "Dark";
-    });
+      introVideo.currentTime=0;
+      introVideo.play().catch(()=>{});
 
-    document.getElementById("burgerBtn").addEventListener("click", () => {
-      document.getElementById("mobileMenu").classList.toggle("show");
-    });
+      const endIntro=()=>{
+        intro.style.opacity="0";
+        intro.style.transition="opacity .35s ease";
+        setTimeout(()=>{ if(document.body.contains(intro)) intro.remove(); wrapper.classList.remove("hidden"); },360);
+      };
 
-    document.querySelectorAll("#mobileMenu a").forEach((a) => {
-      a.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const target = a.getAttribute("href");
-        await playDragonTransition(1000);
-        document.getElementById("mobileMenu").classList.remove("show");
-        const el = document.querySelector(target);
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-
-    document.getElementById("backProjectBtn").addEventListener("click", async () => {
-      await playDragonTransition(1000);
-      closeProjectDetail();
-    });
-
-    window.addEventListener("load", () => {
-      const intro = document.getElementById("dragonIntro");
-      const wrapper = document.getElementById("appWrapper");
-
-      setTimeout(() => {
-        intro.style.opacity = "0";
-        intro.style.transition = "opacity .35s ease";
-        setTimeout(() => {
-          intro.remove();
-          wrapper.classList.remove("hidden");
-        }, 360);
-      }, 6000);
+      introVideo.addEventListener("ended",endIntro,{once:true});
+      setTimeout(()=>{ if(document.body.contains(intro)) endIntro(); },20000);
     });
 
     renderText();
