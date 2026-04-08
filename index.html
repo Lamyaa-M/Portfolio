@@ -24,35 +24,18 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
-    }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Inter, Segoe UI, Roboto, Arial, sans-serif; }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: sticky; top: 0; z-index: 1000;
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
       background: color-mix(in srgb, var(--bg) 78%, transparent);
     }
-
-    .topbar-inner {
-      min-height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
+    .topbar-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-weight: 700; letter-spacing: .3px; }
 
     .controls { display: flex; gap: 10px; align-items: center; }
 
@@ -65,49 +48,15 @@
       cursor: pointer;
     }
 
-    .lang-switch {
-      display: inline-flex;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      overflow: hidden;
-    }
+    .lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang-switch .chip { border: 0; border-radius: 0; min-width: 46px; }
+    .lang-switch .chip.active { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; }
 
-    .lang-switch .chip {
-      border: 0;
-      border-radius: 0;
-      min-width: 46px;
-    }
-
-    .lang-switch .chip.active {
-      background: linear-gradient(120deg, var(--accent), var(--accent-2));
-      color: #fff;
-    }
-
-    #mobileMenu {
-      display: none;
-      border-top: 1px solid var(--line);
-      padding: 10px 0 16px;
-    }
-
+    #mobileMenu { display: none; border-top: 1px solid var(--line); padding: 10px 0 16px; }
     #mobileMenu.show { display: block; }
+    #mobileMenu a { display: block; padding: 10px 0; text-decoration: none; color: var(--muted); }
 
-    #mobileMenu a {
-      display: block;
-      padding: 10px 0;
-      text-decoration: none;
-      color: var(--muted);
-    }
-
-    #mobileMenu a:hover { color: var(--text); }
-
-    .hero {
-      min-height: 70vh;
-      display: grid;
-      align-content: center;
-      gap: 14px;
-      padding: 56px 0;
-    }
-
+    .hero { min-height: 70vh; display: grid; align-content: center; gap: 14px; padding: 56px 0; }
     .eyebrow { color: var(--accent); font-weight: 600; }
     h1 { margin: 0; font-size: clamp(36px, 7vw, 72px); line-height: 1.05; }
     h2 { font-size: clamp(28px, 5vw, 44px); margin: 0; }
@@ -117,25 +66,9 @@
     .section-text { max-width: 840px; margin-top: 14px; }
 
     .btns { display: flex; flex-wrap: wrap; gap: 12px; }
-
-    .btn {
-      border-radius: 999px;
-      padding: 12px 18px;
-      text-decoration: none;
-      border: 1px solid transparent;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: linear-gradient(120deg, var(--accent), var(--accent-2));
-      color: #fff;
-    }
-
-    .btn-secondary {
-      border-color: var(--line);
-      color: var(--text);
-      background: transparent;
-    }
+    .btn { border-radius: 999px; padding: 12px 18px; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
+    .btn-primary { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; }
+    .btn-secondary { border-color: var(--line); color: var(--text); background: transparent; }
 
     section.block { padding: 56px 0; border-top: 1px solid var(--line); }
 
@@ -151,119 +84,42 @@
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
       text-align: left;
     }
-
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
-      box-shadow: 0 16px 36px rgba(0,0,0,.3);
-    }
+    .card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); box-shadow: 0 16px 36px rgba(0,0,0,.3); }
 
     .project-card { cursor: pointer; }
-
-    .mockup {
-      width: 100%;
-      height: 160px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      object-fit: cover;
-      border: 1px solid var(--line);
-    }
+    .mockup { width: 100%; height: 160px; border-radius: 12px; margin-bottom: 12px; object-fit: cover; border: 1px solid var(--line); }
 
     .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .tag {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .tag { border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; font-size: 12px; color: var(--muted); }
 
     .links { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
     .links a { color: var(--accent); }
 
     .contact-simple { text-align: center; padding: 28px; }
-    .contact-email {
-      display: inline-block;
-      margin-top: 8px;
-      font-size: 1.1rem;
-      color: var(--text);
-      text-decoration: none;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 18px;
-    }
+    .contact-email { display: inline-block; margin-top: 8px; font-size: 1.1rem; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 18px; }
 
     .contact-icon-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px;
-      text-decoration: none;
-      color: var(--text);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px;
+      text-decoration: none; color: var(--text);
       background: color-mix(in srgb, var(--panel) 82%, transparent);
     }
-
     .contact-icon-link img { width: 20px; height: 20px; object-fit: contain; }
 
     .edu-item { display: flex; align-items: flex-start; gap: 12px; }
-    .edu-logo {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-      background: #fff;
-      flex-shrink: 0;
-    }
+    .edu-logo { width: 48px; height: 48px; object-fit: contain; border-radius: 10px; border: 1px solid var(--line); background: #fff; flex-shrink: 0; }
 
     .skill { margin-bottom: 12px; }
-    .skill-top {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
-
+    .skill-top { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
     .bar { height: 9px; border-radius: 999px; background: rgba(255,255,255,.08); }
     .fill { height: 100%; border-radius: 999px; background: var(--accent); width: 0; transition: width 1s ease; }
 
-    .project-detail {
-      display: none;
-      padding: 32px 0 56px;
-      border-top: 1px solid var(--line);
-    }
-
+    .project-detail { display: none; padding: 32px 0 56px; border-top: 1px solid var(--line); }
     .project-detail.show { display: block; }
-
-    .detail-panel {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--panel);
-      padding: 22px;
-    }
-
-    .detail-header {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .detail-header img {
-      width: 84px;
-      height: 84px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-    }
+    .detail-panel { border: 1px solid var(--line); border-radius: 18px; background: var(--panel); padding: 22px; }
+    .detail-header { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+    .detail-header img { width: 84px; height: 84px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); }
   </style>
 </head>
 <body>
@@ -298,16 +154,13 @@
           <a class="contact-email" href="mailto:lamyaaamarzouq2002@gmail.com">lamyaaamarzouq2002@gmail.com</a>
           <div class="contact-grid">
             <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com">
-              <img src="./images/gmaillogo.png" alt="Gmail" />
-              Email
+              <img src="./images/gmaillogo.png" alt="Gmail" /> Email
             </a>
             <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer">
-              <img src="./images/githublogo.png" alt="GitHub" />
-              GitHub
+              <img src="./images/githublogo.png" alt="GitHub" /> GitHub
             </a>
             <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer">
-              <img src="./images/linkdeinlogo.png" alt="LinkedIn" />
-              LinkedIn
+              <img src="./images/linkdeinlogo.png" alt="LinkedIn" /> LinkedIn
             </a>
           </div>
         </div>
@@ -412,27 +265,9 @@
         education: {
           title: "Diplômes & Certifications",
           items: [
-            {
-              name: "Dataiku Core Designer Certificate",
-              org: "Dataiku",
-              date: "Janvier 7, 2026",
-              description: "Conception de flux analytiques, préparation de données et collaboration projet sur DSS.",
-              logo: "./images/dataikulogo.png"
-            },
-            {
-              name: "MSc AI Applied to Business",
-              org: "Eugenia School Paris",
-              date: "2025 - 2027",
-              description: "Business analytics, data visualisation, CRM, no-code.",
-              logo: "./images/eugenialogo.jpg"
-            },
-            {
-              name: "Programme Grande École",
-              org: "Yschools, South Champagne Business School",
-              date: "2024 - 2025",
-              description: "Marketing & Développement Commercial.",
-              logo: "./images/yschoolslogo.png"
-            }
+            { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "7 janvier 2026", description: "Conception de flux analytiques, préparation de données et collaboration projet sur DSS.", logo: "./images/dataikulogo.png" },
+            { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
+            { name: "Programme Grande École", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Développement Commercial.", logo: "./images/yschoolslogo.png" }
           ]
         },
         skills: {
@@ -493,27 +328,9 @@
         education: {
           title: "Degrees & Certifications",
           items: [
-            {
-              name: "Dataiku Core Designer Certificate",
-              org: "Dataiku",
-              date: "January. 7, 2026",
-              description: "Designing analytical workflows, data preparation and project collaboration on DSS.",
-              logo: "./images/dataikulogo.png"
-            },
-            {
-              name: "MSc AI Applied to Business",
-              org: "Eugenia School Paris",
-              date: "2025 - 2027",
-              description: "Business analytics, data visualization, CRM, no-code.",
-              logo: "./images/eugenialogo.jpg"
-            },
-            {
-              name: "Grande Ecole Program",
-              org: "Yschools, South Champagne Business School",
-              date: "2024 - 2025",
-              description: "Marketing & Business Development.",
-              logo: "./images/yschoolslogo.png"
-            }
+            { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "January 7, 2026", description: "Designing analytical workflows, data preparation and project collaboration on DSS.", logo: "./images/dataikulogo.png" },
+            { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualization, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
+            { name: "Grande Ecole Program", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Business Development.", logo: "./images/yschoolslogo.png" }
           ]
         },
         skills: {
