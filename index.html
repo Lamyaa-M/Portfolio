@@ -1,790 +1,474 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lamyaa MARZOUQ - Portfolio</title>
-    <style>
-      :root {
-        --bg: #0f172a;
-        --panel: #111c38;
-        --text: #e8eefc;
-        --muted: #b8c3dd;
-        --accent: #7c3aed;
-        --accent-2: #06b6d4;
-        --line: rgba(255, 255, 255, 0.12);
-      }
-
-      body.light {
-        --bg: #f2f5ff;
-        --panel: #ffffff;
-        --text: #1a2340;
-        --muted: #546287;
-        --line: rgba(0, 0, 0, 0.1);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--text);
-        font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
-        background-image:
-          radial-gradient(circle at 10% 10%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 42%),
-          radial-gradient(circle at 85% 5%, color-mix(in srgb, var(--accent-2) 26%, transparent), transparent 36%);
-        background-attachment: fixed;
-      }
-
-      .progress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 3px;
-        width: 0%;
-        background: var(--accent);
-        z-index: 2000;
-      }
-
-      .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      .topbar {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--line);
-        background: color-mix(in srgb, var(--bg) 78%, transparent);
-      }
-
-      .topbar-inner {
-        min-height: 68px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      nav ul {
-        display: flex;
-        gap: 18px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      nav a {
-        color: var(--muted);
-        text-decoration: none;
-      }
-
-      nav a:hover {
-        color: var(--text);
-      }
-
-      .controls {
-        display: flex;
-        gap: 10px;
-      }
-
-      .chip {
-        border: 1px solid var(--line);
-        color: var(--text);
-        background: color-mix(in srgb, var(--panel) 82%, transparent);
-        border-radius: 999px;
-        padding: 7px 12px;
-        cursor: pointer;
-      }
-
-      .lang-switch {
-        display: inline-flex;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        overflow: hidden;
-      }
-
-      .lang-switch .chip {
-        border: 0;
-        border-radius: 0;
-        min-width: 46px;
-      }
-
-      .lang-switch .chip.active {
-        background: linear-gradient(120deg, var(--accent), var(--accent-2));
-        color: #fff;
-      }
-
-      .burger {
-        display: none;
-      }
-
-      .hero {
-        min-height: 82vh;
-        display: grid;
-        align-content: center;
-        gap: 18px;
-        padding: 56px 0;
-      }
-
-      .eyebrow {
-        color: var(--accent);
-        font-weight: 600;
-      }
-
-      h1 {
-        margin: 0;
-        font-size: clamp(36px, 7vw, 72px);
-        line-height: 1.05;
-      }
-
-      .subtitle {
-        font-size: clamp(18px, 3vw, 28px);
-        color: var(--muted);
-      }
-
-      .lead {
-        max-width: 760px;
-        color: var(--muted);
-        line-height: 1.8;
-      }
-
-      .btns {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .btn {
-        border-radius: 999px;
-        padding: 12px 18px;
-        text-decoration: none;
-        border: 1px solid transparent;
-      }
-
-      .btn-primary {
-        background: linear-gradient(120deg, var(--accent), var(--accent-2));
-        color: #fff;
-      }
-
-      .btn-secondary {
-        border-color: var(--line);
-        color: var(--text);
-      }
-
-      section.block {
-        padding: 64px 0;
-        border-top: 1px solid var(--line);
-      }
-
-      h2 {
-        font-size: clamp(28px, 5vw, 44px);
-        margin: 0;
-      }
-
-      .section-text {
-        color: var(--muted);
-        line-height: 1.8;
-        margin-top: 14px;
-        max-width: 820px;
-      }
-
-      .grid {
-        display: grid;
-        gap: 16px;
-        margin-top: 24px;
-      }
-
-      .projects {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      }
-
-      .card {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 18px;
-        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: auto -20% -60% -20%;
-        height: 140px;
-        background: radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-        border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
-      }
-
-      .card:hover::before {
-        opacity: 1;
-      }
-
-      .mockup {
-        height: 140px;
-        border-radius: 12px;
-        margin-bottom: 12px;
-        background:
-          radial-gradient(circle at 15% 15%, color-mix(in srgb, var(--accent) 70%, transparent), transparent 56%),
-          radial-gradient(circle at 90% 5%, color-mix(in srgb, var(--accent-2) 55%, transparent), transparent 45%),
-          linear-gradient(130deg, color-mix(in srgb, var(--panel) 85%, #0b1020), #0b1020);
-        border: 1px solid var(--line);
-      }
-
-      .meta {
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.65;
-      }
-
-      .tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 10px;
-      }
-
-      .tag {
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 12px;
-        color: var(--muted);
-      }
-
-      .links {
-        display: flex;
-        gap: 12px;
-        margin-top: 12px;
-      }
-
-      .links a {
-        color: var(--accent);
-      }
-
-      .cols-2 {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      }
-
-      .skill {
-        margin-bottom: 12px;
-      }
-
-      .skill-top {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        margin-bottom: 6px;
-      }
-
-      .bar {
-        height: 9px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      .fill {
-        height: 100%;
-        border-radius: 999px;
-        background: var(--accent);
-        width: 0;
-        transition: width 1s ease;
-      }
-
-      form {
-        display: grid;
-        gap: 10px;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        border: 1px solid var(--line);
-        background: transparent;
-        color: var(--text);
-        border-radius: 10px;
-        padding: 12px;
-      }
-
-      textarea {
-        min-height: 130px;
-        resize: vertical;
-      }
-
-      .contact-simple {
-        text-align: center;
-        padding: 28px;
-      }
-
-      .contact-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 14px;
-        margin-top: 18px;
-      }
-
-      .contact-icon-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 12px;
-        text-decoration: none;
-        color: var(--text);
-        background: color-mix(in srgb, var(--panel) 82%, transparent);
-        transition: transform 0.2s ease, border-color 0.2s ease;
-      }
-
-      .contact-icon-link:hover {
-        transform: translateY(-3px);
-        border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
-      }
-
-      .icon {
-        width: 18px;
-        height: 18px;
-        display: inline-block;
-      }
-
-      .contact-email {
-        display: inline-block;
-        margin-top: 8px;
-        font-size: 1.1rem;
-        color: var(--text);
-        text-decoration: none;
-        border-bottom: 1px solid var(--line);
-        padding-bottom: 2px;
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-        transition: opacity 0.7s ease, transform 0.7s ease;
-      }
-
-      #mobileMenu {
-        display: none;
-        border-top: 1px solid var(--line);
-        padding: 10px 0 16px;
-      }
-
-      #mobileMenu a {
-        display: block;
-        padding: 8px 0;
-        text-decoration: none;
-        color: var(--muted);
-      }
-
-      #loader {
-        position: fixed;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        background: var(--bg);
-        z-index: 3000;
-      }
-
-      .spinner {
-        width: 52px;
-        height: 52px;
-        border-radius: 50%;
-        border: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
-        border-top-color: transparent;
-        animation: spin 0.9s linear infinite;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      @media (max-width: 900px) {
-        nav {
-          display: none;
-        }
-
-        .burger {
-          display: inline-block;
-        }
-
-        #mobileMenu.show {
-          display: block;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="loader"><div class="spinner" aria-hidden="true"></div></div>
-    <div class="progress" id="progress"></div>
-
-    <header class="topbar">
-      <div class="container topbar-inner">
-        <div></div>
-        <nav>
-          <ul>
-            <li><a href="#about" data-t="nav.about">À propos</a></li>
-            <li><a href="#projects" data-t="nav.projects">Projets</a></li>
-            <li><a href="#education" data-t="nav.education">Diplômes</a></li>
-            <li><a href="#skills" data-t="nav.skills">Compétences</a></li>
-            <li><a href="#contact" data-t="nav.contact">Contact</a></li>
-          </ul>
-        </nav>
-        <div class="controls">
-          <div class="lang-switch" aria-label="Language switch">
-            <button class="chip active" id="langFr" type="button">FR</button>
-            <button class="chip" id="langEn" type="button">EN</button>
-          </div>
-          <button class="chip" id="themeBtn">Light</button>
-          <button class="chip burger" id="burgerBtn">Menu</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lamyaa MARZOUQ - Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111c38;
+      --text: #e8eefc;
+      --muted: #b8c3dd;
+      --accent: #7c3aed;
+      --accent-2: #06b6d4;
+      --line: rgba(255, 255, 255, 0.12);
+    }
+    body.light {
+      --bg: #f2f5ff;
+      --panel: #ffffff;
+      --text: #1a2340;
+      --muted: #546287;
+      --line: rgba(0, 0, 0, 0.1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      background-image:
+        radial-gradient(circle at 10% 10%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 42%),
+        radial-gradient(circle at 85% 5%, color-mix(in srgb, var(--accent-2) 26%, transparent), transparent 36%);
+      background-attachment: fixed;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 78%, transparent);
+    }
+    .topbar-inner { min-height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    nav ul { display: flex; gap: 18px; list-style: none; padding: 0; margin: 0; }
+    nav a { color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--text); }
+    .controls { display: flex; gap: 10px; }
+    .chip {
+      border: 1px solid var(--line); color: var(--text);
+      background: color-mix(in srgb, var(--panel) 82%, transparent);
+      border-radius: 999px; padding: 7px 12px; cursor: pointer;
+    }
+    .lang-switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .lang-switch .chip { border: 0; border-radius: 0; min-width: 46px; }
+    .lang-switch .chip.active { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; }
+
+    .hero { min-height: 76vh; display: grid; align-content: center; gap: 16px; padding: 56px 0; text-align: left; }
+    .eyebrow { color: var(--accent); font-weight: 600; }
+    h1 { margin: 0; font-size: clamp(36px, 7vw, 72px); line-height: 1.05; }
+    .subtitle { font-size: clamp(18px, 3vw, 28px); color: var(--muted); }
+    .lead { max-width: 800px; color: var(--muted); line-height: 1.75; text-align: left; }
+    .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { border-radius: 999px; padding: 12px 18px; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
+    .btn-primary { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #fff; }
+    .btn-secondary { border-color: var(--line); color: var(--text); background: transparent; }
+
+    section.block { padding: 56px 0; border-top: 1px solid var(--line); text-align: left; }
+    h2 { font-size: clamp(28px, 5vw, 44px); margin: 0; text-align: left; }
+    .section-text { color: var(--muted); line-height: 1.8; margin-top: 14px; max-width: 820px; text-align: left; }
+    .grid { display: grid; gap: 16px; margin-top: 24px; }
+    .projects { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    .card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      text-align: left;
+    }
+    .card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); box-shadow: 0 14px 30px rgba(0,0,0,.25); }
+    .project-card { cursor: pointer; }
+    .mockup {
+      height: 120px; border-radius: 12px; margin-bottom: 12px;
+      background:
+        radial-gradient(circle at 15% 15%, color-mix(in srgb, var(--accent) 70%, transparent), transparent 56%),
+        radial-gradient(circle at 90% 5%, color-mix(in srgb, var(--accent-2) 55%, transparent), transparent 45%),
+        linear-gradient(130deg, color-mix(in srgb, var(--panel) 85%, #0b1020), #0b1020);
+      border: 1px solid var(--line);
+    }
+    .meta { color: var(--muted); font-size: 14px; line-height: 1.65; text-align: left; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .tag { border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; font-size: 12px; color: var(--muted); }
+    .links { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+    .links a { color: var(--accent); }
+    .cols-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    .skill { margin-bottom: 12px; }
+    .skill-top { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+    .bar { height: 9px; border-radius: 999px; background: rgba(255,255,255,.08); }
+    .fill { height: 100%; border-radius: 999px; background: var(--accent); width: 0; transition: width 1s ease; }
+
+    .contact-simple { text-align: left; padding: 24px; }
+    .contact-email { display: inline-block; margin-top: 8px; font-size: 1.06rem; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 14px; margin-top: 16px; }
+    .contact-icon-link {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      border: 1px solid var(--line); border-radius: 12px; padding: 12px;
+      text-decoration: none; color: var(--text); background: color-mix(in srgb, var(--panel) 82%, transparent);
+    }
+    .icon { width: 18px; height: 18px; }
+
+    .project-detail {
+      display: none;
+      padding: 40px 0 60px;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }
+    .project-detail.show { display: block; }
+    .detail-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+
+    @media (max-width: 900px) {
+      nav { display: none; }
+      .burger { display: inline-block; }
+      #mobileMenu.show { display: block; }
+    }
+    #mobileMenu { display: none; border-top: 1px solid var(--line); padding: 10px 0 16px; }
+    #mobileMenu a { display: block; padding: 8px 0; text-decoration: none; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div></div>
+      <nav>
+        <ul>
+          <li><a href="#contact" data-t="nav.contact">Contact</a></li>
+          <li><a href="#about" data-t="nav.about">À propos</a></li>
+          <li><a href="#projects" data-t="nav.projects">Projets</a></li>
+          <li><a href="#education" data-t="nav.education">Diplômes</a></li>
+          <li><a href="#skills" data-t="nav.skills">Compétences</a></li>
+        </ul>
+      </nav>
+      <div class="controls">
+        <div class="lang-switch">
+          <button class="chip active" id="langFr" type="button">FR</button>
+          <button class="chip" id="langEn" type="button">EN</button>
         </div>
+        <button class="chip" id="themeBtn">Light</button>
+        <button class="chip burger" id="burgerBtn">Menu</button>
       </div>
-      <div class="container" id="mobileMenu">
-        <a href="#about" data-t="nav.about">À propos</a>
-        <a href="#projects" data-t="nav.projects">Projets</a>
-        <a href="#education" data-t="nav.education">Diplômes</a>
-        <a href="#skills" data-t="nav.skills">Compétences</a>
-        <a href="#contact" data-t="nav.contact">Contact</a>
+    </div>
+    <div class="container" id="mobileMenu">
+      <a href="#contact" data-t="nav.contact">Contact</a>
+      <a href="#about" data-t="nav.about">À propos</a>
+      <a href="#projects" data-t="nav.projects">Projets</a>
+      <a href="#education" data-t="nav.education">Diplômes</a>
+      <a href="#skills" data-t="nav.skills">Compétences</a>
+    </div>
+  </header>
+
+  <main class="container" id="mainContent">
+    <section class="hero">
+      <div class="eyebrow" data-t="hero.eyebrow">Portfolio</div>
+      <h1 data-t="hero.name">Lamyaa MARZOUQ</h1>
+      <div class="subtitle" data-t="hero.role"></div>
+      <p class="lead" data-t="hero.intro"></p>
+      <p class="lead" data-t="hero.currentRole"></p>
+      <div class="btns">
+        <a class="btn btn-primary" href="#projects" data-t="hero.ctaProjects"></a>
+        <a class="btn btn-secondary" href="#contact" data-t="hero.ctaContact"></a>
       </div>
-    </header>
+    </section>
 
-    <main class="container">
-      <section class="hero reveal">
-        <div class="eyebrow" data-t="hero.eyebrow">Portfolio</div>
-        <h1 data-t="hero.name">Lamyaa MARZOUQ</h1>
-        <div class="subtitle" data-t="hero.role">Digital marketing, data and AI for business</div>
-        <p class="lead" data-t="hero.intro"></p>
-        <p class="lead" data-t="hero.currentRole"></p>
-        <div class="btns">
-          <a class="btn btn-primary" href="#projects" data-t="hero.ctaProjects">Voir mes projets</a>
-          <a class="btn btn-secondary" href="#contact" data-t="hero.ctaContact">Me contacter</a>
-        </div>
-      </section>
-
-      <section id="about" class="block reveal">
-        <h2 data-t="about.title">À propos</h2>
-        <p class="section-text" data-t="about.text"></p>
-      </section>
-
-      <section id="projects" class="block reveal">
-        <h2 data-t="projects.title">Projets</h2>
-        <div class="grid projects" id="projectsGrid"></div>
-      </section>
-
-      <section id="education" class="block reveal">
-        <h2 data-t="education.title">Diplômes & Certifications</h2>
-        <div class="grid cols-2" id="eduGrid"></div>
-      </section>
-
-      <section id="skills" class="block reveal">
-        <h2 data-t="skills.title">Compétences</h2>
-        <div class="grid cols-2" id="skillsGrid"></div>
-      </section>
-
-      <section id="contact" class="block reveal">
-        <h2 data-t="contact.title">Contact</h2>
-        <div class="grid">
-          <div class="card contact-simple">
-            <p class="meta" data-t="contact.simpleLabel">Contactez-moi par email</p>
-            <a class="contact-email" href="mailto:lamyaaamarzouq2002@gmail.com">lamyaaamarzouq2002@gmail.com</a>
-            <div class="contact-grid">
-              <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-                Email
-              </a>
-              <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.34-1.75-1.34-1.75-1.1-.75.08-.74.08-.74 1.2.08 1.84 1.23 1.84 1.23 1.08 1.84 2.84 1.31 3.53 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.46-1.33-5.46-5.93 0-1.31.47-2.39 1.24-3.24-.13-.31-.54-1.56.12-3.24 0 0 1.01-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.28-1.55 3.3-1.23 3.3-1.23.66 1.68.25 2.93.12 3.24.77.85 1.24 1.93 1.24 3.24 0 4.61-2.8 5.63-5.47 5.93.43.37.82 1.09.82 2.2v3.27c0 .32.22.69.82.58A12 12 0 0 0 12 .5Z"/></svg>
-                GitHub
-              </a>
-              <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5.01 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3zM10 9h3.83v1.71h.05c.53-1 1.85-2.05 3.81-2.05 4.07 0 4.82 2.68 4.82 6.17V21h-4v-5.37c0-1.28-.02-2.92-1.78-2.92-1.78 0-2.05 1.39-2.05 2.82V21h-4z"/></svg>
-                LinkedIn
-              </a>
-            </div>
+    <section id="contact" class="block">
+      <h2 data-t="contact.title"></h2>
+      <div class="grid">
+        <div class="card contact-simple">
+          <p class="meta" data-t="contact.simpleLabel"></p>
+          <a class="contact-email" href="mailto:lamyaaamarzouq2002@gmail.com">lamyaaamarzouq2002@gmail.com</a>
+          <div class="contact-grid">
+            <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com">Email</a>
+            <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer">GitHub</a>
+            <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
-    <script>
-      const content = {
-        fr: {
-          nav: { about: "À propos", projects: "Projets", education: "Diplômes", skills: "Compétences", contact: "Contact" },
-          hero: {
-            eyebrow: "Portfolio",
-            name: "Lamyaa MARZOUQ",
-            role: "Marketing digital, data et IA appliquée au business",
-            intro:
-              "Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie, data et automatisation. Je suis orientée vers des projets performants, élégants et mesurables.",
-            currentRole: "Actuellement en alternance : Assistante Chef de Produit chez Electrolux Group.",
-            ctaProjects: "Voir mes projets",
-            ctaContact: "Me contacter"
-          },
-          about: {
-            title: "À propos",
-            text:
-              "Je suis diplômée en Marketing & Développement Commercial et je poursuis un parcours en IA appliquée au business. Mon objectif est de transformer les données en décisions claires, avec une approche humaine, créative et orientée impact."
-          },
-          projects: {
-            title: "Projets",
-            goal: "Objectif",
-            features: "Fonctionnalités",
-            items: [
-              {
-                title: "SPA - Projet Animal Solidarity",
-                description: "Projet de lutte contre l’abandon des animaux, basé sur l’analyse des causes principales et la création d’un parcours de recommandation d’adoption responsable.",
-                goal: "Aider les futurs adoptants à choisir un animal compatible avec leur mode de vie pour éviter les adoptions impulsives.",
-                features: "Analyse des causes d’abandon, scraping des données, questionnaire interactif, recommandation personnalisée, sensibilisation à l’adoption responsable.",
-                stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
-                github: "https://github.com/Lamyaa-M/Projet_SPA",
-                url: "https://joyful-companions.lovable.app/"
-              },
-              {
-                title: "BreastWise",
-                description: "Application mobile d’accompagnement autour du cancer du sein, avec suivi, onboarding guidé et activités bien-être pour soutenir les utilisatrices au quotidien.",
-                goal: "Offrir un espace mobile utile, humain et structuré pour améliorer l’accompagnement et l’autonomie des utilisatrices.",
-                features: "Onboarding personnalisé, suivi utilisateur, contenus bien-être, architecture mobile avec navigation fluide.",
-                stack: ["React Native", "Expo", "JavaScript", "Supabase"],
-                github: "https://github.com/Lamyaa-M/BreastWise",
-              }
-            ]
-          },
-          education: {
-            title: "Diplômes & Certifications",
-            items: [
-              { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code." },
-              { name: "Programme Grande École", org: "Yschools", date: "2024 - 2025", description: "Marketing & Développement Commercial." },
-              { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "En cours", description: "Parcours data, automatisation, visualisation." }
-            ]
-          },
-          skills: {
-            title: "Compétences",
-            categories: [
-              { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
-              { name: "Automatisation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
-              { name: "Marketing", items: [["Gestion de projet", 85], ["Communication", 90], ["Content strategy", 76], ["Canva", 92]] },
-              { name: "Outils", items: [["Notion", 86], ["Hubspot", 78], ["Pack Office", 90], ["Airtable", 79]] }
-            ]
-          },
-          contact: { title: "Contact", simpleLabel: "Contactez-moi par email", name: "Nom", email: "Email", message: "Message", send: "Envoyer" }
+    <section id="about" class="block">
+      <h2 data-t="about.title"></h2>
+      <p class="section-text" data-t="about.text"></p>
+    </section>
+
+    <section id="projects" class="block">
+      <h2 data-t="projects.title"></h2>
+      <p class="section-text" data-t="projects.shortNote"></p>
+      <div class="grid projects" id="projectsGrid"></div>
+    </section>
+
+    <section id="education" class="block">
+      <h2 data-t="education.title"></h2>
+      <div class="grid cols-2" id="eduGrid"></div>
+    </section>
+
+    <section id="skills" class="block">
+      <h2 data-t="skills.title"></h2>
+      <div class="grid cols-2" id="skillsGrid"></div>
+    </section>
+  </main>
+
+  <section class="container project-detail" id="projectDetail">
+    <button class="btn btn-secondary" id="backBtn">← Retour</button>
+    <div class="detail-panel" style="margin-top:14px">
+      <h2 id="detailTitle"></h2>
+      <p class="meta" id="detailDesc"></p>
+      <p class="meta"><strong id="goalLabel"></strong> <span id="detailGoal"></span></p>
+      <p class="meta"><strong id="featuresLabel"></strong> <span id="detailFeatures"></span></p>
+      <div class="tags" id="detailTags"></div>
+      <div class="links" id="detailLinks"></div>
+    </div>
+  </section>
+
+  <script>
+    const content = {
+      fr: {
+        nav: { contact: "Contact", about: "À propos", projects: "Projets", education: "Diplômes", skills: "Compétences" },
+        hero: {
+          eyebrow: "Portfolio",
+          name: "Lamyaa MARZOUQ",
+          role: "Marketing digital, data et IA appliquée au business",
+          intro: "Je conçois des projets data et digitaux utiles, orientés impact et performance.",
+          currentRole: "Actuellement en alternance : Assistante Chef de Produit chez Electrolux Group.",
+          ctaProjects: "Voir mes projets",
+          ctaContact: "Me contacter"
         },
-        en: {
-          nav: { about: "About", projects: "Projects", education: "Education", skills: "Skills", contact: "Contact" },
-          hero: {
-            eyebrow: "Portfolio",
-            name: "Lamyaa MARZOUQ",
-            role: "Digital marketing, data and AI for business",
-            intro:
-              "I build high-impact digital experiences connecting strategy, data and automation. My focus is measurable performance with a clean and professional execution.",
-            currentRole: "Current role: Product Assistant Apprentice at Electrolux Group.",
-            ctaProjects: "View projects",
-            ctaContact: "Contact me"
-          },
-          about: {
-            title: "About",
-            text:
-              "I hold a degree in Marketing & Business Development and I am currently focused on AI applied to business. I turn data into clear decisions through a human, creative and results-driven approach."
-          },
-          projects: {
-            title: "Projects",
-            goal: "Goal",
-            features: "Features",
-            items: [
-              {
-                title: "SPA - Animal Solidarity Project",
-                description: "Project focused on reducing pet abandonment by analyzing key root causes and building a responsible adoption recommendation journey.",
-                goal: "Help future adopters choose a pet aligned with their lifestyle and prevent unsuitable, impulsive adoptions.",
-                features: "Abandonment cause analysis, data scraping, interactive questionnaire, personalized recommendation, responsible adoption awareness.",
-                stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
-                github: "https://github.com/Lamyaa-M/Projet_SPA",
-                url: "https://joyful-companions.lovable.app/"
-              },
-              {
-                title: "BreastWise",
-                description: "Mobile support app around breast cancer, offering follow-up, guided onboarding and wellbeing activities for everyday assistance.",
-                goal: "Provide a helpful, human-centered and structured mobile experience for users.",
-                features: "Personalized onboarding, user follow-up, wellbeing content, smooth mobile navigation architecture.",
-                stack: ["React Native", "Expo", "JavaScript", "Supabase"],
-                github: "https://github.com/Lamyaa-M/BreastWise",
-              }
-            ]
-          },
-          education: {
-            title: "Degrees & Certifications",
-            items: [
-              { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualization, CRM, no-code." },
-              { name: "Grande Ecole Program", org: "Yschools", date: "2024 - 2025", description: "Marketing & Business Development." },
-              { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "In progress", description: "Data, automation and visualization tracks." }
-            ]
-          },
-          skills: {
-            title: "Skills",
-            categories: [
-              { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
-              { name: "Automation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
-              { name: "Marketing", items: [["Project management", 85], ["Communication", 90], ["Content strategy", 76], ["Canva", 92]] },
-              { name: "Tools", items: [["Notion", 86], ["Hubspot", 78], ["MS Office", 90], ["Airtable", 79]] }
-            ]
-          },
-          contact: { title: "Contact", simpleLabel: "Contact me by email", name: "Name", email: "Email", message: "Message", send: "Send" }
-        }
-      };
+        about: {
+          title: "À propos",
+          text: "Diplômée en Marketing & Développement Commercial, je combine stratégie, data et IA appliquée au business."
+        },
+        projects: {
+          title: "Projets",
+          shortNote: "Clique sur une carte pour afficher la fiche projet complète.",
+          goalLabel: "Objectif :",
+          featuresLabel: "Fonctionnalités :",
+          detailsBtn: "Voir détails",
+          linkLabel: "Lien",
+          items: [
+            {
+              id: "spa",
+              title: "SPA - Projet Animal Solidarity",
+              short: "Analyse des causes d’abandon + recommandation d’adoption responsable.",
+              description: "Projet de lutte contre l’abandon des animaux, basé sur l’analyse des causes principales et la création d’un parcours de recommandation d’adoption responsable.",
+              goal: "Aider les futurs adoptants à choisir un animal compatible avec leur mode de vie.",
+              features: "Analyse des causes d’abandon, scraping des données, questionnaire interactif, recommandation personnalisée.",
+              stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
+              github: "https://github.com/Lamyaa-M/Projet_SPA",
+              url: "https://joyful-companions.lovable.app/"
+            },
+            {
+              id: "breastwise",
+              title: "BreastWise",
+              short: "Application mobile d’accompagnement avec onboarding et contenu bien-être.",
+              description: "Application mobile d’accompagnement autour du cancer du sein, avec suivi, onboarding guidé et activités bien-être.",
+              goal: "Fournir une expérience utile, humaine et structurée.",
+              features: "Onboarding personnalisé, suivi utilisateur, contenus bien-être, navigation mobile fluide.",
+              stack: ["React Native", "Expo", "JavaScript", "Supabase"],
+              github: "https://github.com/Lamyaa-M/BreastWise"
+            }
+          ]
+        },
+        education: {
+          title: "Diplômes & Certifications",
+          items: [
+            { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code." },
+            { name: "Programme Grande École", org: "Yschools", date: "2024 - 2025", description: "Marketing & Développement Commercial." },
+            { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "En cours", description: "Parcours data, automatisation, visualisation." }
+          ]
+        },
+        skills: {
+          title: "Compétences",
+          categories: [
+            { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
+            { name: "Automatisation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] }
+          ]
+        },
+        contact: { title: "Contact", simpleLabel: "Contactez-moi directement" },
+        back: "Retour"
+      },
+      en: {
+        nav: { contact: "Contact", about: "About", projects: "Projects", education: "Education", skills: "Skills" },
+        hero: {
+          eyebrow: "Portfolio",
+          name: "Lamyaa MARZOUQ",
+          role: "Digital marketing, data and AI for business",
+          intro: "I design practical digital and data projects focused on performance and impact.",
+          currentRole: "Current role: Product Assistant Apprentice at Electrolux Group.",
+          ctaProjects: "View projects",
+          ctaContact: "Contact me"
+        },
+        about: {
+          title: "About",
+          text: "Graduated in Marketing & Business Development, I combine strategy, data and AI for business outcomes."
+        },
+        projects: {
+          title: "Projects",
+          shortNote: "Click a card to open the full project detail view.",
+          goalLabel: "Goal:",
+          featuresLabel: "Features:",
+          detailsBtn: "View details",
+          linkLabel: "Link",
+          items: [
+            {
+              id: "spa",
+              title: "SPA - Animal Solidarity Project",
+              short: "Pet abandonment analysis + responsible adoption recommendation.",
+              description: "Project focused on reducing pet abandonment by analyzing key causes and building a responsible adoption recommendation flow.",
+              goal: "Help adopters choose a pet aligned with their lifestyle.",
+              features: "Cause analysis, data scraping, interactive questionnaire, personalized recommendation.",
+              stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
+              github: "https://github.com/Lamyaa-M/Projet_SPA",
+              url: "https://joyful-companions.lovable.app/"
+            },
+            {
+              id: "breastwise",
+              title: "BreastWise",
+              short: "Mobile support app with onboarding and wellbeing content.",
+              description: "Mobile support app around breast cancer with follow-up, guided onboarding and wellbeing activities.",
+              goal: "Provide a helpful and structured user experience.",
+              features: "Personalized onboarding, user follow-up, wellbeing content, smooth navigation.",
+              stack: ["React Native", "Expo", "JavaScript", "Supabase"],
+              github: "https://github.com/Lamyaa-M/BreastWise"
+            }
+          ]
+        },
+        education: {
+          title: "Degrees & Certifications",
+          items: [
+            { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualization, CRM, no-code." },
+            { name: "Grande Ecole Program", org: "Yschools", date: "2024 - 2025", description: "Marketing & Business Development." },
+            { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "In progress", description: "Data, automation and visualization tracks." }
+          ]
+        },
+        skills: {
+          title: "Skills",
+          categories: [
+            { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
+            { name: "Automation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] }
+          ]
+        },
+        contact: { title: "Contact", simpleLabel: "Contact me directly" },
+        back: "Back"
+      }
+    };
 
-      let lang = "fr";
-      let dark = true;
+    let lang = "fr";
+    let dark = true;
+    let currentProjects = [];
 
-      const byPath = (obj, path) => path.split(".").reduce((acc, k) => acc && acc[k], obj);
+    const byPath = (obj, path) => path.split(".").reduce((acc, k) => acc && acc[k], obj);
 
-      function renderText() {
-        const t = content[lang];
-        document.documentElement.lang = lang;
-        document.querySelectorAll("[data-t]").forEach((el) => {
-          const val = byPath(t, el.dataset.t);
-          if (typeof val === "string") el.textContent = val;
+    function renderText() {
+      const t = content[lang];
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-t]").forEach((el) => {
+        const val = byPath(t, el.dataset.t);
+        if (typeof val === "string") el.textContent = val;
+      });
+      renderProjects(t);
+      renderEducation(t);
+      renderSkills(t);
+      document.getElementById("backBtn").textContent = "← " + t.back;
+      document.getElementById("langFr").classList.toggle("active", lang === "fr");
+      document.getElementById("langEn").classList.toggle("active", lang === "en");
+    }
+
+    function renderProjects(t) {
+      currentProjects = t.projects.items;
+      const root = document.getElementById("projectsGrid");
+      root.innerHTML = t.projects.items.map((p, idx) => `
+        <article class="card project-card" data-project-index="${idx}">
+          <div class="mockup"></div>
+          <h3>${p.title}</h3>
+          <p class="meta">${p.short}</p>
+          <div class="tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
+          <div class="links">
+            <a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>
+            ${p.url ? `<a href="${p.url}" target="_blank" rel="noreferrer">${t.projects.linkLabel}</a>` : ""}
+            <span class="meta">${t.projects.detailsBtn}</span>
+          </div>
+        </article>
+      `).join("");
+
+      root.querySelectorAll(".project-card").forEach((card) => {
+        card.addEventListener("click", (e) => {
+          if (e.target.tagName === "A") return;
+          const idx = Number(card.dataset.projectIndex);
+          openProjectDetail(currentProjects[idx], t);
         });
-        document.querySelectorAll("[data-ph]").forEach((el) => {
-          const val = byPath(t, el.dataset.ph);
-          if (typeof val === "string") el.placeholder = val;
-        });
-        renderProjects(t);
-        renderEducation(t);
-        renderSkills(t);
-        const frBtn = document.getElementById("langFr");
-        const enBtn = document.getElementById("langEn");
-        frBtn.classList.toggle("active", lang === "fr");
-        enBtn.classList.toggle("active", lang === "en");
-      }
-
-      function renderProjects(t) {
-        const root = document.getElementById("projectsGrid");
-        root.innerHTML = t.projects.items.map((p) => `
-          <article class="card">
-            <div class="mockup"></div>
-            <h3>${p.title}</h3>
-            <p class="meta">${p.description}</p>
-            <p class="meta"><strong>${t.projects.goal}:</strong> ${p.goal}</p>
-            <p class="meta"><strong>${t.projects.features}:</strong> ${p.features}</p>
-            <div class="tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
-            <div class="links">
-  <a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>
-  ${p.url ? `<a href="${p.url}" target="_blank" rel="noreferrer">Lien</a>` : ""}
-</div>
-          </article>
-        `).join("");
-      }
-
-      function renderEducation(t) {
-        const root = document.getElementById("eduGrid");
-        root.innerHTML = t.education.items.map((i) => `
-          <article class="card">
-            <div class="meta">${i.date}</div>
-            <h3>${i.name}</h3>
-            <div class="meta">${i.org}</div>
-            <p class="meta">${i.description}</p>
-          </article>
-        `).join("");
-      }
-
-      function renderSkills(t) {
-        const root = document.getElementById("skillsGrid");
-        root.innerHTML = t.skills.categories.map((c) => `
-          <article class="card">
-            <h3>${c.name}</h3>
-            ${c.items.map(([name, level]) => `
-              <div class="skill">
-                <div class="skill-top"><span>${name}</span><span>${level}%</span></div>
-                <div class="bar"><div class="fill" data-level="${level}"></div></div>
-              </div>
-            `).join("")}
-          </article>
-        `).join("");
-        requestAnimationFrame(() => {
-          document.querySelectorAll(".fill").forEach((el) => {
-            el.style.width = el.dataset.level + "%";
-          });
-        });
-      }
-
-      function setupReveal() {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) entry.target.classList.add("visible");
-          });
-        }, { threshold: 0.2 });
-        document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-      }
-
-      function setupProgress() {
-        const progress = document.getElementById("progress");
-        window.addEventListener("scroll", () => {
-          const h = document.documentElement;
-          const max = h.scrollHeight - h.clientHeight;
-          const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-          progress.style.width = pct + "%";
-        });
-      }
-
-      document.getElementById("langFr").addEventListener("click", () => {
-        lang = "fr";
-        renderText();
       });
+    }
 
-      document.getElementById("langEn").addEventListener("click", () => {
-        lang = "en";
-        renderText();
+    function openProjectDetail(project, t) {
+      document.getElementById("mainContent").style.display = "none";
+      const detail = document.getElementById("projectDetail");
+      detail.classList.add("show");
+
+      document.getElementById("detailTitle").textContent = project.title;
+      document.getElementById("detailDesc").textContent = project.description;
+      document.getElementById("goalLabel").textContent = t.projects.goalLabel;
+      document.getElementById("detailGoal").textContent = project.goal;
+      document.getElementById("featuresLabel").textContent = t.projects.featuresLabel;
+      document.getElementById("detailFeatures").textContent = project.features;
+      document.getElementById("detailTags").innerHTML = project.stack.map((s) => `<span class="tag">${s}</span>`).join("");
+      document.getElementById("detailLinks").innerHTML = `
+        <a href="${project.github}" target="_blank" rel="noreferrer">GitHub</a>
+        ${project.url ? `<a href="${project.url}" target="_blank" rel="noreferrer">${t.projects.linkLabel}</a>` : ""}
+      `;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function closeProjectDetail() {
+      document.getElementById("projectDetail").classList.remove("show");
+      document.getElementById("mainContent").style.display = "block";
+    }
+
+    function renderEducation(t) {
+      const root = document.getElementById("eduGrid");
+      root.innerHTML = t.education.items.map((i) => `
+        <article class="card">
+          <div class="meta">${i.date}</div>
+          <h3>${i.name}</h3>
+          <div class="meta">${i.org}</div>
+          <p class="meta">${i.description}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderSkills(t) {
+      const root = document.getElementById("skillsGrid");
+      root.innerHTML = t.skills.categories.map((c) => `
+        <article class="card">
+          <h3>${c.name}</h3>
+          ${c.items.map(([name, level]) => `
+            <div class="skill">
+              <div class="skill-top"><span>${name}</span><span>${level}%</span></div>
+              <div class="bar"><div class="fill" data-level="${level}"></div></div>
+            </div>
+          `).join("")}
+        </article>
+      `).join("");
+      requestAnimationFrame(() => {
+        document.querySelectorAll(".fill").forEach((el) => { el.style.width = el.dataset.level + "%"; });
       });
+    }
 
-      document.getElementById("themeBtn").addEventListener("click", () => {
-        dark = !dark;
-        document.body.classList.toggle("light", !dark);
-        document.getElementById("themeBtn").textContent = dark ? "Light" : "Dark";
-      });
+    document.getElementById("langFr").addEventListener("click", () => { lang = "fr"; renderText(); });
+    document.getElementById("langEn").addEventListener("click", () => { lang = "en"; renderText(); });
 
-      document.getElementById("burgerBtn").addEventListener("click", () => {
-        document.getElementById("mobileMenu").classList.toggle("show");
-      });
+    document.getElementById("themeBtn").addEventListener("click", () => {
+      dark = !dark;
+      document.body.classList.toggle("light", !dark);
+      document.getElementById("themeBtn").textContent = dark ? "Light" : "Dark";
+    });
 
-      document.querySelectorAll("#mobileMenu a").forEach((a) => {
-        a.addEventListener("click", () => document.getElementById("mobileMenu").classList.remove("show"));
-      });
+    document.getElementById("burgerBtn").addEventListener("click", () => {
+      document.getElementById("mobileMenu").classList.toggle("show");
+    });
 
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          const loader = document.getElementById("loader");
-          loader.style.opacity = "0";
-          loader.style.transition = "opacity 0.35s ease";
-          setTimeout(() => loader.remove(), 360);
-        }, 600);
-      });
+    document.querySelectorAll("#mobileMenu a").forEach((a) => {
+      a.addEventListener("click", () => document.getElementById("mobileMenu").classList.remove("show"));
+    });
 
-      renderText();
-      setupReveal();
-      setupProgress();
-    </script>
-  </body>
+    document.getElementById("backBtn").addEventListener("click", closeProjectDetail);
+
+    renderText();
+  </script>
+</body>
 </html>
