@@ -10,7 +10,7 @@
         --panel: #151515;
         --text: #e5e5e5;
         --muted: #bcbcbc;
-        --accent: #8b5cf6;
+        --accent: #14b8a6;
         --line: rgba(255, 255, 255, 0.12);
       }
 
@@ -67,11 +67,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-      }
-
-      .logo {
-        font-weight: 700;
-        letter-spacing: 0.04em;
       }
 
       nav ul {
@@ -291,10 +286,28 @@
         resize: vertical;
       }
 
+      .contact-simple {
+        text-align: center;
+        padding: 28px;
+      }
+
+      .contact-email {
+        display: inline-block;
+        margin-top: 8px;
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 2px;
+      }
+
+      .socials {
+        margin-top: 18px;
+      }
+
       .socials a {
         display: inline-block;
-        margin-right: 12px;
-        margin-bottom: 10px;
+        margin: 0 8px;
         color: var(--muted);
         text-decoration: none;
       }
@@ -372,13 +385,13 @@
 
     <header class="topbar">
       <div class="container topbar-inner">
-        <div class="logo">LM</div>
+        <div></div>
         <nav>
           <ul>
-            <li><a href="#about" data-t="nav.about">A propos</a></li>
+            <li><a href="#about" data-t="nav.about">À propos</a></li>
             <li><a href="#projects" data-t="nav.projects">Projets</a></li>
-            <li><a href="#education" data-t="nav.education">Diplomes</a></li>
-            <li><a href="#skills" data-t="nav.skills">Competences</a></li>
+            <li><a href="#education" data-t="nav.education">Diplômes</a></li>
+            <li><a href="#skills" data-t="nav.skills">Compétences</a></li>
             <li><a href="#contact" data-t="nav.contact">Contact</a></li>
           </ul>
         </nav>
@@ -389,19 +402,19 @@
         </div>
       </div>
       <div class="container" id="mobileMenu">
-        <a href="#about" data-t="nav.about">A propos</a>
+        <a href="#about" data-t="nav.about">À propos</a>
         <a href="#projects" data-t="nav.projects">Projets</a>
-        <a href="#education" data-t="nav.education">Diplomes</a>
-        <a href="#skills" data-t="nav.skills">Competences</a>
+        <a href="#education" data-t="nav.education">Diplômes</a>
+        <a href="#skills" data-t="nav.skills">Compétences</a>
         <a href="#contact" data-t="nav.contact">Contact</a>
       </div>
     </header>
 
     <main class="container">
       <section class="hero reveal">
-        <div class="eyebrow" data-t="hero.eyebrow">Portfolio premium</div>
+        <div class="eyebrow" data-t="hero.eyebrow">Portfolio</div>
         <h1 data-t="hero.name">Lamyaa MARZOUQ</h1>
-        <div class="subtitle" data-t="hero.role">Digital marketing, data and AI for business</div>
+        <div class="subtitle" data-t="hero.role">Data and AI for business</div>
         <p class="lead" data-t="hero.intro"></p>
         <div class="btns">
           <a class="btn btn-primary" href="#projects" data-t="hero.ctaProjects">Voir mes projets</a>
@@ -410,7 +423,7 @@
       </section>
 
       <section id="about" class="block reveal">
-        <h2 data-t="about.title">A propos</h2>
+        <h2 data-t="about.title">À propos</h2>
         <p class="section-text" data-t="about.text"></p>
       </section>
 
@@ -420,33 +433,24 @@
       </section>
 
       <section id="education" class="block reveal">
-        <h2 data-t="education.title">Diplomes & Certifications</h2>
+        <h2 data-t="education.title">Diplômes & Certifications</h2>
         <div class="grid cols-2" id="eduGrid"></div>
       </section>
 
       <section id="skills" class="block reveal">
-        <h2 data-t="skills.title">Competences</h2>
+        <h2 data-t="skills.title">Compétences</h2>
         <div class="grid cols-2" id="skillsGrid"></div>
       </section>
 
       <section id="contact" class="block reveal">
         <h2 data-t="contact.title">Contact</h2>
-        <div class="grid cols-2">
-          <div class="card">
-            <form>
-              <input type="text" data-ph="contact.name" placeholder="Nom" />
-              <input type="email" data-ph="contact.email" placeholder="Email" />
-              <textarea data-ph="contact.message" placeholder="Message"></textarea>
-              <button type="button" class="btn btn-primary" data-t="contact.send">Envoyer</button>
-            </form>
-          </div>
-          <div class="card">
-            <p class="meta">lamyaaamarzouq2002@gmail.com</p>
-            <div class="socials" style="margin-top: 14px">
-              <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
-              <a href="https://x.com" target="_blank" rel="noreferrer">X / Twitter</a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+        <div class="grid">
+          <div class="card contact-simple">
+            <p class="meta" data-t="contact.simpleLabel">Contactez-moi par email</p>
+            <a class="contact-email" href="mailto:lamyaaamarzouq2002@gmail.com">lamyaaamarzouq2002@gmail.com</a>
+            <div class="socials">
+              <a href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer">LinkedIn</a>
             </div>
           </div>
         </div>
@@ -456,25 +460,25 @@
     <script>
       const content = {
         fr: {
-          nav: { about: "A propos", projects: "Projets", education: "Diplomes", skills: "Competences", contact: "Contact" },
+          nav: { about: "À propos", projects: "Projets", education: "Diplômes", skills: "Compétences", contact: "Contact" },
           hero: {
-            eyebrow: "Portfolio premium",
+            eyebrow: "Portfolio",
             name: "Lamyaa MARZOUQ",
-            role: "Marketing digital, data et IA appliquee au business",
+            role: "Data et IA appliquée au business",
             intro:
-              "Passionnee par la communication et le marketing digital, je construis des experiences utiles qui relient strategie, data et automatisation. Je suis orientee vers des projets performants, elegants et mesurables.",
+              "Passionnée par la communication et le marketing, je construis des expériences utiles qui relient stratégie, data et automatisation. Je suis orientée vers des projets performants et mesurables.",
             ctaProjects: "Voir mes projets",
             ctaContact: "Me contacter"
           },
           about: {
-            title: "A propos",
+            title: "À propos",
             text:
-              "Je suis diplomee en Marketing & Developpement Commercial et je poursuis un parcours en IA appliquee au business. Mon objectif est de transformer les donnees en decisions claires, avec une approche humaine, creative et orientee impact."
+              "Je suis diplômée en Marketing & Développement Commercial et je poursuis un parcours en IA appliquée au business. Mon objectif est de transformer les données en décisions claires, avec une approche humaine, créative et orientée impact."
           },
           projects: {
             title: "Projets",
             goal: "Objectif",
-            features: "Fonctionnalites",
+            features: "Fonctionnalités",
             items: [
               {
                 title: "Dashboard Marketing Analytics",
@@ -487,17 +491,17 @@
               },
               {
                 title: "Automatisation CRM & Reporting",
-                description: "Pipeline automatise de collecte et qualification des leads avec reporting centralise.",
-                goal: "Reduire les taches manuelles et fiabiliser les donnees.",
+                description: "Pipeline automatisé de collecte et qualification des leads avec reporting centralisé.",
+                goal: "Réduire les tâches manuelles et fiabiliser les données.",
                 features: "Automations Make, synchronisation CRM, exports automatiques.",
                 stack: ["Make", "Google Sheets", "SQL", "Dataiku"],
                 github: "https://github.com",
                 live: "https://pages.github.com"
               },
               {
-                title: "Etude de marche IA",
-                description: "Analyse concurrentielle assistee par IA pour identifier opportunites et axes de positionnement.",
-                goal: "Decisions plus rapides et mieux alignees business.",
+                title: "Étude de marché IA",
+                description: "Analyse concurrentielle assistée par IA pour identifier opportunités et axes de positionnement.",
+                goal: "Décisions plus rapides et mieux alignées business.",
                 features: "Collecte data, scoring insights, recommandations.",
                 stack: ["Python", "Dust", "Dataiku", "Cursor"],
                 github: "https://github.com",
@@ -506,16 +510,16 @@
             ]
           },
           education: {
-            title: "Diplomes & Certifications",
+            title: "Diplômes & Certifications",
             items: [
               { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code." },
-              { name: "Programme Grande Ecole", org: "Yschools", date: "2024 - 2025", description: "Marketing & Developpement Commercial." },
+              { name: "Programme Grande École", org: "Yschools", date: "2024 - 2025", description: "Marketing & Développement Commercial." },
               { name: "Master en Logistique", org: "ENCG El Jadida", date: "2020 - 2025", description: "Supply chain, transport, management de projet." },
               { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "En cours", description: "Parcours data, automatisation, visualisation." }
             ]
           },
           skills: {
-            title: "Competences",
+            title: "Compétences",
             categories: [
               { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
               { name: "Automatisation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
@@ -523,16 +527,16 @@
               { name: "Outils", items: [["Notion", 86], ["Hubspot", 78], ["Pack Office", 90], ["Airtable", 79]] }
             ]
           },
-          contact: { title: "Contact", name: "Nom", email: "Email", message: "Message", send: "Envoyer" }
+          contact: { title: "Contact", simpleLabel: "Contactez-moi par email", name: "Nom", email: "Email", message: "Message", send: "Envoyer" }
         },
         en: {
           nav: { about: "About", projects: "Projects", education: "Education", skills: "Skills", contact: "Contact" },
           hero: {
-            eyebrow: "Premium portfolio",
+            eyebrow: "Portfolio",
             name: "Lamyaa MARZOUQ",
             role: "Digital marketing, data and AI for business",
             intro:
-              "I build high-impact digital experiences connecting strategy, data and automation. My focus is measurable performance with a clean and premium execution.",
+              "I build high-impact digital experiences connecting strategy, data and automation. My focus is measurable performance with a clean and professional execution.",
             ctaProjects: "View projects",
             ctaContact: "Contact me"
           },
@@ -593,7 +597,7 @@
               { name: "Tools", items: [["Notion", 86], ["Hubspot", 78], ["MS Office", 90], ["Airtable", 79]] }
             ]
           },
-          contact: { title: "Contact", name: "Name", email: "Email", message: "Message", send: "Send" }
+          contact: { title: "Contact", simpleLabel: "Contact me by email", name: "Name", email: "Email", message: "Message", send: "Send" }
         }
       };
 
