@@ -691,8 +691,9 @@
             <p class="meta"><strong>${t.projects.features}:</strong> ${p.features}</p>
             <div class="tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
             <div class="links">
-              <a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>
-            </div>
+  <a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>
+  ${p.url ? `<a href="${p.url}" target="_blank" rel="noreferrer">Lien</a>` : ""}
+</div>
           </article>
         `).join("");
       }
