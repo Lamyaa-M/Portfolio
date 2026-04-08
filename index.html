@@ -105,6 +105,24 @@
         cursor: pointer;
       }
 
+      .lang-switch {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .lang-switch .chip {
+        border: 0;
+        border-radius: 0;
+        min-width: 46px;
+      }
+
+      .lang-switch .chip.active {
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        color: #fff;
+      }
+
       .burger {
         display: none;
       }
@@ -430,24 +448,27 @@
         <div></div>
         <nav>
           <ul>
-            <li><a href="#about" data-t="nav.about">A propos</a></li>
+            <li><a href="#about" data-t="nav.about">À propos</a></li>
             <li><a href="#projects" data-t="nav.projects">Projets</a></li>
-            <li><a href="#education" data-t="nav.education">Diplomes</a></li>
-            <li><a href="#skills" data-t="nav.skills">Competences</a></li>
+            <li><a href="#education" data-t="nav.education">Diplômes</a></li>
+            <li><a href="#skills" data-t="nav.skills">Compétences</a></li>
             <li><a href="#contact" data-t="nav.contact">Contact</a></li>
           </ul>
         </nav>
         <div class="controls">
-          <button class="chip" id="langBtn">FR</button>
+          <div class="lang-switch" aria-label="Language switch">
+            <button class="chip active" id="langFr" type="button">FR</button>
+            <button class="chip" id="langEn" type="button">EN</button>
+          </div>
           <button class="chip" id="themeBtn">Light</button>
           <button class="chip burger" id="burgerBtn">Menu</button>
         </div>
       </div>
       <div class="container" id="mobileMenu">
-        <a href="#about" data-t="nav.about">A propos</a>
+        <a href="#about" data-t="nav.about">À propos</a>
         <a href="#projects" data-t="nav.projects">Projets</a>
-        <a href="#education" data-t="nav.education">Diplomes</a>
-        <a href="#skills" data-t="nav.skills">Competences</a>
+        <a href="#education" data-t="nav.education">Diplômes</a>
+        <a href="#skills" data-t="nav.skills">Compétences</a>
         <a href="#contact" data-t="nav.contact">Contact</a>
       </div>
     </header>
@@ -466,7 +487,7 @@
       </section>
 
       <section id="about" class="block reveal">
-        <h2 data-t="about.title">A propos</h2>
+        <h2 data-t="about.title">À propos</h2>
         <p class="section-text" data-t="about.text"></p>
       </section>
 
@@ -476,12 +497,12 @@
       </section>
 
       <section id="education" class="block reveal">
-        <h2 data-t="education.title">Diplomes & Certifications</h2>
+        <h2 data-t="education.title">Diplômes & Certifications</h2>
         <div class="grid cols-2" id="eduGrid"></div>
       </section>
 
       <section id="skills" class="block reveal">
-        <h2 data-t="skills.title">Competences</h2>
+        <h2 data-t="skills.title">Compétences</h2>
         <div class="grid cols-2" id="skillsGrid"></div>
       </section>
 
@@ -513,41 +534,41 @@
     <script>
       const content = {
         fr: {
-          nav: { about: "A propos", projects: "Projets", education: "Diplomes", skills: "Competences", contact: "Contact" },
+          nav: { about: "À propos", projects: "Projets", education: "Diplômes", skills: "Compétences", contact: "Contact" },
           hero: {
             eyebrow: "Portfolio",
             name: "Lamyaa MARZOUQ",
-            role: "Marketing digital, data et IA appliquee au business",
+            role: "Marketing digital, data et IA appliquée au business",
             intro:
-              "Passionnee par la communication et le marketing digital, je construis des experiences utiles qui relient strategie, data et automatisation. Je suis orientee vers des projets performants, elegants et mesurables.",
+              "Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie, data et automatisation. Je suis orientée vers des projets performants, élégants et mesurables.",
             currentRole: "Actuellement en alternance : Assistante Cheffe de Produit chez Electrolux Group.",
             ctaProjects: "Voir mes projets",
             ctaContact: "Me contacter"
           },
           about: {
-            title: "A propos",
+            title: "À propos",
             text:
-              "Je suis diplomee en Marketing & Developpement Commercial et je poursuis un parcours en IA appliquee au business. Mon objectif est de transformer les donnees en decisions claires, avec une approche humaine, creative et orientee impact."
+              "Je suis diplômée en Marketing & Développement Commercial et je poursuis un parcours en IA appliquée au business. Mon objectif est de transformer les données en décisions claires, avec une approche humaine, créative et orientée impact."
           },
           projects: {
             title: "Projets",
             goal: "Objectif",
-            features: "Fonctionnalites",
+            features: "Fonctionnalités",
             items: [
               {
                 title: "SPA - Projet Animal Solidarity",
-                description: "Projet de lutte contre l'abandon des animaux, base sur l'analyse des causes principales et la creation d'un parcours de recommandation d'adoption responsable.",
-                goal: "Aider les futurs adoptants a choisir un animal compatible avec leur mode de vie pour eviter les adoptions impulsives.",
-                features: "Analyse des causes d'abandon, scraping des donnees, questionnaire interactif, recommandation personnalisee, sensibilisation a l'adoption responsable.",
+                description: "Projet de lutte contre l’abandon des animaux, basé sur l’analyse des causes principales et la création d’un parcours de recommandation d’adoption responsable.",
+                goal: "Aider les futurs adoptants à choisir un animal compatible avec leur mode de vie pour éviter les adoptions impulsives.",
+                features: "Analyse des causes d’abandon, scraping des données, questionnaire interactif, recommandation personnalisée, sensibilisation à l’adoption responsable.",
                 stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
                 github: "https://github.com/Lamyaa-M/Projet_SPA",
                 live: "https://joyful-companions.lovable.app/"
               },
               {
                 title: "BreastWise",
-                description: "Application mobile d'accompagnement autour du cancer du sein, avec suivi, onboarding guide et activites bien-etre pour soutenir les utilisatrices au quotidien.",
-                goal: "Offrir un espace mobile utile, humain et structure pour ameliorer l'accompagnement et l'autonomie des utilisatrices.",
-                features: "Onboarding personnalise, suivi utilisateur, contenus bien-etre, architecture mobile avec navigation fluide.",
+                description: "Application mobile d’accompagnement autour du cancer du sein, avec suivi, onboarding guidé et activités bien-être pour soutenir les utilisatrices au quotidien.",
+                goal: "Offrir un espace mobile utile, humain et structuré pour améliorer l’accompagnement et l’autonomie des utilisatrices.",
+                features: "Onboarding personnalisé, suivi utilisateur, contenus bien-être, architecture mobile avec navigation fluide.",
                 stack: ["React Native", "Expo", "JavaScript", "Supabase"],
                 github: "https://github.com/Lamyaa-M/BreastWise",
                 live: "https://github.com/Lamyaa-M/BreastWise"
@@ -555,15 +576,15 @@
             ]
           },
           education: {
-            title: "Diplomes & Certifications",
+            title: "Diplômes & Certifications",
             items: [
               { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code." },
-              { name: "Programme Grande Ecole", org: "Yschools", date: "2024 - 2025", description: "Marketing & Developpement Commercial." },
+              { name: "Programme Grande École", org: "Yschools", date: "2024 - 2025", description: "Marketing & Développement Commercial." },
               { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "En cours", description: "Parcours data, automatisation, visualisation." }
             ]
           },
           skills: {
-            title: "Competences",
+            title: "Compétences",
             categories: [
               { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
               { name: "Automatisation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
@@ -655,7 +676,10 @@
         renderProjects(t);
         renderEducation(t);
         renderSkills(t);
-        document.getElementById("langBtn").textContent = lang.toUpperCase();
+        const frBtn = document.getElementById("langFr");
+        const enBtn = document.getElementById("langEn");
+        frBtn.classList.toggle("active", lang === "fr");
+        enBtn.classList.toggle("active", lang === "en");
       }
 
       function renderProjects(t) {
@@ -727,8 +751,13 @@
         });
       }
 
-      document.getElementById("langBtn").addEventListener("click", () => {
-        lang = lang === "fr" ? "en" : "fr";
+      document.getElementById("langFr").addEventListener("click", () => {
+        lang = "fr";
+        renderText();
+      });
+
+      document.getElementById("langEn").addEventListener("click", () => {
+        lang = "en";
         renderText();
       });
 
