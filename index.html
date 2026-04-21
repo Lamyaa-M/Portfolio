@@ -1,137 +1,493 @@
 <!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lamyaa MARZOUQ - Portfolio</title>
-  <style>
-    :root{--bg:#0f172a;--panel:#111c38;--text:#e8eefc;--muted:#b8c3dd;--accent:#7c3aed;--accent-2:#06b6d4;--line:rgba(255,255,255,.12)}
-    body.light{--bg:#f2f5ff;--panel:#fff;--text:#1a2340;--muted:#546287;--line:rgba(0,0,0,.1)}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden}
-    .container{max-width:1100px;margin:0 auto;padding:0 20px}
-    .topbar{position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 78%,transparent)}
-    .topbar-inner{min-height:68px;display:flex;align-items:center;justify-content:space-between}
-    .brand{font-weight:700;letter-spacing:.3px}
-    .controls{display:flex;gap:10px;align-items:center}
-    .chip{border:1px solid var(--line);color:var(--text);background:color-mix(in srgb,var(--panel) 82%,transparent);border-radius:999px;padding:7px 12px;cursor:pointer}
-    .lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
-    .lang-switch .chip{border:0;border-radius:0;min-width:46px}
-    .lang-switch .chip.active{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#fff}
-    #mobileMenu{display:none;border-top:1px solid var(--line);padding:10px 0 16px}
-    #mobileMenu.show{display:block}
-    #mobileMenu a{display:block;padding:10px 0;text-decoration:none;color:var(--muted)}
-    .hero{min-height:70vh;display:grid;align-content:center;gap:14px;padding:56px 0}
-    .eyebrow{color:var(--accent);font-weight:600}
-    h1{margin:0;font-size:clamp(36px,7vw,72px);line-height:1.05}
-    h2{font-size:clamp(28px,5vw,44px);margin:0}
-    .subtitle{font-size:clamp(18px,3vw,28px);color:var(--muted)}
-    .lead,.meta,.section-text{color:var(--muted);line-height:1.75;text-align:left}
-    .section-text{max-width:840px;margin-top:14px}
-    .btns{display:flex;flex-wrap:wrap;gap:12px}
-    .btn{border-radius:999px;padding:12px 18px;text-decoration:none;border:1px solid transparent;cursor:pointer}
-    .btn-primary{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:#fff}
-    .btn-secondary{border-color:var(--line);color:var(--text);background:transparent}
-    section.block{padding:56px 0;border-top:1px solid var(--line)}
-    .grid{display:grid;gap:16px;margin-top:24px}
-    .projects{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .cols-2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;text-align:left}
-    .card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 60%,var(--line));box-shadow:0 16px 36px rgba(0,0,0,.3)}
-    .project-card{cursor:pointer}
-    .mockup{width:100%;height:160px;border-radius:12px;margin-bottom:12px;object-fit:cover;border:1px solid var(--line)}
-    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .tag{border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--muted)}
-    .links{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
-    .links a{color:var(--accent)}
-    .contact-simple{text-align:center;padding:28px}
-    .contact-email{display:inline-block;margin-top:8px;font-size:1.1rem;color:var(--text);text-decoration:none;border-bottom:1px solid var(--line)}
-    .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
-    .contact-icon-link{display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px;text-decoration:none;color:var(--text);background:color-mix(in srgb,var(--panel) 82%,transparent)}
-    .contact-icon-link img{width:20px;height:20px;object-fit:contain}
-    .edu-item{display:flex;align-items:flex-start;gap:12px}
-    .edu-logo{width:48px;height:48px;object-fit:contain;border-radius:10px;border:1px solid var(--line);background:#fff;flex-shrink:0}
-    .skill{margin-bottom:12px}
-    .skill-top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
-    .bar{height:9px;border-radius:999px;background:rgba(255,255,255,.08)}
-    .fill{height:100%;border-radius:999px;background:var(--accent);width:0;transition:width 1s ease}
-    .project-detail{display:none;padding:32px 0 56px;border-top:1px solid var(--line)}
-    .project-detail.show{display:block}
-    .detail-panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:22px}
-    .detail-header{display:flex;gap:16px;align-items:center;margin-bottom:16px}
-    .detail-header img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
-    #appWrapper.hidden{visibility:hidden}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lamyaa MARZOUQ - Portfolio</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --panel: #111c38;
+        --text: #e8eefc;
+        --muted: #b8c3dd;
+        --accent: #7c3aed;
+        --accent-2: #06b6d4;
+        --line: rgba(255, 255, 255, 0.12);
+      }
 
-    /* Loader premium (sans vidéo) */
-    #loadingScreen{
-      position:fixed;inset:0;z-index:2000;
-      display:grid;place-items:center;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(124,58,237,.25), transparent 45%),
-        radial-gradient(circle at 80% 30%, rgba(6,182,212,.22), transparent 40%),
-        #070b17;
-      transition:opacity .35s ease;
-    }
-    #loadingScreen.hide{opacity:0;pointer-events:none}
-    .loader-box{
-      text-align:center;
-      padding:28px 24px;
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-      backdrop-filter:blur(10px);
-      min-width:min(88vw,440px);
-      box-shadow:0 14px 45px rgba(0,0,0,.35);
-    }
-    .loader-title{
-      margin:0 0 10px;
-      font-size:clamp(24px,4vw,34px);
-      letter-spacing:.3px;
-      color:#f8fafc;
-    }
-    .loader-sub{
-      margin:0 0 16px;
-      color:#cbd5e1;
-      font-size:15px;
-    }
-    .loader-bar{
-      height:8px;border-radius:999px;
-      background:rgba(255,255,255,.12);
-      overflow:hidden;
-    }
-    .loader-fill{
-      height:100%;width:35%;border-radius:999px;
-      background:linear-gradient(120deg,var(--accent),var(--accent-2));
-      animation:loaderMove 1.2s ease-in-out infinite;
-    }
-    @keyframes loaderMove{
-      0%{transform:translateX(-120%)}
-      100%{transform:translateX(320%)}
-    }
+      body.light {
+        --bg: #f2f5ff;
+        --panel: #ffffff;
+        --text: #1a2340;
+        --muted: #546287;
+        --line: rgba(0, 0, 0, 0.1);
+      }
 
-    @media (max-width:900px){.brand{display:none}}
-  </style>
-</head>
-<body>
-  <div id="loadingScreen">
-    <div class="loader-box">
-      <h2 class="loader-title" id="loadingTitle">Patientez…</h2>
-      <p class="loader-sub" id="loadingSub">Votre portfolio se prépare avec style ✨</p>
-      <div class="loader-bar"><div class="loader-fill"></div></div>
-    </div>
-  </div>
+      * {
+        box-sizing: border-box;
+      }
 
-  <div id="appWrapper" class="hidden">
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+        background-image:
+          radial-gradient(circle at 10% 10%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 42%),
+          radial-gradient(circle at 85% 5%, color-mix(in srgb, var(--accent-2) 26%, transparent), transparent 36%);
+        background-attachment: fixed;
+      }
+
+      .progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0%;
+        background: var(--accent);
+        z-index: 2000;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--bg) 78%, transparent);
+      }
+
+      .topbar-inner {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 18px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      nav a:hover {
+        color: var(--text);
+      }
+
+      .controls {
+        display: flex;
+        gap: 10px;
+      }
+
+      .chip {
+        border: 1px solid var(--line);
+        color: var(--text);
+        background: color-mix(in srgb, var(--panel) 82%, transparent);
+        border-radius: 999px;
+        padding: 7px 12px;
+        cursor: pointer;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .lang-switch .chip {
+        border: 0;
+        border-radius: 0;
+        min-width: 46px;
+      }
+
+      .lang-switch .chip.active {
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        color: #fff;
+      }
+
+      .burger {
+        display: inline-block;
+      }
+
+      .hero {
+        min-height: 82vh;
+        display: grid;
+        align-content: center;
+        gap: 18px;
+        padding: 56px 0;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(36px, 7vw, 72px);
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        font-size: clamp(18px, 3vw, 28px);
+        color: var(--muted);
+      }
+
+      .lead {
+        max-width: 760px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .btn {
+        border-radius: 999px;
+        padding: 12px 18px;
+        text-decoration: none;
+        border: 1px solid transparent;
+      }
+
+      .btn-primary {
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        color: #fff;
+      }
+
+      .btn-secondary {
+        border-color: var(--line);
+        color: var(--text);
+      }
+
+      section.block {
+        padding: 64px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        font-size: clamp(28px, 5vw, 44px);
+        margin: 0;
+      }
+
+      .section-text {
+        color: var(--muted);
+        line-height: 1.8;
+        margin-top: 14px;
+        max-width: 820px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .projects {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 18px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: auto -20% -60% -20%;
+        height: 140px;
+        background: radial-gradient(circle, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+      }
+
+      .card:hover::before {
+        opacity: 1;
+      }
+
+      .mockup {
+        height: 160px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        object-fit: cover;
+        border: 1px solid var(--line);
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+        text-align: left;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .links {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .links a {
+        color: var(--accent);
+      }
+
+      .project-card {
+        cursor: pointer;
+      }
+
+      .project-detail {
+        display: none;
+        padding: 32px 0 56px;
+        border-top: 1px solid var(--line);
+      }
+
+      .project-detail.show {
+        display: block;
+      }
+
+      .detail-panel {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--panel);
+        padding: 22px;
+      }
+
+      .detail-header {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .detail-header img {
+        width: 84px;
+        height: 84px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+      }
+
+      .edu-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .edu-logo {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: #fff;
+        flex-shrink: 0;
+      }
+
+      .cols-2 {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      .skill {
+        margin-bottom: 12px;
+      }
+
+      .skill-top {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+
+      .bar {
+        height: 9px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .fill {
+        height: 100%;
+        border-radius: 999px;
+        background: var(--accent);
+        width: 0;
+        transition: width 1s ease;
+      }
+
+      .contact-simple {
+        text-align: center;
+        padding: 28px;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      .contact-icon-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        text-decoration: none;
+        color: var(--text);
+        background: color-mix(in srgb, var(--panel) 82%, transparent);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .contact-icon-link img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+      }
+
+      .contact-icon-link:hover {
+        transform: translateY(-3px);
+        border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+      }
+
+      .contact-email {
+        display: inline-block;
+        margin-top: 8px;
+        font-size: 1.1rem;
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 2px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      #mobileMenu {
+        display: none;
+        border-top: 1px solid var(--line);
+        padding: 10px 0 16px;
+      }
+
+      #mobileMenu a {
+        display: block;
+        padding: 8px 0;
+        text-decoration: none;
+        color: var(--muted);
+      }
+
+      #loader {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: var(--bg);
+        z-index: 3000;
+      }
+
+      .spinner {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
+        border-top-color: transparent;
+        animation: spin 0.9s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 900px) {
+        nav {
+          display: none;
+        }
+
+        #mobileMenu.show {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader"><div class="spinner" aria-hidden="true"></div></div>
+    <div class="progress" id="progress"></div>
+
     <header class="topbar">
       <div class="container topbar-inner">
-        <div class="brand">Lamyaa MARZOUQ</div>
+        <div></div>
+        <nav>
+          <ul>
+            <li><a href="#contact" data-t="nav.contact">Contact</a></li>
+            <li><a href="#about" data-t="nav.about">À propos</a></li>
+            <li><a href="#projects" data-t="nav.projects">Projets</a></li>
+            <li><a href="#education" data-t="nav.education">Diplômes</a></li>
+            <li><a href="#skills" data-t="nav.skills">Compétences</a></li>
+          </ul>
+        </nav>
         <div class="controls">
-          <div class="lang-switch">
+          <div class="lang-switch" aria-label="Language switch">
             <button class="chip active" id="langFr" type="button">FR</button>
             <button class="chip" id="langEn" type="button">EN</button>
           </div>
-          <button class="chip" id="themeBtn" type="button">Light</button>
-          <button class="chip" id="burgerBtn" type="button">Menu</button>
+          <button class="chip" id="themeBtn">Light</button>
+          <button class="chip burger" id="burgerBtn">Menu</button>
         </div>
       </div>
       <div class="container" id="mobileMenu">
@@ -144,209 +500,95 @@
     </header>
 
     <main class="container">
-      <section id="contact" class="block">
-        <h2 data-t="contact.title"></h2>
+      <section id="contact" class="block reveal">
+        <h2 data-t="contact.title">Contact</h2>
         <div class="grid">
           <div class="card contact-simple">
-            <p class="meta" data-t="contact.simpleLabel"></p>
+            <p class="meta" data-t="contact.simpleLabel">Contactez-moi par email</p>
             <a class="contact-email" href="mailto:lamyaaamarzouq2002@gmail.com">lamyaaamarzouq2002@gmail.com</a>
             <div class="contact-grid">
-              <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com"><img src="./images/gmaillogo.png" alt="Gmail" /> Email</a>
-              <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer"><img src="./images/githublogo.png" alt="GitHub" /> GitHub</a>
-              <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer"><img src="./images/linkdeinlogo.png" alt="LinkedIn" /> LinkedIn</a>
+              <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com">
+                <img src="./images/gmaillogo.png" alt="Gmail" />
+                Email
+              </a>
+              <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer">
+                <img src="./images/githublogo.png" alt="GitHub" />
+                GitHub
+              </a>
+              <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer">
+                <img src="./images/linkdeinlogo.png" alt="LinkedIn" />
+                LinkedIn
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="hero">
-        <div class="eyebrow" data-t="hero.eyebrow"></div>
-        <h1 data-t="hero.name"></h1>
-        <div class="subtitle" data-t="hero.role"></div>
+      <section class="hero reveal">
+        <div class="eyebrow" data-t="hero.eyebrow">Portfolio</div>
+        <h1 data-t="hero.name">Lamyaa MARZOUQ</h1>
+        <div class="subtitle" data-t="hero.role">AI for business</div>
         <p class="lead" data-t="hero.intro"></p>
         <p class="lead" data-t="hero.currentRole"></p>
         <div class="btns">
-          <a class="btn btn-primary" href="#projects" data-t="hero.ctaProjects"></a>
-          <a class="btn btn-secondary" href="#contact" data-t="hero.ctaContact"></a>
+          <a class="btn btn-primary" href="#projects" data-t="hero.ctaProjects">Voir mes projets</a>
+          <a class="btn btn-secondary" href="#contact" data-t="hero.ctaContact">Me contacter</a>
         </div>
       </section>
 
-      <section id="about" class="block"><h2 data-t="about.title"></h2><p class="section-text" data-t="about.text"></p></section>
-      <section id="projects" class="block"><h2 data-t="projects.title"></h2><div class="grid projects" id="projectsGrid"></div></section>
-      <section id="education" class="block"><h2 data-t="education.title"></h2><div class="grid cols-2" id="eduGrid"></div></section>
-      <section id="skills" class="block"><h2 data-t="skills.title"></h2><div class="grid cols-2" id="skillsGrid"></div></section>
+      <section id="about" class="block reveal">
+        <h2 data-t="about.title">À propos</h2>
+        <p class="section-text" data-t="about.text"></p>
+      </section>
+
+      <section id="projects" class="block reveal">
+        <h2 data-t="projects.title">Projets</h2>
+        <div class="grid projects" id="projectsGrid"></div>
+      </section>
+
+      <section id="education" class="block reveal">
+        <h2 data-t="education.title">Diplômes & Certifications</h2>
+        <div class="grid cols-2" id="eduGrid"></div>
+      </section>
+
+      <section id="skills" class="block reveal">
+        <h2 data-t="skills.title">Compétences</h2>
+        <div class="grid cols-2" id="skillsGrid"></div>
+      </section>
     </main>
 
     <section class="container project-detail" id="projectDetail">
-      <button class="btn btn-secondary" id="backProjectBtn" type="button">Retour</button>
-      <article class="detail-panel" style="margin-top:14px">
-        <div class="detail-header"><img id="detailImage" alt="Project" /><div><h2 id="detailTitle"></h2></div></div>
+      <button class="btn btn-secondary" id="backProjectBtn">Retour</button>
+      <article class="detail-panel" style="margin-top: 14px">
+        <div class="detail-header">
+          <img id="detailImage" alt="Project" />
+          <div>
+            <h2 id="detailTitle"></h2>
+          </div>
+        </div>
         <p class="meta" id="detailDescription"></p>
-        <p class="meta"><strong><span id="detailGoalLabel"></span></strong> <span id="detailGoal"></span></p>
-        <p class="meta"><strong><span id="detailFeaturesLabel"></span></strong> <span id="detailFeatures"></span></p>
-        <div class="tags" id="detailTags"></div><div class="links" id="detailLinks"></div>
+        <p class="meta"><strong id="detailGoalLabel"></strong> <span id="detailGoal"></span></p>
+        <p class="meta"><strong id="detailFeaturesLabel"></strong> <span id="detailFeatures"></span></p>
+        <div class="tags" id="detailTags"></div>
+        <div class="links" id="detailLinks"></div>
       </article>
     </section>
-  </div>
 
-  <script>
-    const content={
-      fr:{
-        loading:{title:"Patientez…",sub:"Votre portfolio se prépare avec style ✨"},
-        nav:{contact:"Contact",about:"À propos",projects:"Projets",education:"Diplômes",skills:"Compétences"},
-        hero:{eyebrow:"Portfolio",name:"Lamyaa MARZOUQ",role:"Data et IA appliquée au business",intro:"Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie, data et automatisation.",currentRole:"Actuellement en alternance : Assistante Cheffe de Produit chez Electrolux Group.",ctaProjects:"Voir mes projets",ctaContact:"Me contacter"},
-        about:{title:"À propos",text:"Je suis diplômée en Marketing & Développement Commercial, passionnée par la communication, l'innovation et l'analyse de données. À travers mes expériences en entreprise et mes projets, je développe des solutions concrètes pour connecter stratégie, outils digitaux et IA appliquée."},
-        projects:{title:"Projets",goal:"Objectif",features:"Fonctionnalités",shortLabel:"Résumé",viewDetails:"Voir le détail",items:[
-          {title:"SPA - Projet Animal Solidarity",short:"Plateforme orientée adoption responsable avec analyse des causes d'abandon.",description:"Ce projet analyse en profondeur les causes d’abandon des animaux de compagnie puis guide l’adoptant vers le profil d’animal le plus adapté.",goal:"Réduire les adoptions inadaptées grâce à une mise en relation plus pertinente.",features:"Scraping, consolidation de données, questionnaire interactif, recommandations personnalisées.",stack:["Python","Scraping","API","CSV","Data Analysis"],github:"https://github.com/Lamyaa-M/Projet_SPA",url:"https://joyful-companions.lovable.app/",image:"./images/icone site.png"},
-          {title:"BreastWise",short:"Application mobile d’accompagnement et de bien-être pour les utilisatrices.",description:"Application mobile conçue pour accompagner les utilisatrices touchées par le cancer du sein avec une expérience claire et rassurante.",goal:"Améliorer l’accompagnement quotidien avec une app personnalisée.",features:"Onboarding guidé, suivi utile, contenus bien-être, navigation fluide.",stack:["React Native","Expo","JavaScript","Supabase"],github:"https://github.com/Lamyaa-M/BreastWise",image:"./images/LOGO.jpeg"}
-        ]},
-        education:{title:"Diplômes & Certifications",items:[
-          {name:"Dataiku Core Designer Certificate",org:"Dataiku",date:"7 janvier 2026",description:"Conception de flux analytiques, préparation de données et collaboration projet sur DSS.",logo:"./images/dataikulogo.png"},
-          {name:"MSc AI Applied to Business",org:"Eugenia School Paris",date:"2025 - 2027",description:"Business analytics, data visualisation, CRM, no-code.",logo:"./images/eugenialogo.jpg"},
-          {name:"Programme Grande École",org:"Yschools, South Champagne Business School",date:"2024 - 2025",description:"Marketing & Développement Commercial.",logo:"./images/yschoolslogo.png"}
-        ]},
-        skills:{title:"Compétences",categories:[
-          {name:"Data",items:[["Python",86],["SQL",84],["Dataiku",80],["Tableau",79]]},
-          {name:"Automatisation",items:[["Make",82],["Google Sheets",88],["Dust",74],["Cursor",78]]},
-          {name:"Marketing",items:[["Gestion de projet",85],["Communication",90],["Content strategy",76],["Canva",92]]},
-          {name:"Outils",items:[["Notion",86],["Hubspot",78],["Pack Office",90],["Airtable",79]]}
-        ]},
-        contact:{title:"Contact",simpleLabel:"Contactez-moi par email"}
-      },
-      en:{
-        loading:{title:"Please wait…",sub:"Your portfolio is loading in style ✨"},
-        nav:{contact:"Contact",about:"About",projects:"Projects",education:"Education",skills:"Skills"},
-        hero:{eyebrow:"Portfolio",name:"Lamyaa MARZOUQ",role:"Data and AI for business",intro:"I build high-impact digital experiences connecting strategy, data and automation.",currentRole:"Current role: Product Assistant Apprentice at Electrolux Group.",ctaProjects:"View projects",ctaContact:"Contact me"},
-        about:{title:"About",text:"I hold a degree in Marketing & Business Development and focus on AI applied to business. Through professional experiences and hands-on projects, I build practical solutions that connect strategy, data and digital tools."},
-        projects:{title:"Projects",goal:"Goal",features:"Features",shortLabel:"Summary",viewDetails:"View details",items:[
-          {title:"SPA - Animal Solidarity Project",short:"Responsible adoption platform based on pet abandonment analysis.",description:"This project analyzes the main drivers of pet abandonment and guides adopters toward suitable pet profiles.",goal:"Reduce unsuitable adoptions through better matching.",features:"Data scraping, consolidation, interactive questionnaire, personalized recommendations.",stack:["Python","Scraping","API","CSV","Data Analysis"],github:"https://github.com/Lamyaa-M/Projet_SPA",url:"https://joyful-companions.lovable.app/",image:"./images/icone site.png"},
-          {title:"BreastWise",short:"Mobile support app focused on wellbeing and guided onboarding.",description:"Mobile app designed to support users affected by breast cancer through a clear and reassuring experience.",goal:"Deliver a clear and personalized daily support experience.",features:"Guided onboarding, useful follow-up, wellbeing content, smooth navigation.",stack:["React Native","Expo","JavaScript","Supabase"],github:"https://github.com/Lamyaa-M/BreastWise",image:"./images/LOGO.jpeg"}
-        ]},
-        education:{title:"Degrees & Certifications",items:[
-          {name:"Dataiku Core Designer Certificate",org:"Dataiku",date:"January 7, 2026",description:"Designing analytical workflows, data preparation and project collaboration on DSS.",logo:"./images/dataikulogo.png"},
-          {name:"MSc AI Applied to Business",org:"Eugenia School Paris",date:"2025 - 2027",description:"Business analytics, data visualization, CRM, no-code.",logo:"./images/eugenialogo.jpg"},
-          {name:"Grande Ecole Program",org:"Yschools, South Champagne Business School",date:"2024 - 2025",description:"Marketing & Business Development.",logo:"./images/yschoolslogo.png"}
-        ]},
-        skills:{title:"Skills",categories:[
-          {name:"Data",items:[["Python",86],["SQL",84],["Dataiku",80],["Tableau",79]]},
-          {name:"Automation",items:[["Make",82],["Google Sheets",88],["Dust",74],["Cursor",78]]},
-          {name:"Marketing",items:[["Project management",85],["Communication",90],["Content strategy",76],["Canva",92]]},
-          {name:"Tools",items:[["Notion",86],["Hubspot",78],["MS Office",90],["Airtable",79]]}
-        ]},
-        contact:{title:"Contact",simpleLabel:"Contact me by email"}
-      }
-    };
-
-    let lang="fr", dark=true;
-    const byPath=(obj,path)=>path.split(".").reduce((a,k)=>a&&a[k],obj);
-
-    function setLoadingText(){
-      const t=content[lang];
-      document.getElementById("loadingTitle").textContent=t.loading.title;
-      document.getElementById("loadingSub").textContent=t.loading.sub;
-    }
-
-    function playScreenTransition(duration=700){
-      return new Promise((resolve)=>{
-        const loader=document.getElementById("loadingScreen");
-        setLoadingText();
-        loader.classList.remove("hide");
-        setTimeout(()=>{
-          loader.classList.add("hide");
-          setTimeout(resolve,220);
-        },duration);
-      });
-    }
-
-    function renderText(){
-      const t=content[lang];
-      document.documentElement.lang=lang;
-      document.querySelectorAll("[data-t]").forEach(el=>{const v=byPath(t,el.dataset.t); if(typeof v==="string") el.textContent=v;});
-      setLoadingText();
-      renderProjects(t); renderEducation(t); renderSkills(t);
-      document.getElementById("langFr").classList.toggle("active",lang==="fr");
-      document.getElementById("langEn").classList.toggle("active",lang==="en");
-    }
-
-    function renderProjects(t){
-      const root=document.getElementById("projectsGrid");
-      root.innerHTML=t.projects.items.map((p,i)=>`
-        <article class="card project-card" data-index="${i}">
-          <img class="mockup" src="${p.image||""}" alt="${p.title}">
-          <h3>${p.title}</h3>
-          <p class="meta"><strong>${t.projects.shortLabel}:</strong> ${p.short||p.description}</p>
-          <div class="tags">${p.stack.map(s=>`<span class="tag">${s}</span>`).join("")}</div>
-          <div class="links"><a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>${p.url?`<a href="${p.url}" target="_blank" rel="noreferrer">Lien</a>`:""}<span class="meta">${t.projects.viewDetails}</span></div>
-        </article>`).join("");
-      root.querySelectorAll(".project-card").forEach(card=>{
-        card.addEventListener("click",async(e)=>{
-          if(e.target.tagName.toLowerCase()==="a") return;
-          await playScreenTransition(900);
-          openProjectDetail(t.projects.items[Number(card.dataset.index)],t);
-        });
-      });
-    }
-
-    function openProjectDetail(project,t){
-      document.querySelector("main.container").style.display="none";
-      const section=document.getElementById("projectDetail");
-      section.classList.add("show");
-      document.getElementById("detailTitle").textContent=project.title;
-      document.getElementById("detailDescription").textContent=project.description;
-      document.getElementById("detailGoalLabel").textContent=`${t.projects.goal}:`;
-      document.getElementById("detailGoal").textContent=project.goal;
-      document.getElementById("detailFeaturesLabel").textContent=`${t.projects.features}:`;
-      document.getElementById("detailFeatures").textContent=project.features;
-      document.getElementById("detailImage").src=project.image||"";
-      document.getElementById("detailImage").alt=project.title;
-      document.getElementById("detailTags").innerHTML=project.stack.map(s=>`<span class="tag">${s}</span>`).join("");
-      document.getElementById("detailLinks").innerHTML=`<a href="${project.github}" target="_blank" rel="noreferrer">GitHub</a>${project.url?`<a href="${project.url}" target="_blank" rel="noreferrer">Lien</a>`:""}`;
-    }
-
-    function closeProjectDetail(){
-      document.getElementById("projectDetail").classList.remove("show");
-      document.querySelector("main.container").style.display="block";
-    }
-
-    function renderEducation(t){
-      const root=document.getElementById("eduGrid");
-      root.innerHTML=t.education.items.map(i=>`
-        <article class="card">
-          <div class="edu-item">
-            ${i.logo?`<img class="edu-logo" src="${i.logo}" alt="${i.org}">`:""}
-            <div><div class="meta">${i.date}</div><h3>${i.name}</h3><div class="meta">${i.org}</div><p class="meta">${i.description}</p></div>
-          </div>
-        </article>`).join("");
-    }
-
-    function renderSkills(t){
-      const root=document.getElementById("skillsGrid");
-      root.innerHTML=t.skills.categories.map(c=>`
-        <article class="card"><h3>${c.name}</h3>
-        ${c.items.map(([name,level])=>`
-          <div class="skill"><div class="skill-top"><span>${name}</span><span>${level}%</span></div><div class="bar"><div class="fill" data-level="${level}"></div></div></div>`).join("")}
-        </article>`).join("");
-      requestAnimationFrame(()=>document.querySelectorAll(".fill").forEach(el=>el.style.width=el.dataset.level+"%"));
-    }
-
-    document.getElementById("langFr").addEventListener("click",async()=>{await playScreenTransition();lang="fr";renderText();});
-    document.getElementById("langEn").addEventListener("click",async()=>{await playScreenTransition();lang="en";renderText();});
-    document.getElementById("themeBtn").addEventListener("click",async()=>{await playScreenTransition();dark=!dark;document.body.classList.toggle("light",!dark);document.getElementById("themeBtn").textContent=dark?"Light":"Dark";});
-    document.getElementById("burgerBtn").addEventListener("click",()=>document.getElementById("mobileMenu").classList.toggle("show"));
-    document.querySelectorAll("#mobileMenu a").forEach(a=>a.addEventListener("click",async(e)=>{e.preventDefault();await playScreenTransition();document.getElementById("mobileMenu").classList.remove("show");const el=document.querySelector(a.getAttribute("href"));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}));
-    document.getElementById("backProjectBtn").addEventListener("click",async()=>{await playScreenTransition();closeProjectDetail();});
-
-    window.addEventListener("load",()=>{
-      const loader=document.getElementById("loadingScreen");
-      const wrapper=document.getElementById("appWrapper");
-      setLoadingText();
-      setTimeout(()=>{
-        loader.classList.add("hide");
-        wrapper.classList.remove("hidden");
-      },900);
-    });
-
-    renderText();
-  </script>
-</body>
-</html>
+    <script>
+      const content = {
+        fr: {
+          nav: { about: "À propos", projects: "Projets", education: "Diplômes", skills: "Compétences", contact: "Contact" },
+          hero: {
+            eyebrow: "Portfolio",
+            name: "Lamyaa MARZOUQ",
+            role: "IA appliquée au business",
+            intro:
+              "Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie et automatisation. Je suis orientée vers des projets performants, élégants et mesurables.",
+            currentRole: "Actuellement en alternance : Assistante Cheffe de Produit chez Electrolux Group.",
+            ctaProjects: "Voir mes projets",
+            ctaContact: "Me contacter"
+          },
+          about: {
+            title: "À propos",
+            text:
+              "
