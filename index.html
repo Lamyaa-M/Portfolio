@@ -180,6 +180,16 @@
         color: var(--text);
       }
 
+      .btn-back {
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        color: #fff;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+      }
+
       section.block {
         padding: 64px 0;
         border-top: 1px solid var(--line);
@@ -527,7 +537,7 @@
       <section class="hero reveal">
         <div class="eyebrow" data-t="hero.eyebrow">Portfolio</div>
         <h1 data-t="hero.name">Lamyaa MARZOUQ</h1>
-        <div class="subtitle" data-t="hero.role">AI for business</div>
+        <div class="subtitle" data-t="hero.role">Digital marketing and AI for business</div>
         <p class="lead" data-t="hero.intro"></p>
         <p class="lead" data-t="hero.currentRole"></p>
         <div class="btns">
@@ -558,7 +568,7 @@
     </main>
 
     <section class="container project-detail" id="projectDetail">
-      <button class="btn btn-secondary" id="backProjectBtn">Retour</button>
+      <button class="btn btn-back" id="backProjectBtn">← Retour</button>
       <article class="detail-panel" style="margin-top: 14px">
         <div class="detail-header">
           <img id="detailImage" alt="Project" />
@@ -583,15 +593,15 @@
             name: "Lamyaa MARZOUQ",
             role: "IA appliquée au business",
             intro:
-              "Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie et automatisation. Je suis orientée vers des projets performants, élégants et mesurables.",
-            currentRole: "Actuellement en alternance : Assistante Cheffe de Produit chez Electrolux Group.",
+              "Intéressée par le marketing digital et l’intelligence artificielle, je conçois des solutions qui allient stratégie et automatisation. Mon objectif est de créer des projets clairs, efficaces et mesurables.",
+            currentRole: "Actuellement en alternance : Assistante Chef de Produit Chez Electrolux Group.",
             ctaProjects: "Voir mes projets",
             ctaContact: "Me contacter"
           },
           about: {
             title: "À propos",
             text:
-              "Je suis étudiante en M1 AI Applied to Business à Eugenia School. Diplômée en Marketing & Développement Commercial, je développe des projets qui relient stratégie et outils digitaux pour répondre à des besoins business concrets."
+              "Je suis étudiante en M1 IA Applied to Business à Eugenia School. Diplômée en Marketing & Développement Commercial, je développe des projets qui relient stratégie et outils digitaux pour répondre à des besoins business concrets."
           },
           projects: {
             title: "Projets",
@@ -629,8 +639,7 @@
             items: [
               { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "Issued: Jan. 7, 2026", description: "Certification centrée sur la conception de flux analytiques, la préparation de données et la collaboration projet sur Dataiku DSS.", logo: "./images/dataikulogo.png" },
               { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
-              { name: "Programme Grande École", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Développement Commercial.", logo: "./images/yschoolslogo.png" },
-              { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "En cours", description: "Parcours data, automatisation, visualisation." }
+              { name: "Programme Grande École", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Développement Commercial.", logo: "./images/yschoolslogo.png" }
             ]
           },
           skills: {
@@ -697,8 +706,7 @@
             items: [
               { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "Issued: Jan. 7, 2026", description: "Certification focused on designing analytical workflows, data preparation and team collaboration in Dataiku DSS.", logo: "./images/dataikulogo.png" },
               { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualization, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
-              { name: "Grande Ecole Program", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Business Development.", logo: "./images/yschoolslogo.png" },
-              { name: "Certifications", org: "Google / freeCodeCamp / Coursera", date: "In progress", description: "Data, automation and visualization tracks." }
+              { name: "Grande Ecole Program", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Business Development.", logo: "./images/yschoolslogo.png" }
             ]
           },
           skills: {
