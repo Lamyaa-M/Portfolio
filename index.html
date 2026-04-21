@@ -61,26 +61,64 @@
     .detail-header{display:flex;gap:16px;align-items:center;margin-bottom:16px}
     .detail-header img{width:84px;height:84px;object-fit:cover;border-radius:12px;border:1px solid var(--line)}
     #appWrapper.hidden{visibility:hidden}
-    #dragonIntro,#dragonTransition{position:fixed;inset:0;z-index:2000;background:#000;display:grid;place-items:center}
-    #dragonTransition{display:none;z-index:1800}
-    #dragonTransition.show{display:grid}
-    .dragon-video{width:min(92vw,900px);max-height:92vh;object-fit:contain}
-    #dragonIntro .text{position:absolute;bottom:32px;color:#e5e7eb;letter-spacing:.3px}
+
+    /* Loader premium (sans vidéo) */
+    #loadingScreen{
+      position:fixed;inset:0;z-index:2000;
+      display:grid;place-items:center;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(124,58,237,.25), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(6,182,212,.22), transparent 40%),
+        #070b17;
+      transition:opacity .35s ease;
+    }
+    #loadingScreen.hide{opacity:0;pointer-events:none}
+    .loader-box{
+      text-align:center;
+      padding:28px 24px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      backdrop-filter:blur(10px);
+      min-width:min(88vw,440px);
+      box-shadow:0 14px 45px rgba(0,0,0,.35);
+    }
+    .loader-title{
+      margin:0 0 10px;
+      font-size:clamp(24px,4vw,34px);
+      letter-spacing:.3px;
+      color:#f8fafc;
+    }
+    .loader-sub{
+      margin:0 0 16px;
+      color:#cbd5e1;
+      font-size:15px;
+    }
+    .loader-bar{
+      height:8px;border-radius:999px;
+      background:rgba(255,255,255,.12);
+      overflow:hidden;
+    }
+    .loader-fill{
+      height:100%;width:35%;border-radius:999px;
+      background:linear-gradient(120deg,var(--accent),var(--accent-2));
+      animation:loaderMove 1.2s ease-in-out infinite;
+    }
+    @keyframes loaderMove{
+      0%{transform:translateX(-120%)}
+      100%{transform:translateX(320%)}
+    }
+
     @media (max-width:900px){.brand{display:none}}
   </style>
 </head>
 <body>
-  <div id="dragonIntro">
-    <video id="dragonIntroVideo" class="dragon-video" autoplay muted playsinline>
-      <source src="./images/dragons.mp4" type="video/mp4" />
-    </video>
-    <div class="text">Chargement du portfolio...</div>
-  </div>
-
-  <div id="dragonTransition">
-    <video id="dragonTransitionVideo" class="dragon-video" muted playsinline>
-      <source src="./images/dragons.mp4" type="video/mp4" />
-    </video>
+  <div id="loadingScreen">
+    <div class="loader-box">
+      <h2 class="loader-title" id="loadingTitle">Patientez…</h2>
+      <p class="loader-sub" id="loadingSub">Votre portfolio se prépare avec style ✨</p>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
   </div>
 
   <div id="appWrapper" class="hidden">
@@ -154,6 +192,7 @@
   <script>
     const content={
       fr:{
+        loading:{title:"Patientez…",sub:"Votre portfolio se prépare avec style ✨"},
         nav:{contact:"Contact",about:"À propos",projects:"Projets",education:"Diplômes",skills:"Compétences"},
         hero:{eyebrow:"Portfolio",name:"Lamyaa MARZOUQ",role:"Data et IA appliquée au business",intro:"Passionnée par la communication et le marketing digital, je construis des expériences utiles qui relient stratégie, data et automatisation.",currentRole:"Actuellement en alternance : Assistante Cheffe de Produit chez Electrolux Group.",ctaProjects:"Voir mes projets",ctaContact:"Me contacter"},
         about:{title:"À propos",text:"Je suis diplômée en Marketing & Développement Commercial, passionnée par la communication, l'innovation et l'analyse de données. À travers mes expériences en entreprise et mes projets, je développe des solutions concrètes pour connecter stratégie, outils digitaux et IA appliquée."},
@@ -175,6 +214,7 @@
         contact:{title:"Contact",simpleLabel:"Contactez-moi par email"}
       },
       en:{
+        loading:{title:"Please wait…",sub:"Your portfolio is loading in style ✨"},
         nav:{contact:"Contact",about:"About",projects:"Projects",education:"Education",skills:"Skills"},
         hero:{eyebrow:"Portfolio",name:"Lamyaa MARZOUQ",role:"Data and AI for business",intro:"I build high-impact digital experiences connecting strategy, data and automation.",currentRole:"Current role: Product Assistant Apprentice at Electrolux Group.",ctaProjects:"View projects",ctaContact:"Contact me"},
         about:{title:"About",text:"I hold a degree in Marketing & Business Development and focus on AI applied to business. Through professional experiences and hands-on projects, I build practical solutions that connect strategy, data and digital tools."},
@@ -200,12 +240,21 @@
     let lang="fr", dark=true;
     const byPath=(obj,path)=>path.split(".").reduce((a,k)=>a&&a[k],obj);
 
-    function playDragonTransition(duration=1200){
+    function setLoadingText(){
+      const t=content[lang];
+      document.getElementById("loadingTitle").textContent=t.loading.title;
+      document.getElementById("loadingSub").textContent=t.loading.sub;
+    }
+
+    function playScreenTransition(duration=700){
       return new Promise((resolve)=>{
-        const tr=document.getElementById("dragonTransition");
-        const vid=document.getElementById("dragonTransitionVideo");
-        tr.classList.add("show"); vid.currentTime=0; vid.play().catch(()=>{});
-        setTimeout(()=>{vid.pause();tr.classList.remove("show");resolve();},duration);
+        const loader=document.getElementById("loadingScreen");
+        setLoadingText();
+        loader.classList.remove("hide");
+        setTimeout(()=>{
+          loader.classList.add("hide");
+          setTimeout(resolve,220);
+        },duration);
       });
     }
 
@@ -213,6 +262,7 @@
       const t=content[lang];
       document.documentElement.lang=lang;
       document.querySelectorAll("[data-t]").forEach(el=>{const v=byPath(t,el.dataset.t); if(typeof v==="string") el.textContent=v;});
+      setLoadingText();
       renderProjects(t); renderEducation(t); renderSkills(t);
       document.getElementById("langFr").classList.toggle("active",lang==="fr");
       document.getElementById("langEn").classList.toggle("active",lang==="en");
@@ -231,7 +281,7 @@
       root.querySelectorAll(".project-card").forEach(card=>{
         card.addEventListener("click",async(e)=>{
           if(e.target.tagName.toLowerCase()==="a") return;
-          await playDragonTransition(1000);
+          await playScreenTransition(900);
           openProjectDetail(t.projects.items[Number(card.dataset.index)],t);
         });
       });
@@ -279,29 +329,21 @@
       requestAnimationFrame(()=>document.querySelectorAll(".fill").forEach(el=>el.style.width=el.dataset.level+"%"));
     }
 
-    document.getElementById("langFr").addEventListener("click",async()=>{await playDragonTransition();lang="fr";renderText();});
-    document.getElementById("langEn").addEventListener("click",async()=>{await playDragonTransition();lang="en";renderText();});
-    document.getElementById("themeBtn").addEventListener("click",async()=>{await playDragonTransition();dark=!dark;document.body.classList.toggle("light",!dark);document.getElementById("themeBtn").textContent=dark?"Light":"Dark";});
+    document.getElementById("langFr").addEventListener("click",async()=>{await playScreenTransition();lang="fr";renderText();});
+    document.getElementById("langEn").addEventListener("click",async()=>{await playScreenTransition();lang="en";renderText();});
+    document.getElementById("themeBtn").addEventListener("click",async()=>{await playScreenTransition();dark=!dark;document.body.classList.toggle("light",!dark);document.getElementById("themeBtn").textContent=dark?"Light":"Dark";});
     document.getElementById("burgerBtn").addEventListener("click",()=>document.getElementById("mobileMenu").classList.toggle("show"));
-    document.querySelectorAll("#mobileMenu a").forEach(a=>a.addEventListener("click",async(e)=>{e.preventDefault();await playDragonTransition();document.getElementById("mobileMenu").classList.remove("show");const el=document.querySelector(a.getAttribute("href"));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}));
-    document.getElementById("backProjectBtn").addEventListener("click",async()=>{await playDragonTransition();closeProjectDetail();});
+    document.querySelectorAll("#mobileMenu a").forEach(a=>a.addEventListener("click",async(e)=>{e.preventDefault();await playScreenTransition();document.getElementById("mobileMenu").classList.remove("show");const el=document.querySelector(a.getAttribute("href"));if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}));
+    document.getElementById("backProjectBtn").addEventListener("click",async()=>{await playScreenTransition();closeProjectDetail();});
 
     window.addEventListener("load",()=>{
-      const intro=document.getElementById("dragonIntro");
-      const introVideo=document.getElementById("dragonIntroVideo");
+      const loader=document.getElementById("loadingScreen");
       const wrapper=document.getElementById("appWrapper");
-
-      introVideo.currentTime=0;
-      introVideo.play().catch(()=>{});
-
-      const endIntro=()=>{
-        intro.style.opacity="0";
-        intro.style.transition="opacity .35s ease";
-        setTimeout(()=>{ if(document.body.contains(intro)) intro.remove(); wrapper.classList.remove("hidden"); },360);
-      };
-
-      introVideo.addEventListener("ended",endIntro,{once:true});
-      setTimeout(()=>{ if(document.body.contains(intro)) endIntro(); },20000);
+      setLoadingText();
+      setTimeout(()=>{
+        loader.classList.add("hide");
+        wrapper.classList.remove("hidden");
+      },900);
     });
 
     renderText();
