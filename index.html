@@ -481,6 +481,58 @@
         color: var(--muted);
         font-size: 14px;
       }
+      .snake-loader {
+        width: 160px;
+        height: 18px;
+        position: relative;
+        margin: 0 auto;
+      }
+      .snake-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #22c55e;
+        position: absolute;
+        top: 2px;
+        left: 0;
+        animation: snakeMove 2.2s linear infinite;
+      }
+      .snake-dot::before,
+      .snake-dot::after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: color-mix(in srgb, #22c55e 70%, #ffffff 30%);
+        top: 1px;
+      }
+      .snake-dot::before {
+        left: -16px;
+      }
+      .snake-dot::after {
+        left: -32px;
+      }
+      .snake-food {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ef4444;
+        position: absolute;
+        right: 0;
+        top: 4px;
+        animation: foodBlink 0.7s ease-in-out infinite alternate;
+      }
+      @keyframes snakeMove {
+        0% { left: 36px; }
+        45% { left: 146px; }
+        55% { left: 146px; }
+        100% { left: 36px; }
+      }
+      @keyframes foodBlink {
+        from { transform: scale(1); opacity: 0.8; }
+        to { transform: scale(1.2); opacity: 1; }
+      }
 
       .spinner {
         width: 52px;
@@ -511,8 +563,11 @@
   <body>
     <div id="loader">
       <div class="loader-box">
-        <div class="spinner" aria-hidden="true"></div>
-        <p class="loader-text">Veuillez patienter, chargement du portfolio...</p>
+        <div class="snake-loader" aria-hidden="true">
+          <div class="snake-dot"></div>
+          <div class="snake-food"></div>
+        </div>
+        <p class="loader-text">Chargement en cours...</p>
       </div>
     </div>
     <div class="progress" id="progress"></div>
@@ -684,9 +739,9 @@
           skills: {
             title: "Compétences",
             categories: [
-              { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
-              { name: "Automatisation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
-              { name: "Marketing", items: [["Gestion de projet", 85], ["Communication", 90], ["Content strategy", 76], ["Canva", 92]] },
+              { name: "Data", items: ["Python", "SQL", "Dataiku", "Tableau"] },
+              { name: "Automatisation", items: ["Make", "Google Sheets", "Dust", "Cursor"] },
+              { name: "Marketing", items: ["Gestion de projet", "Communication", "Content strategy", "Canva"] },
               { name: "Outils", items: ["Notion", "Pack Office", "Airtable"] }
             ]
           },
@@ -751,9 +806,9 @@
           skills: {
             title: "Skills",
             categories: [
-              { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
-              { name: "Automation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
-              { name: "Marketing", items: [["Project management", 85], ["Communication", 90], ["Content strategy", 76], ["Canva", 92]] },
+              { name: "Data", items: ["Python", "SQL", "Dataiku", "Tableau"] },
+              { name: "Automation", items: ["Make", "Google Sheets", "Dust", "Cursor"] },
+              { name: "Marketing", items: ["Project management", "Communication", "Content strategy", "Canva"] },
               { name: "Tools", items: ["Notion", "MS Office", "Airtable"] }
             ]
           },
