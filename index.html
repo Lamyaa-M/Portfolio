@@ -179,7 +179,6 @@
         border-color: var(--line);
         color: var(--text);
       }
-
       .btn-back {
         background: linear-gradient(120deg, var(--accent), var(--accent-2));
         color: #fff;
@@ -369,6 +368,26 @@
         transition: width 1s ease;
       }
 
+      form {
+        display: grid;
+        gap: 10px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+        border-radius: 10px;
+        padding: 12px;
+      }
+
+      textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+
       .contact-simple {
         text-align: center;
         padding: 28px;
@@ -404,6 +423,12 @@
       .contact-icon-link:hover {
         transform: translateY(-3px);
         border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+      }
+
+      .icon {
+        width: 18px;
+        height: 18px;
+        display: inline-block;
       }
 
       .contact-email {
@@ -448,6 +473,14 @@
         background: var(--bg);
         z-index: 3000;
       }
+      .loader-box {
+        text-align: center;
+      }
+      .loader-text {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 14px;
+      }
 
       .spinner {
         width: 52px;
@@ -476,7 +509,12 @@
     </style>
   </head>
   <body>
-    <div id="loader"><div class="spinner" aria-hidden="true"></div></div>
+    <div id="loader">
+      <div class="loader-box">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="loader-text">Veuillez patienter, chargement du portfolio...</p>
+      </div>
+    </div>
     <div class="progress" id="progress"></div>
 
     <header class="topbar">
@@ -518,15 +556,15 @@
             <a class="contact-email" href="mailto:lamyaaamarzouq2002@gmail.com">lamyaaamarzouq2002@gmail.com</a>
             <div class="contact-grid">
               <a class="contact-icon-link" href="mailto:lamyaaamarzouq2002@gmail.com">
-                <img src="./images/gmaillogo.png" alt="Gmail" />
+                <img src="file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_gmaillogo-527c4ee1-d2ac-4aac-86ba-b670aacd7c55.png" alt="Gmail" />
                 Email
               </a>
               <a class="contact-icon-link" href="https://github.com/Lamyaa-M" target="_blank" rel="noreferrer">
-                <img src="./images/githublogo.png" alt="GitHub" />
+                <img src="file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_githublogo-c51a97ab-72b5-4ecb-a024-25e225e5ac5a.png" alt="GitHub" />
                 GitHub
               </a>
               <a class="contact-icon-link" href="https://www.linkedin.com/in/lamyaa-marzouq-05a188233/" target="_blank" rel="noreferrer">
-                <img src="./images/linkdeinlogo.png" alt="LinkedIn" />
+                <img src="file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_linkdeinlogo-b54da1e1-cdc4-436a-941d-6fa5f93b845a.png" alt="LinkedIn" />
                 LinkedIn
               </a>
             </div>
@@ -565,6 +603,7 @@
         <h2 data-t="skills.title">Compétences</h2>
         <div class="grid cols-2" id="skillsGrid"></div>
       </section>
+
     </main>
 
     <section class="container project-detail" id="projectDetail">
@@ -620,7 +659,7 @@
                 stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
                 github: "https://github.com/Lamyaa-M/Projet_SPA",
                 url: "https://joyful-companions.lovable.app/",
-                image: "./images/icone site.png"
+                image: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_image-54ef9629-da6e-4e40-bad3-349d45b06db6.png"
               },
               {
                 title: "BreastWise",
@@ -630,16 +669,16 @@
                 features: "Onboarding guidé et personnalisé, suivi des informations utiles, accès à des contenus bien-être, navigation mobile fluide, architecture orientée expérience utilisateur.",
                 stack: ["React Native", "Expo", "JavaScript", "Supabase"],
                 github: "https://github.com/Lamyaa-M/BreastWise",
-                image: "./images/LOGO.jpeg"
+                image: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_LOGO-02bc6a3c-72b4-4fdd-b0a2-b5d84c5f3e5c.png"
               }
             ]
           },
           education: {
             title: "Diplômes & Certifications",
             items: [
-              { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "Issued: Jan. 7, 2026", description: "Certification centrée sur la conception de flux analytiques, la préparation de données et la collaboration projet sur Dataiku DSS.", logo: "./images/dataikulogo.png" },
-              { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
-              { name: "Programme Grande École", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Développement Commercial.", logo: "./images/yschoolslogo.png" }
+              { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "Issued: Jan. 7, 2026", description: "Certification centrée sur la conception de flux analytiques, la préparation de données et la collaboration projet sur Dataiku DSS.", logo: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_dataikulogo-da95a92e-ca3a-4c30-8080-99ada236b80d.png" },
+              { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualisation, CRM, no-code.", logo: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_eugenialogo-0b087250-a5d8-42dd-9410-184b92d5ad20.png" },
+              { name: "Programme Grande École", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Développement Commercial.", logo: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_yschoolslogo-aaf07e49-fcdf-46a0-975d-ec3e9dc2631c.png" },
             ]
           },
           skills: {
@@ -648,7 +687,7 @@
               { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
               { name: "Automatisation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
               { name: "Marketing", items: [["Gestion de projet", 85], ["Communication", 90], ["Content strategy", 76], ["Canva", 92]] },
-              { name: "Outils", items: [["Notion", 86], ["Hubspot", 78], ["Pack Office", 90], ["Airtable", 79]] }
+              { name: "Outils", items: ["Notion", "Pack Office", "Airtable"] }
             ]
           },
           contact: { title: "Contact", simpleLabel: "Contactez-moi par email", name: "Nom", email: "Email", message: "Message", send: "Envoyer" }
@@ -687,7 +726,7 @@
                 stack: ["Python", "Scraping", "API", "CSV", "Data Analysis"],
                 github: "https://github.com/Lamyaa-M/Projet_SPA",
                 url: "https://joyful-companions.lovable.app/",
-                image: "./images/icone site.png"
+                image: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_image-54ef9629-da6e-4e40-bad3-349d45b06db6.png"
               },
               {
                 title: "BreastWise",
@@ -697,16 +736,16 @@
                 features: "Guided and personalized onboarding, useful follow-up information, wellbeing content access, smooth mobile navigation, user-centered app structure.",
                 stack: ["React Native", "Expo", "JavaScript", "Supabase"],
                 github: "https://github.com/Lamyaa-M/BreastWise",
-                image: "./images/LOGO.jpeg"
+                image: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_LOGO-02bc6a3c-72b4-4fdd-b0a2-b5d84c5f3e5c.png"
               }
             ]
           },
           education: {
             title: "Degrees & Certifications",
             items: [
-              { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "Issued: Jan. 7, 2026", description: "Certification focused on designing analytical workflows, data preparation and team collaboration in Dataiku DSS.", logo: "./images/dataikulogo.png" },
-              { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualization, CRM, no-code.", logo: "./images/eugenialogo.jpg" },
-              { name: "Grande Ecole Program", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Business Development.", logo: "./images/yschoolslogo.png" }
+              { name: "Dataiku Core Designer Certificate", org: "Dataiku", date: "Issued: Jan. 7, 2026", description: "Certification focused on designing analytical workflows, data preparation and team collaboration in Dataiku DSS.", logo: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_dataikulogo-da95a92e-ca3a-4c30-8080-99ada236b80d.png" },
+              { name: "MSc AI Applied to Business", org: "Eugenia School Paris", date: "2025 - 2027", description: "Business analytics, data visualization, CRM, no-code.", logo: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_eugenialogo-0b087250-a5d8-42dd-9410-184b92d5ad20.png" },
+              { name: "Grande Ecole Program", org: "Yschools, South Champagne Business School", date: "2024 - 2025", description: "Marketing & Business Development.", logo: "file:///C:/Users/lamia/.cursor/projects/c-Users-lamia-Desktop-Portfolio/assets/c__Users_lamia_AppData_Roaming_Cursor_User_workspaceStorage_4d3d9ac5e7d8c7f0136f3818757e8a54_images_yschoolslogo-aaf07e49-fcdf-46a0-975d-ec3e9dc2631c.png" },
             ]
           },
           skills: {
@@ -715,7 +754,7 @@
               { name: "Data", items: [["Python", 86], ["SQL", 84], ["Dataiku", 80], ["Tableau", 79]] },
               { name: "Automation", items: [["Make", 82], ["Google Sheets", 88], ["Dust", 74], ["Cursor", 78]] },
               { name: "Marketing", items: [["Project management", 85], ["Communication", 90], ["Content strategy", 76], ["Canva", 92]] },
-              { name: "Tools", items: [["Notion", 86], ["Hubspot", 78], ["MS Office", 90], ["Airtable", 79]] }
+              { name: "Tools", items: ["Notion", "MS Office", "Airtable"] }
             ]
           },
           contact: { title: "Contact", simpleLabel: "Contact me by email", name: "Name", email: "Email", message: "Message", send: "Send" }
@@ -734,6 +773,10 @@
         document.querySelectorAll("[data-t]").forEach((el) => {
           const val = byPath(t, el.dataset.t);
           if (typeof val === "string") el.textContent = val;
+        });
+        document.querySelectorAll("[data-ph]").forEach((el) => {
+          const val = byPath(t, el.dataset.ph);
+          if (typeof val === "string") el.placeholder = val;
         });
         renderProjects(t);
         renderEducation(t);
@@ -818,12 +861,15 @@
         root.innerHTML = t.skills.categories.map((c) => `
           <article class="card">
             <h3>${c.name}</h3>
-            ${c.items.map(([name, level]) => `
-              <div class="skill">
-                <div class="skill-top"><span>${name}</span><span>${level}%</span></div>
-                <div class="bar"><div class="fill" data-level="${level}"></div></div>
-              </div>
-            `).join("")}
+            ${Array.isArray(c.items[0])
+              ? c.items.map(([name, level]) => `
+                <div class="skill">
+                  <div class="skill-top"><span>${name}</span><span>${level}%</span></div>
+                  <div class="bar"><div class="fill" data-level="${level}"></div></div>
+                </div>
+              `).join("")
+              : `<div class="tags">${c.items.map((name) => `<span class="tag">${name}</span>`).join("")}</div>`
+            }
           </article>
         `).join("");
         requestAnimationFrame(() => {
