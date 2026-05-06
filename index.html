@@ -1040,6 +1040,141 @@
       .menu-panel {
         z-index: 1300;
       }
+
+      .chat-fab{
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--panel) 85%, transparent);
+        color: var(--text);
+        backdrop-filter: blur(14px);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        z-index: 2500;
+        display: grid;
+        place-items: center;
+        padding: 0;
+      }
+
+      .chat-fab .theme-face {
+        width: 40px;
+        height: 40px;
+      }
+
+      .chat-fab .theme-face-mouth {
+        transform: translateY(7px);
+      }
+
+      .chat{
+        position: fixed;
+        right: 18px;
+        bottom: 80px;
+        width: min(390px, calc(100vw - 36px));
+        height: 560px;
+        border-radius: 18px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--panel) 88%, transparent);
+        backdrop-filter: blur(16px);
+        box-shadow: var(--shadow);
+        display: none;
+        overflow: hidden;
+        z-index: 2500;
+      }
+
+      .chat.show{ display: grid; grid-template-rows: auto 1fr auto auto; }
+
+      .chat-head{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .chat-close{
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+        border-radius: 10px;
+        width: 34px;
+        height: 34px;
+        cursor: pointer;
+      }
+
+      .chat-log{
+        padding: 12px 14px;
+        overflow: auto;
+        display: grid;
+        gap: 10px;
+      }
+
+      .msg{
+        max-width: 92%;
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        line-height: 1.5;
+        font-size: 14px;
+        white-space: pre-wrap;
+      }
+
+      .msg.user{
+        margin-left: auto;
+        background: color-mix(in srgb, var(--accent) 12%, transparent);
+      }
+
+      .msg.bot{
+        margin-right: auto;
+        background: color-mix(in srgb, var(--panel) 80%, transparent);
+        color: var(--muted);
+      }
+
+      .chat-quick{
+        display:flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 14px;
+        border-top: 1px solid var(--line);
+      }
+
+      .chat-chip{
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+        border-radius: 999px;
+        padding: 8px 10px;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .chat-form{
+        display:flex;
+        gap: 10px;
+        padding: 12px 14px;
+        border-top: 1px solid var(--line);
+      }
+
+      .chat-input{
+        flex:1;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--text);
+        border-radius: 12px;
+        padding: 10px 12px;
+      }
+
+      .chat-send{
+        border-radius: 12px;
+        padding: 10px 12px;
+        border: 1px solid transparent;
+        background: linear-gradient(120deg, var(--accent), var(--accent-2));
+        color: #fff;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -1166,6 +1301,33 @@
         </div>
       </section>
     </main>
+
+    <button class="chat-fab" id="chatFab" type="button" aria-label="Ouvrir le chatbot">
+      <span class="theme-face" aria-hidden="true">
+        <span class="theme-face-mouth" aria-hidden="true"></span>
+      </span>
+    </button>
+
+    <section class="chat" id="chat" aria-label="Chatbot" aria-hidden="true">
+      <header class="chat-head">
+        <strong>Assistant portfolio</strong>
+        <button class="chat-close" id="chatClose" type="button" aria-label="Fermer">×</button>
+      </header>
+
+      <div class="chat-log" id="chatLog"></div>
+
+      <div class="chat-quick" id="chatQuick">
+        <button type="button" class="chat-chip" data-q="Présente-toi">Présentation</button>
+        <button type="button" class="chat-chip" data-q="Quels sont tes projets ?">Projets</button>
+        <button type="button" class="chat-chip" data-q="Explique le projet Chatbot Voyage">Projet Chatbot</button>
+        <button type="button" class="chat-chip" data-q="Comment te contacter ?">Contact</button>
+      </div>
+
+      <form class="chat-form" id="chatForm">
+        <input class="chat-input" id="chatInput" placeholder="Posez une question (ex: “Explique le projet SPA”)…" autocomplete="off" />
+        <button class="chat-send" type="submit">Envoyer</button>
+      </form>
+    </section>
 
     <section class="container project-detail" id="projectDetail">
       <button class="btn btn-back" id="backProjectBtn">← Retour</button>
@@ -1533,6 +1695,71 @@
       let dark = true;
       let activeProject = null;
 
+      const profile = { age: 24, base: "Paris" };
+
+      function normalize(s){
+        return (s || "")
+          .toLowerCase()
+          .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9\s\-×]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+      }
+
+      function bestProjectMatch(t, q){
+        const nq = normalize(q);
+        const tokens = nq.split(" ").filter(Boolean);
+        let best = null, bestScore = 0;
+
+        for (const p of t.projects.items){
+          const hay = normalize([p.title, p.kind, p.short, p.description, p.goal, p.features, ...(p.stack||[])].join(" "));
+          let score = 0;
+          for (const tok of tokens){
+            if (tok.length < 3) continue;
+            if (hay.includes(tok)) score += 2;
+          }
+          const titleKey = normalize(p.title.split("—")[0]);
+          if (nq.includes(titleKey)) score += 6;
+
+          if (score > bestScore){
+            bestScore = score;
+            best = p;
+          }
+        }
+        return bestScore >= 4 ? best : null;
+      }
+
+      function answerLocal(t, q){
+        const nq = normalize(q);
+
+        if (nq.includes("age")) return `J’ai ${profile.age} ans.`;
+        if (nq.includes("paris") || nq.includes("base") || nq.includes("localisation") || nq.includes("ou"))
+          return `Je suis basée à ${profile.base}.`;
+
+        if (nq.includes("presentation") || nq.includes("presente") || nq.includes("profil") || nq.includes("a propos") || nq.includes("apropos") || nq.includes("about"))
+          return t.about.text;
+
+        if (nq.includes("contact") || nq.includes("email") || nq.includes("mail"))
+          return "Vous pouvez me contacter par email via la section Contact du portfolio.";
+
+        if (nq.includes("projets") || nq.includes("projects") || nq.includes("portfolio"))
+          return "Voici mes projets :\n- " + t.projects.items.map(p => p.title).join("\n- ");
+
+        const p = bestProjectMatch(t, q);
+        if (p){
+          const lines = [
+            p.title,
+            p.short ? `\n${p.short}` : "",
+            p.goal ? `\nObjectif : ${p.goal}` : "",
+            p.features ? `\nPoints clés : ${p.features}` : "",
+            Array.isArray(p.stack) && p.stack.length ? `\nTechnos : ${p.stack.join(", ")}` : ""
+          ].filter(Boolean);
+          return lines.join("");
+        }
+
+        return "Je peux répondre sur mes projets (SPA, BreastWise, Chatbot, Audit), mon profil (24 ans, Paris) et le contact. Quelle question souhaitez-vous poser ?";
+      }
+
       const byPath = (obj, path) => path.split(".").reduce((acc, k) => acc && acc[k], obj);
 
       function renderText() {
@@ -1726,6 +1953,60 @@
 
       document.getElementById("backProjectBtn").addEventListener("click", () => {
         closeProjectDetail();
+      });
+
+      const chatFab = document.getElementById("chatFab");
+      const chat = document.getElementById("chat");
+      const chatClose = document.getElementById("chatClose");
+      const chatLog = document.getElementById("chatLog");
+      const chatForm = document.getElementById("chatForm");
+      const chatInput = document.getElementById("chatInput");
+      const chatQuick = document.getElementById("chatQuick");
+
+      function pushMsg(text, who){
+        const div = document.createElement("div");
+        div.className = `msg ${who}`;
+        div.textContent = text;
+        chatLog.appendChild(div);
+        chatLog.scrollTop = chatLog.scrollHeight;
+      }
+
+      function openChat(){
+        chat.classList.add("show");
+        chat.setAttribute("aria-hidden", "false");
+        if (!chatLog.dataset.welcome){
+          chatLog.dataset.welcome = "1";
+          pushMsg("Bonjour ! Posez-moi une question sur mes projets ou mon profil.", "bot");
+        }
+        setTimeout(() => chatInput?.focus(), 50);
+      }
+
+      function closeChat(){
+        chat.classList.remove("show");
+        chat.setAttribute("aria-hidden", "true");
+      }
+
+      chatFab?.addEventListener("click", openChat);
+      chatClose?.addEventListener("click", closeChat);
+
+      chatQuick?.querySelectorAll("[data-q]")?.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const q = btn.getAttribute("data-q");
+          if (!q) return;
+          pushMsg(q, "user");
+          const t = content[lang];
+          pushMsg(answerLocal(t, q), "bot");
+        });
+      });
+
+      chatForm?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const q = (chatInput?.value || "").trim();
+        if (!q) return;
+        pushMsg(q, "user");
+        chatInput.value = "";
+        const t = content[lang];
+        pushMsg(answerLocal(t, q), "bot");
       });
 
       function closeDetailIfOpen() {
