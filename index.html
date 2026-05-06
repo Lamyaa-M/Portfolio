@@ -814,65 +814,46 @@
         background: var(--bg);
         z-index: 3000;
       }
+
+      .loader-spline {
+        position: absolute;
+        inset: 0;
+      }
+
+      .loader-spline iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+
+      .loader-spline::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(5, 7, 18, 0.65), rgba(5, 7, 18, 0.55));
+        mix-blend-mode: multiply;
+      }
+
+      body.light #loader .loader-spline::after {
+        background: linear-gradient(180deg, rgba(247, 248, 255, 0.55), rgba(247, 248, 255, 0.45));
+        mix-blend-mode: screen;
+      }
+
       .loader-box {
         text-align: center;
+        position: relative;
+        z-index: 1;
+        padding: 16px 18px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--panel) 78%, transparent);
+        backdrop-filter: blur(16px);
       }
       .loader-text {
         margin-top: 12px;
         color: var(--muted);
         font-size: 14px;
-      }
-      .snake-loader {
-        width: 160px;
-        height: 18px;
-        position: relative;
-        margin: 0 auto;
-      }
-      .snake-dot {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: #22c55e;
-        position: absolute;
-        top: 2px;
-        left: 0;
-        animation: snakeMove 2.2s linear infinite;
-      }
-      .snake-dot::before,
-      .snake-dot::after {
-        content: "";
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: color-mix(in srgb, #22c55e 70%, #ffffff 30%);
-        top: 1px;
-      }
-      .snake-dot::before {
-        left: -16px;
-      }
-      .snake-dot::after {
-        left: -32px;
-      }
-      .snake-food {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #ef4444;
-        position: absolute;
-        right: 0;
-        top: 4px;
-        animation: foodBlink 0.7s ease-in-out infinite alternate;
-      }
-      @keyframes snakeMove {
-        0% { left: 36px; }
-        45% { left: 146px; }
-        55% { left: 146px; }
-        100% { left: 36px; }
-      }
-      @keyframes foodBlink {
-        from { transform: scale(1); opacity: 0.8; }
-        to { transform: scale(1.2); opacity: 1; }
       }
 
       .spinner {
@@ -1021,11 +1002,15 @@
       ></iframe>
     </div>
     <div id="loader">
+      <div class="loader-spline" aria-hidden="true">
+        <iframe
+          src="https://my.spline.design/endlessrunnergameprototypeearlyworkinprogress-L9Z1aCd791sPsTGXREVuIrn8/"
+          frameborder="0"
+          width="100%"
+          height="100%"
+        ></iframe>
+      </div>
       <div class="loader-box">
-        <div class="snake-loader" aria-hidden="true">
-          <div class="snake-dot"></div>
-          <div class="snake-food"></div>
-        </div>
         <p class="loader-text">Chargement en cours...</p>
       </div>
     </div>
@@ -1739,7 +1724,7 @@
           loader.style.opacity = "0";
           loader.style.transition = "opacity 0.35s ease";
           setTimeout(() => loader.remove(), 360);
-        }, 600);
+        }, 10000);
       });
 
       renderText();
