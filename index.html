@@ -204,6 +204,11 @@
         backdrop-filter: blur(14px);
       }
 
+      body:not(.light) .theme-face {
+        border-color: color-mix(in srgb, var(--accent-2) 35%, var(--line));
+        box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.12), 0 18px 40px rgba(0, 0, 0, 0.45);
+      }
+
       .theme-face::before,
       .theme-face::after {
         content: "";
@@ -243,6 +248,12 @@
         border-radius: 0 0 999px 999px;
         opacity: 0.8;
         transform: translateY(6px);
+      }
+
+      body:not(.light) .theme-face-mouth {
+        border-bottom-color: color-mix(in srgb, var(--accent-2) 88%, #ffffff 12%);
+        opacity: 1;
+        filter: drop-shadow(0 8px 14px rgba(34, 211, 238, 0.35));
       }
 
       .lang-switch {
