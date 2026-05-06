@@ -811,7 +811,7 @@
         inset: 0;
         display: grid;
         place-items: center;
-        background: var(--bg);
+        background: transparent;
         z-index: 3000;
       }
 
@@ -825,6 +825,7 @@
         height: 100%;
         border: 0;
         display: block;
+        pointer-events: none;
       }
 
       .loader-spline::after {
@@ -1718,13 +1719,28 @@
         });
       }
 
+      const MIN_LOADER_MS = 10000;
+      const loaderStart = Date.now();
+      let loaderHidden = false;
+
+      function hideLoader() {
+        if (loaderHidden) return;
+        const loader = document.getElementById("loader");
+        if (!loader) return;
+        loaderHidden = true;
+        loader.style.opacity = "0";
+        loader.style.transition = "opacity 0.35s ease";
+        setTimeout(() => loader.remove(), 360);
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        setTimeout(hideLoader, MIN_LOADER_MS);
+      });
+
       window.addEventListener("load", () => {
-        setTimeout(() => {
-          const loader = document.getElementById("loader");
-          loader.style.opacity = "0";
-          loader.style.transition = "opacity 0.35s ease";
-          setTimeout(() => loader.remove(), 360);
-        }, 10000);
+        const elapsed = Date.now() - loaderStart;
+        const remaining = Math.max(0, MIN_LOADER_MS - elapsed);
+        setTimeout(hideLoader, remaining);
       });
 
       renderText();
