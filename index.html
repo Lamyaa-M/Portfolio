@@ -108,6 +108,17 @@
         border-radius: 12px;
         background: linear-gradient(135deg, var(--accent), var(--accent-2));
         box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 25%, transparent);
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+      }
+
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
       }
 
       .brand-text {
@@ -1055,7 +1066,9 @@
     <header class="topbar">
       <div class="container topbar-inner">
         <a class="brand" href="#home" aria-label="Accueil">
-          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-mark" aria-hidden="true">
+            <img src="images/MARZOUQ%20lamyaa.jpg" alt="" />
+          </span>
           <span class="brand-text">
             <strong>Lamyaa</strong>
             <span data-t="nav.tagline">Marketing & IA</span>
