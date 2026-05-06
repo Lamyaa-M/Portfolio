@@ -811,34 +811,8 @@
         inset: 0;
         display: grid;
         place-items: center;
-        background: transparent;
+        background: var(--bg);
         z-index: 3000;
-      }
-
-      .loader-spline {
-        position: absolute;
-        inset: 0;
-      }
-
-      .loader-spline iframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        display: block;
-        pointer-events: none;
-      }
-
-      .loader-spline::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(5, 7, 18, 0.65), rgba(5, 7, 18, 0.55));
-        mix-blend-mode: multiply;
-      }
-
-      body.light #loader .loader-spline::after {
-        background: linear-gradient(180deg, rgba(247, 248, 255, 0.55), rgba(247, 248, 255, 0.45));
-        mix-blend-mode: screen;
       }
 
       .loader-box {
@@ -850,6 +824,70 @@
         border: 1px solid var(--line);
         background: color-mix(in srgb, var(--panel) 78%, transparent);
         backdrop-filter: blur(16px);
+      }
+
+      .loader-face {
+        width: 78px;
+        height: 78px;
+        margin: 0 auto 10px;
+        position: relative;
+        animation: floaty 2.6s ease-in-out infinite;
+      }
+
+      .loader-face .theme-face {
+        width: 78px;
+        height: 78px;
+        border-radius: 999px;
+      }
+
+      .loader-face .theme-face::before,
+      .loader-face .theme-face::after {
+        top: 30px;
+        width: 12px;
+        height: 12px;
+      }
+
+      .loader-face .theme-face::before {
+        left: 22px;
+      }
+
+      .loader-face .theme-face::after {
+        right: 22px;
+      }
+
+      .loader-face .theme-face-mouth {
+        width: 28px;
+        height: 14px;
+        border-width: 3px;
+        transform: translateY(14px);
+      }
+
+      body.light .loader-face .theme-face-mouth {
+        border-bottom-color: color-mix(in srgb, var(--accent) 55%, var(--accent-2));
+        filter: drop-shadow(0 10px 16px rgba(124, 92, 255, 0.22));
+      }
+
+      .loader-face .theme-face::before {
+        animation: winkL 4.8s ease-in-out infinite;
+      }
+
+      .loader-face .theme-face::after {
+        animation: winkR 4.8s ease-in-out infinite;
+      }
+
+      @keyframes floaty {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      @keyframes winkL {
+        0%, 7%, 100% { height: 12px; transform: none; opacity: 1; }
+        3% { height: 3px; transform: translateY(7px); opacity: 0.9; }
+      }
+
+      @keyframes winkR {
+        0%, 52%, 100% { height: 12px; transform: none; opacity: 1; }
+        48% { height: 3px; transform: translateY(7px); opacity: 0.9; }
       }
       .loader-text {
         margin-top: 12px;
@@ -1003,15 +1041,12 @@
       ></iframe>
     </div>
     <div id="loader">
-      <div class="loader-spline" aria-hidden="true">
-        <iframe
-          src="https://my.spline.design/endlessrunnergameprototypeearlyworkinprogress-L9Z1aCd791sPsTGXREVuIrn8/"
-          frameborder="0"
-          width="100%"
-          height="100%"
-        ></iframe>
-      </div>
       <div class="loader-box">
+        <div class="loader-face" aria-hidden="true">
+          <span class="theme-face">
+            <span class="theme-face-mouth"></span>
+          </span>
+        </div>
         <p class="loader-text">Chargement en cours...</p>
       </div>
     </div>
@@ -1719,28 +1754,14 @@
         });
       }
 
-      const MIN_LOADER_MS = 10000;
-      const loaderStart = Date.now();
-      let loaderHidden = false;
-
-      function hideLoader() {
-        if (loaderHidden) return;
-        const loader = document.getElementById("loader");
-        if (!loader) return;
-        loaderHidden = true;
-        loader.style.opacity = "0";
-        loader.style.transition = "opacity 0.35s ease";
-        setTimeout(() => loader.remove(), 360);
-      }
-
-      window.addEventListener("DOMContentLoaded", () => {
-        setTimeout(hideLoader, MIN_LOADER_MS);
-      });
-
       window.addEventListener("load", () => {
-        const elapsed = Date.now() - loaderStart;
-        const remaining = Math.max(0, MIN_LOADER_MS - elapsed);
-        setTimeout(hideLoader, remaining);
+        setTimeout(() => {
+          const loader = document.getElementById("loader");
+          if (!loader) return;
+          loader.style.opacity = "0";
+          loader.style.transition = "opacity 0.35s ease";
+          setTimeout(() => loader.remove(), 360);
+        }, 900);
       });
 
       renderText();
