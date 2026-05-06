@@ -924,11 +924,18 @@
         mix-blend-mode: multiply;
       }
 
-      .topbar,
       main,
       .project-detail {
         position: relative;
         z-index: 1;
+      }
+
+      .topbar {
+        z-index: 1200;
+      }
+
+      .menu-panel {
+        z-index: 1300;
       }
     </style>
   </head>
