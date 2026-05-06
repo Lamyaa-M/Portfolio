@@ -17,12 +17,12 @@
       }
 
       body.light {
-        --bg: #f2f5ff;
-        --panel: rgba(255, 255, 255, 0.82);
-        --text: #1a2340;
-        --muted: #546287;
-        --line: rgba(0, 0, 0, 0.1);
-        --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+        --bg: #f7f8ff;
+        --panel: rgba(255, 255, 255, 0.72);
+        --text: #0f172a;
+        --muted: rgba(15, 23, 42, 0.68);
+        --line: rgba(15, 23, 42, 0.14);
+        --shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
       }
 
       * {
@@ -190,6 +190,59 @@
         border-radius: 999px;
         padding: 7px 12px;
         cursor: pointer;
+      }
+
+      .theme-face {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--panel) 78%, transparent);
+        position: relative;
+        display: grid;
+        place-items: center;
+        backdrop-filter: blur(14px);
+      }
+
+      .theme-face::before,
+      .theme-face::after {
+        content: "";
+        position: absolute;
+        top: 14px;
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+        transition: transform 0.25s ease, height 0.25s ease, border-radius 0.25s ease, opacity 0.25s ease;
+      }
+
+      .theme-face::before {
+        left: 12px;
+      }
+
+      .theme-face::after {
+        right: 12px;
+      }
+
+      body:not(.light) #themeBtn .theme-face::before,
+      body:not(.light) #themeBtn .theme-face::after {
+        height: 2px;
+        border-radius: 999px;
+        transform: translateY(3px);
+        opacity: 0.9;
+      }
+
+      .theme-face-mouth {
+        width: 14px;
+        height: 8px;
+        border: 2px solid color-mix(in srgb, var(--muted) 70%, transparent);
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0 0 999px 999px;
+        opacity: 0.8;
+        transform: translateY(6px);
       }
 
       .lang-switch {
@@ -924,6 +977,14 @@
         mix-blend-mode: multiply;
       }
 
+      body.light .spline-bg::after {
+        background:
+          radial-gradient(circle at 14% 18%, rgba(124, 92, 255, 0.16), transparent 54%),
+          radial-gradient(circle at 88% 10%, rgba(34, 211, 238, 0.12), transparent 56%),
+          linear-gradient(180deg, rgba(247, 248, 255, 0.78), rgba(247, 248, 255, 0.62));
+        mix-blend-mode: screen;
+      }
+
       main,
       .project-detail {
         position: relative;
@@ -993,7 +1054,11 @@
             <button class="chip active" id="langFr" type="button">FR</button>
             <button class="chip" id="langEn" type="button">EN</button>
           </div>
-          <button class="chip" id="themeBtn">Light</button>
+          <button class="chip" id="themeBtn" type="button" aria-label="Basculer le thème">
+            <span class="theme-face" aria-hidden="true">
+              <span class="theme-face-mouth" aria-hidden="true"></span>
+            </span>
+          </button>
         </div>
       </div>
     </header>
@@ -1075,10 +1140,6 @@
             <h4 data-t="projects.role">Rôle</h4>
             <p class="meta" id="detailRole"></p>
           </div>
-          <div class="detail-box" id="detailDeliverablesBox">
-            <h4 data-t="projects.deliverables">Livrables</h4>
-            <ul class="list" id="detailDeliverables"></ul>
-          </div>
           <div class="detail-box" id="detailImpactBox">
             <h4 data-t="projects.impact">Impact</h4>
             <ul class="list" id="detailImpact"></ul>
@@ -1123,7 +1184,6 @@
             goal: "Objectif",
             features: "Fonctionnalités",
             role: "Rôle",
-            deliverables: "Livrables",
             impact: "Impact",
             shortLabel: "Résumé",
             viewDetails: "Voir le détail",
@@ -1291,7 +1351,6 @@
             goal: "Goal",
             features: "Features",
             role: "Role",
-            deliverables: "Deliverables",
             impact: "Impact",
             shortLabel: "Summary",
             viewDetails: "View details",
@@ -1514,15 +1573,11 @@
         };
 
         const roleBox = document.getElementById("detailRoleBox");
-        const delBox = document.getElementById("detailDeliverablesBox");
         const impBox = document.getElementById("detailImpactBox");
 
         const roleEl = document.getElementById("detailRole");
         if (roleEl) roleEl.textContent = project.role || "";
         if (roleBox) roleBox.style.display = project.role ? "" : "none";
-
-        setList("detailDeliverables", project.deliverables);
-        if (delBox) delBox.style.display = Array.isArray(project.deliverables) && project.deliverables.length ? "" : "none";
 
         setList("detailImpact", project.impact);
         if (impBox) impBox.style.display = Array.isArray(project.impact) && project.impact.length ? "" : "none";
@@ -1621,11 +1676,20 @@
       document.getElementById("themeBtn").addEventListener("click", () => {
         dark = !dark;
         document.body.classList.toggle("light", !dark);
-        document.getElementById("themeBtn").textContent = dark ? "Light" : "Dark";
+        document.getElementById("themeBtn").setAttribute("aria-label", dark ? "Activer le mode clair" : "Activer le mode sombre");
       });
 
       document.getElementById("backProjectBtn").addEventListener("click", () => {
         closeProjectDetail();
+      });
+
+      function closeDetailIfOpen() {
+        const section = document.getElementById("projectDetail");
+        if (section && section.classList.contains("show")) closeProjectDetail();
+      }
+
+      document.querySelectorAll("header a[href^='#']").forEach((a) => {
+        a.addEventListener("click", closeDetailIfOpen);
       });
 
       function setupDesktopMenu() {
