@@ -336,11 +336,14 @@
       }
 
       .mockup {
+        width: 100%;
         height: 160px;
         border-radius: 12px;
         margin-bottom: 12px;
         object-fit: cover;
+        object-position: center;
         border: 1px solid var(--line);
+        display: block;
       }
 
       .mockup-placeholder {
@@ -1414,7 +1417,7 @@
               ${p.kind ? `<span class="pill"><strong>${p.kind}</strong></span>` : ""}
               ${p.role ? `<span class="pill">${t.projects.role}: <strong>${p.role}</strong></span>` : ""}
             </div>
-            <p class="meta"><strong>${t.projects.shortLabel}:</strong> ${p.short || p.description}</p>
+            <p class="meta">${p.short || ""}</p>
             ${Array.isArray(p.impact) && p.impact.length
               ? `<ul class="impact-mini">${p.impact.slice(0, 3).map((x) => `<li>${x}</li>`).join("")}</ul>`
               : ""
