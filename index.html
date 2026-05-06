@@ -1133,6 +1133,33 @@
         color: var(--muted);
       }
 
+      .msg.bot {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .bot-avatar {
+        flex: 0 0 auto;
+        margin-top: 2px;
+      }
+
+      .bot-avatar .theme-face {
+        width: 28px;
+        height: 28px;
+        backdrop-filter: blur(14px);
+      }
+
+      .bot-avatar .theme-face-mouth {
+        transform: translateY(6px);
+        opacity: 0.9;
+      }
+
+      .bot-content {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+
       .typing {
         display: inline-flex;
         gap: 6px;
@@ -1780,7 +1807,9 @@
           return lines.join("");
         }
 
-        return "Je peux répondre sur mes projets (SPA, BreastWise, Chatbot, Audit), mon profil (24 ans, Paris) et le contact. Quelle question souhaitez-vous poser ?";
+        return lang === "en"
+          ? "I can help with: my projects (SPA, BreastWise, Chatbot, Audit), my profile, and how to contact me. Ask your question or use a quick button."
+          : "Je peux répondre sur : mes projets (SPA, BreastWise, Chatbot, Audit), mon profil, et le contact. Posez votre question ou cliquez sur un bouton rapide.";
       }
 
       function buildChatContext(t){
@@ -2033,7 +2062,17 @@
       function pushMsg(text, who){
         const div = document.createElement("div");
         div.className = `msg ${who}`;
-        div.textContent = text;
+        if (who === "bot") {
+          div.innerHTML = `
+            <span class="bot-avatar" aria-hidden="true">
+              <span class="theme-face"><span class="theme-face-mouth"></span></span>
+            </span>
+            <span class="bot-content"></span>
+          `;
+          div.querySelector(".bot-content").textContent = text;
+        } else {
+          div.textContent = text;
+        }
         chatLog.appendChild(div);
         chatLog.scrollTop = chatLog.scrollHeight;
       }
@@ -2042,9 +2081,16 @@
         const div = document.createElement("div");
         div.className = "msg bot";
         div.dataset.typing = "1";
-        div.innerHTML = `<span class="typing" aria-label="Écriture en cours">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        </span>`;
+        div.innerHTML = `
+          <span class="bot-avatar" aria-hidden="true">
+            <span class="theme-face"><span class="theme-face-mouth"></span></span>
+          </span>
+          <span class="bot-content">
+            <span class="typing" aria-label="Écriture en cours">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </span>
+          </span>
+        `;
         chatLog.appendChild(div);
         chatLog.scrollTop = chatLog.scrollHeight;
         return div;
@@ -2069,13 +2115,20 @@
 
         const div = document.createElement("div");
         div.className = "msg bot";
+        div.innerHTML = `
+          <span class="bot-avatar" aria-hidden="true">
+            <span class="theme-face"><span class="theme-face-mouth"></span></span>
+          </span>
+          <span class="bot-content"></span>
+        `;
         chatLog.appendChild(div);
 
         const msg = String(text || "");
         let i = 0;
+        const contentEl = div.querySelector(".bot-content");
         const step = () => {
           i += Math.max(1, Math.ceil(msg.length / 120));
-          div.textContent = msg.slice(0, i);
+          contentEl.textContent = msg.slice(0, i);
           chatLog.scrollTop = chatLog.scrollHeight;
           if (i < msg.length) requestAnimationFrame(step);
         };
