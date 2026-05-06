@@ -1880,8 +1880,10 @@
           if (data?.answer) return String(data.answer);
           throw new Error("api_no_answer");
         } catch (e) {
-          console.warn("Chat API failed, falling back to local.", e);
-          return answerLocal(t, q);
+          console.warn("Chat API failed (NO local fallback).", e);
+          return lang === "en"
+            ? "Chat API is not reachable right now. Please try again in a moment."
+            : "L’API du chatbot n’est pas accessible pour le moment. Réessayez dans quelques secondes.";
         }
       }
 
