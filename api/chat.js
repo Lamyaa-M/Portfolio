@@ -1,5 +1,20 @@
 export default async function handler(req, res) {
   try {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+    if (req.method === "OPTIONS") {
+      res.status(204).end();
+      return;
+    }
+
+    // Simple health check in browser
+    if (req.method === "GET") {
+      res.status(200).json({ ok: true });
+      return;
+    }
+
     if (req.method !== "POST") {
       res.status(405).json({ error: "Method not allowed" });
       return;
@@ -11,7 +26,23 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { question, lang, context } = req.body || {};
+    let body = req.body;
+    if (!body) {
+      // @vercel/node does not always parse JSON automatically
+      const raw = await new Promise((resolve) => {
+        let data = "";
+        req.on("data", (chunk) => (data += chunk));
+        req.on("end", () => resolve(data));
+        req.on("error", () => resolve(""));
+      });
+      try {
+        body = raw ? JSON.parse(raw) : {};
+      } catch {
+        body = {};
+      }
+    }
+
+    const { question, lang, context } = body || {};
     const q = typeof question === "string" ? question.trim() : "";
     if (!q) {
       res.status(400).json({ error: "Missing question" });
