@@ -1415,13 +1415,8 @@
             <h3>${p.title}</h3>
             <div class="project-kicker">
               ${p.kind ? `<span class="pill"><strong>${p.kind}</strong></span>` : ""}
-              ${p.role ? `<span class="pill">${t.projects.role}: <strong>${p.role}</strong></span>` : ""}
             </div>
             <p class="meta">${p.short || ""}</p>
-            ${Array.isArray(p.impact) && p.impact.length
-              ? `<ul class="impact-mini">${p.impact.slice(0, 3).map((x) => `<li>${x}</li>`).join("")}</ul>`
-              : ""
-            }
             <div class="tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
             <div class="links">
               ${p.github ? `<a href="${p.github}" target="_blank" rel="noreferrer">GitHub</a>` : ""}
