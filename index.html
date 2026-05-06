@@ -1782,6 +1782,27 @@
       function answerLocal(t, q){
         const nq = normalize(q);
 
+        if (
+          nq === "bonjour" ||
+          nq === "salut" ||
+          nq === "hello" ||
+          nq.includes("bonjour") ||
+          nq.includes("salut") ||
+          nq.includes("coucou") ||
+          nq.includes("hello") ||
+          nq.includes("hi")
+        ) {
+          return lang === "en"
+            ? "Hi! How can I help you—projects, profile, or contact?"
+            : "Bonjour ! Je peux vous aider sur mes projets, mon profil, ou le contact. Que souhaitez-vous savoir ?";
+        }
+
+        if (nq === "merci" || nq.includes("merci") || nq.includes("thanks") || nq.includes("thank you")) {
+          return lang === "en"
+            ? "You're welcome! If you have another question, I'm here."
+            : "Avec plaisir ! Si vous avez une autre question, je suis là.";
+        }
+
         if (nq.includes("age")) return `J’ai ${profile.age} ans.`;
         if (nq.includes("paris") || nq.includes("base") || nq.includes("localisation") || nq.includes("ou"))
           return `Je suis basée à ${profile.base}.`;
