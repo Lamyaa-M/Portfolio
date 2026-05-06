@@ -859,6 +859,14 @@
           border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
         }
 
+        .menu {
+          display: none;
+        }
+
+        .mobile-only {
+          display: list-item;
+        }
+
         .controls {
           gap: 8px;
         }
@@ -870,6 +878,10 @@
         .controls .burger {
           display: none;
         }
+      }
+
+      .mobile-only {
+        display: none;
       }
     </style>
   </head>
@@ -898,6 +910,9 @@
           <ul>
             <li><a href="#projects" data-t="nav.projects">Projets</a></li>
             <li><a href="#contact" data-t="nav.contact">Contact</a></li>
+            <li class="mobile-only"><a href="#about" data-t="nav.about">À propos</a></li>
+            <li class="mobile-only"><a href="#education" data-t="nav.education">Diplômes</a></li>
+            <li class="mobile-only"><a href="#skills" data-t="nav.skills">Compétences</a></li>
             <li class="menu" id="menu">
               <button class="menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false">
                 <span data-t="nav.menu">Menu</span>
@@ -1168,15 +1183,15 @@
           skills: {
             title: "Compétences",
             categories: [
-              { name: "Marketing (bon niveau)", items: [["Gestion de projet", 4], ["Communication", 4], ["Content strategy", 4], ["Canva", 4]] },
-              { name: "Outils & automatisation (bien)", items: [["Make", 4], ["Google Sheets", 4], ["Notion", 4], ["Airtable", 4], ["Dust", 4], ["Cursor", 4]] },
-              { name: "Data (moyen)", items: [["Python", 3], ["SQL", 3], ["Dataiku", 3], ["Tableau", 3]] }
+              { name: "Marketing", items: [["Gestion de projet", 4], ["Communication", 4], ["Content strategy", 4], ["Canva", 4]] },
+              { name: "Outils & automatisation", items: [["Make", 4], ["Google Sheets", 4], ["Notion", 4], ["Airtable", 4], ["Dust", 4], ["Cursor", 4]] },
+              { name: "Data", items: [["Python", 3], ["SQL", 3], ["Dataiku", 3], ["Tableau", 3]] }
             ]
           },
           contact: {
             title: "Contact",
             pitch:
-              "Vous souhaitez échanger ou en savoir plus sur mon profil ? N’hésitez pas à me contacter par email : je réponds rapidement.",
+              "Vous souhaitez échanger ou en savoir plus sur mon profil ? Écrivez-moi : je réponds rapidement et je peux partager des exemples adaptés à vos besoins.",
             simpleLabel: "Contactez-moi par email",
             name: "Nom",
             email: "Email",
