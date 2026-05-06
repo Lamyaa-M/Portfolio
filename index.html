@@ -813,12 +813,62 @@
       }
 
       @media (max-width: 900px) {
-        nav {
+        .topbar-inner {
+          align-items: flex-start;
+          gap: 10px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+
+        .brand-text span {
           display: none;
         }
 
-        #mobileMenu.show {
+        nav {
           display: block;
+          flex: 1;
+        }
+
+        nav ul {
+          flex-wrap: nowrap;
+          justify-content: flex-end;
+          gap: 8px;
+          padding: 2px 0 0;
+          overflow-x: auto;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        nav ul::-webkit-scrollbar {
+          display: none;
+        }
+
+        nav a,
+        .menu-btn {
+          font-size: 13px;
+          padding: 8px 10px;
+          border-radius: 999px;
+          border: 1px solid var(--line);
+          background: color-mix(in srgb, var(--panel) 80%, transparent);
+          color: var(--text);
+          white-space: nowrap;
+        }
+
+        nav a:hover,
+        .menu-btn:hover {
+          border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+        }
+
+        .controls {
+          gap: 8px;
+        }
+
+        .chip {
+          padding: 7px 10px;
+        }
+
+        .controls .burger {
+          display: none;
         }
       }
     </style>
@@ -867,16 +917,7 @@
             <button class="chip" id="langEn" type="button">EN</button>
           </div>
           <button class="chip" id="themeBtn">Light</button>
-          <button class="chip burger" id="burgerBtn">Menu</button>
         </div>
-      </div>
-      <div class="container" id="mobileMenu">
-        <a href="#projects" data-t="nav.projects">Projets</a>
-        <a href="#contact" data-t="nav.contact">Contact</a>
-        <div class="menu-title" data-t="nav.menu">Menu</div>
-        <a href="#about" data-t="nav.about">À propos</a>
-        <a href="#education" data-t="nav.education">Diplômes</a>
-        <a href="#skills" data-t="nav.skills">Compétences</a>
       </div>
     </header>
 
@@ -998,7 +1039,7 @@
           about: {
             title: "À propos",
             text:
-              "Je suis étudiante en M1 « AI Applied to Business » à Eugenia School, avec un parcours en Marketing & Développement Commercial. Mon approche est simple : partir du besoin (acquisition, visibilité, expérience client, efficacité opérationnelle), structurer la solution (données, contenu, automatisation), puis livrer une exécution propre et actionnable. Je m’intéresse particulièrement au SEO et à la visibilité dans les réponses IA (GEO), aux chatbots orientés service, et aux workflows no-code/IA qui font gagner du temps aux équipes."
+              "Je suis étudiante en M1 « AI Applied to Business » à Eugenia School. Diplômée en Marketing & Développement Commercial, je développe des projets qui relient stratégie, données et outils digitaux. Mon approche est simple : partir du besoin (acquisition, visibilité, expérience client, efficacité opérationnelle), structurer la solution (contenu, automatisation, analyse), puis livrer une exécution claire et actionnable. Je m’intéresse particulièrement au SEO et à la visibilité dans les réponses IA (GEO), aux chatbots orientés service, et aux workflows no-code/IA qui font gagner du temps."
           },
           projects: {
             title: "Projets",
@@ -1135,7 +1176,7 @@
           contact: {
             title: "Contact",
             pitch:
-              "Tu as une opportunité, un projet ou une mission (marketing, SEO/GEO, chatbot, automatisation, data) ? Écris-moi : je réponds rapidement et je peux partager des exemples adaptés à ton besoin.",
+              "Vous souhaitez échanger ou en savoir plus sur mon profil ? N’hésitez pas à me contacter par email : je réponds rapidement.",
             simpleLabel: "Contactez-moi par email",
             name: "Nom",
             email: "Email",
@@ -1166,7 +1207,7 @@
           about: {
             title: "About",
             text:
-              "I’m an M1 AI Applied to Business student at Eugenia School with a background in Marketing & Business Development. My approach: start from the goal (visibility, acquisition, customer experience, operational efficiency), structure the solution (data, content, automation), and deliver something clear and usable. I’m especially interested in SEO and AI-answer visibility (GEO), service-oriented chatbots, and no-code/AI workflows that save teams time."
+              "I’m an M1 AI Applied to Business student at Eugenia School. I also hold a degree in Marketing & Business Development, and I build practical projects that connect strategy, data, and digital tools. My approach: start from the goal (visibility, acquisition, customer experience, operational efficiency), structure the solution (content, automation, analysis), and deliver something clear and usable. I’m especially interested in SEO and AI-answer visibility (GEO), service-oriented chatbots, and no-code/AI workflows that save time."
           },
           projects: {
             title: "Projects",
@@ -1297,7 +1338,7 @@
           contact: {
             title: "Contact",
             pitch:
-              "Got an opportunity, project, or mission (marketing, SEO/GEO, chatbot, automation, data)? Email me—I reply quickly and can share tailored examples.",
+              "If you’d like to connect or learn more about my work, feel free to email me—I reply quickly.",
             simpleLabel: "Contact me by email",
             name: "Name",
             email: "Email",
@@ -1509,14 +1550,6 @@
         dark = !dark;
         document.body.classList.toggle("light", !dark);
         document.getElementById("themeBtn").textContent = dark ? "Light" : "Dark";
-      });
-
-      document.getElementById("burgerBtn").addEventListener("click", () => {
-        document.getElementById("mobileMenu").classList.toggle("show");
-      });
-
-      document.querySelectorAll("#mobileMenu a").forEach((a) => {
-        a.addEventListener("click", () => document.getElementById("mobileMenu").classList.remove("show"));
       });
 
       document.getElementById("backProjectBtn").addEventListener("click", () => {
