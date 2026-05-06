@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="chat-api-url" content="https://portfolio-lake-eight-15.vercel.app/api/chat" />
     <title>Lamyaa MARZOUQ - Portfolio</title>
     <style>
       :root {
@@ -1853,11 +1854,17 @@
         };
       }
 
+      function getChatApiUrl() {
+        const meta = document.querySelector('meta[name="chat-api-url"]');
+        const fromMeta = meta?.getAttribute("content")?.trim();
+        return fromMeta || "/api/chat";
+      }
+
       async function answerApiOrLocal(t, q){
         try {
           const ctrl = new AbortController();
           const timeout = setTimeout(() => ctrl.abort(), 6500);
-          const res = await fetch("/api/chat", {
+          const res = await fetch(getChatApiUrl(), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
