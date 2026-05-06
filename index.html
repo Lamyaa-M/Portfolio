@@ -1879,7 +1879,8 @@
           const data = await res.json();
           if (data?.answer) return String(data.answer);
           throw new Error("api_no_answer");
-        } catch {
+        } catch (e) {
+          console.warn("Chat API failed, falling back to local.", e);
           return answerLocal(t, q);
         }
       }
