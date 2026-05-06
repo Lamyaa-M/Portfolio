@@ -1133,6 +1133,29 @@
         color: var(--muted);
       }
 
+      .typing {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--accent-2) 55%, var(--muted));
+        opacity: 0.65;
+        animation: dotPulse 1.1s ease-in-out infinite;
+      }
+
+      .dot:nth-child(2) { animation-delay: 0.14s; }
+      .dot:nth-child(3) { animation-delay: 0.28s; }
+
+      @keyframes dotPulse {
+        0%, 100% { transform: translateY(0); opacity: 0.55; }
+        50% { transform: translateY(-3px); opacity: 1; }
+      }
+
       .chat-quick{
         display:flex;
         flex-wrap: wrap;
@@ -1760,6 +1783,50 @@
         return "Je peux répondre sur mes projets (SPA, BreastWise, Chatbot, Audit), mon profil (24 ans, Paris) et le contact. Quelle question souhaitez-vous poser ?";
       }
 
+      function buildChatContext(t){
+        const projects = (t?.projects?.items || []).map((p) => ({
+          title: p.title,
+          kind: p.kind,
+          short: p.short,
+          description: p.description,
+          goal: p.goal,
+          features: p.features,
+          stack: p.stack,
+          github: p.github,
+          url: p.url
+        }));
+        return {
+          profile,
+          about: t?.about?.text || "",
+          contact: t?.contact?.simpleLabel || "",
+          projects
+        };
+      }
+
+      async function answerApiOrLocal(t, q){
+        try {
+          const ctrl = new AbortController();
+          const timeout = setTimeout(() => ctrl.abort(), 6500);
+          const res = await fetch("/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              question: q,
+              lang,
+              context: buildChatContext(t)
+            }),
+            signal: ctrl.signal
+          });
+          clearTimeout(timeout);
+          if (!res.ok) throw new Error("api_not_ok");
+          const data = await res.json();
+          if (data?.answer) return String(data.answer);
+          throw new Error("api_no_answer");
+        } catch {
+          return answerLocal(t, q);
+        }
+      }
+
       const byPath = (obj, path) => path.split(".").reduce((acc, k) => acc && acc[k], obj);
 
       function renderText() {
@@ -1971,12 +2038,56 @@
         chatLog.scrollTop = chatLog.scrollHeight;
       }
 
+      function pushTyping(){
+        const div = document.createElement("div");
+        div.className = "msg bot";
+        div.dataset.typing = "1";
+        div.innerHTML = `<span class="typing" aria-label="Écriture en cours">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </span>`;
+        chatLog.appendChild(div);
+        chatLog.scrollTop = chatLog.scrollHeight;
+        return div;
+      }
+
+      function removeTyping(){
+        const el = chatLog.querySelector('[data-typing="1"]');
+        if (el) el.remove();
+      }
+
+      async function pushBotInteractive(text){
+        removeTyping();
+        const typing = pushTyping();
+
+        const baseDelay = 350;
+        const perChar = 12;
+        const maxDelay = 1400;
+        const wait = Math.min(maxDelay, baseDelay + (text?.length || 0) * perChar);
+
+        await new Promise((r) => setTimeout(r, wait));
+        if (typing && typing.isConnected) typing.remove();
+
+        const div = document.createElement("div");
+        div.className = "msg bot";
+        chatLog.appendChild(div);
+
+        const msg = String(text || "");
+        let i = 0;
+        const step = () => {
+          i += Math.max(1, Math.ceil(msg.length / 120));
+          div.textContent = msg.slice(0, i);
+          chatLog.scrollTop = chatLog.scrollHeight;
+          if (i < msg.length) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+
       function openChat(){
         chat.classList.add("show");
         chat.setAttribute("aria-hidden", "false");
         if (!chatLog.dataset.welcome){
           chatLog.dataset.welcome = "1";
-          pushMsg("Bonjour ! Posez-moi une question sur mes projets ou mon profil.", "bot");
+          pushBotInteractive("Bonjour ! Posez-moi une question sur mes projets ou mon profil.");
         }
         setTimeout(() => chatInput?.focus(), 50);
       }
@@ -1995,7 +2106,7 @@
           if (!q) return;
           pushMsg(q, "user");
           const t = content[lang];
-          pushMsg(answerLocal(t, q), "bot");
+          answerApiOrLocal(t, q).then((a) => pushBotInteractive(a));
         });
       });
 
@@ -2006,7 +2117,7 @@
         pushMsg(q, "user");
         chatInput.value = "";
         const t = content[lang];
-        pushMsg(answerLocal(t, q), "bot");
+        answerApiOrLocal(t, q).then((a) => pushBotInteractive(a));
       });
 
       function closeDetailIfOpen() {
